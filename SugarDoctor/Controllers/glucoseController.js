@@ -17,7 +17,7 @@ export const create_glucose = async (req, res) => {
 };
 export const get_one_glucose = async (req, res) => {
     try {
-      const glucose = await glucoseModel.findById(req.body._id).exec();
+      const glucose = await glucoseModel.findOne({patient_id: req.body.patient_id});
       if (!glucose) return res.json("Patient has not enter data!");
       return res.json(glucose);
     } catch (err) {
