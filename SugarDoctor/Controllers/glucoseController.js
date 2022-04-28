@@ -17,10 +17,14 @@ export const create_glucose = async (req, res) => {
 };
 export const get_one_glucose = async (req, res) => {
     try {
-      const glucose = await glucoseModel.findOne({patient_id: req.body.patient_id});
+      const glucose = await glucoseModel.find({patient_id: "123"}).lean();
       if (!glucose) return res.json("Patient has not enter data!");
-      return res.json(glucose);
+      return res.render('patientData.hbs',{data: glucose});
     } catch (err) {
       res.status(500).json({ message: "Glucose retrieval failed!" });
     }
   };
+
+  export const getPatientHome = (req, res) => {
+    res.render('patient-home.hbs',{data: get_one_glucose})
+}

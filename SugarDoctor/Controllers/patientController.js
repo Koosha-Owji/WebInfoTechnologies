@@ -4,4 +4,4 @@ const getAllPatientData = (req, res) => {
     res.render('patientData.hbs',{data: patientData})
 }
 
-export default getAllPatientData
+export default getAllPatientData;

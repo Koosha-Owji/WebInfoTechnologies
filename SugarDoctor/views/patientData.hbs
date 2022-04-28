@@ -2,17 +2,18 @@
 <ul>
     {{#each data}}
     <li> {{this.first_name}}, {{this.last_name}} </li>
+    <li> {{this.glucoseComment}}</li>
     {{!-- {{Check if the data has been added today, display check if true and cross if not}} --}}
-    {{#if this.glucose_today}} Glucose added today {{this.glucose}}
-        {{#if (isGreater this.glucose this.glucose_upper)}} Greater than upper 
-        {{else if (isLess this.glucose this.glucose_lower)}} Less than lower
+    {{#if this.glucose_today}} Glucose added today {{this.glucoseLevel}}
+        {{#if (isGreater this.glucoseLevel this.glucoseUpper)}} Greater than upper 
+        {{else if (isLess this.glucoseLevel this.glucoseLower)}} Less than lower
         {{else}} Glucose at healthy level
         {{/if}}
         
     {{else}}
-        Glucose Not added {{this.glucose}}
-         {{#if (isGreater this.glucose this.glucose_upper)}} yesterday Greater than upper 
-        {{else if (isLess this.glucose this.glucose_lower)}} yesterday Less than lower
+        Glucose Not added {{this.glucoseLevel}}
+         {{#if (isGreater this.glucoseLevel this.glucoseUpper)}} yesterday Greater than upper 
+        {{else if (isLess this.glucoseLevel this.glucoseLower)}} yesterday Less than lower
         {{else}} yesterday Glucose at healthy level
         {{/if}}
     {{/if}}
