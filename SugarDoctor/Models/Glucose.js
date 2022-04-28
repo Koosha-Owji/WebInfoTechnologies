@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 
 const glucoseSchema = mongoose.Schema({
-  patient_id: {type: String, required: true},
+  patient_id: {type: String, required: false},
   glucoseLevel: { type: Number, required: true },
-  glucoseUpper: { type: Number, required: true },
-  glucoseLower: { type: Number, required: true },
+  glucoseUpper: { type: Number, required: false },
+  glucoseLower: { type: Number, required: false },
   glucoseComment: { type: String, required: false}
 });
 
-const Glucose = mongoose.model("Glucose", glucoseSchema);
-export default Glucose
+export default mongoose.model("Glucose", glucoseSchema);

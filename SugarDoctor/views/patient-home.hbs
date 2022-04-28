@@ -5,7 +5,7 @@
             {{#if this.glucose_today}}
                 <p>{{this.glucose}}</p>
             {{else}}
-                <form action="/addGlucose" method="POST">
+                <form action="/glucose/addGlucose" method="post">
                     <h3>Blood Glucose</h3>
                     <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
                     <input type="text" placeholder="Comment" name="glucoseComment" />
