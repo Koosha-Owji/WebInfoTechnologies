@@ -7,7 +7,7 @@ import {
     //getPatientHome
 } from "../Controllers/glucoseController.js";
 
-glucoseRouter.post("/patient-home",create_glucose);
+glucoseRouter.post("/addGlucose",(res,req) => create_glucose(res,req));
 glucoseRouter.get("/getOne",get_one_glucose);
 //glucoseRouter.get('/patient-home', (req, res) => getPatientHome(req, res))
 
