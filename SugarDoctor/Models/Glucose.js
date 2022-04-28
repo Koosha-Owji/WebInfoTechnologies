@@ -8,4 +8,5 @@ const glucoseSchema = mongoose.Schema({
   glucoseComment: { type: String, required: false}
 });
 
-export default mongoose.model("Glucose", glucoseSchema);
+const Glucose = mongoose.model("Glucose", glucoseSchema);
+export default Glucose

@@ -24,3 +24,7 @@ export const get_one_glucose = async (req, res) => {
       res.status(500).json({ message: "Glucose retrieval failed!" });
     }
   };
+
+  export const getPatientHome = (req, res) => {
+    res.render('patient-home.hbs',{data: get_one_glucose})
+}
