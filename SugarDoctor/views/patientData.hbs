@@ -3,22 +3,28 @@
     {{#each data}}
     {{!-- {{Get the most recent data}} --}}
     {{#if (isLess @index 1)}}
-        <li> {{this.first_name}}, {{this.last_name}} </li>
-        <li> Patient Comment {{this.glucoseComment}}</li>
+        <table border="1" style="border-collapse:collapse">
+        <tr><td> Patient Name </td> <td> {{this.first_name}}  {{this.last_name}}</td></tr> 
+        
         {{!-- {{Check if the data has been added today, display check if true and cross if not}} --}}
-        {{#if this.glucose_today}} Glucose added today {{this.glucoseLevel}}
-            {{#if (isGreater this.glucoseLevel this.glucoseUpper)}} Greater than upper 
-            {{else if (isLess this.glucoseLevel this.glucoseLower)}} Less than lower
-            {{else}} Glucose at healthy level
+        {{#if this.glucose_today}}
+            
+            {{#if (isGreater this.glucoseLevel this.glucoseUpper)}} <tr><td> Glucose Level </td> <td style="color:#ff0000"> {{this.glucoseLevel}}</td></tr>
+            {{else if (isLess this.glucoseLevel this.glucoseLower)}} <tr ><td> Glucose Level </td> <td style="color:#ff0000"> {{this.glucoseLevel}}</td></tr>
+            {{else}} <tr><td> Glucose Level </td> <td> {{this.glucoseLevel}}</td></tr>
             {{/if}}
+            <tr><td> Patient Comment </td> <td> {{this.glucoseComment}}</td></tr>
+            <tr><td> Today's data </td> <td> True </td></tr>
             
         {{else}}
-            Glucose Not added {{this.glucoseLevel}}
-            {{#if (isGreater this.glucoseLevel this.glucoseUpper)}} yesterday Greater than upper 
-            {{else if (isLess this.glucoseLevel this.glucoseLower)}} yesterday Less than lower
-            {{else}} yesterday Glucose at healthy level
+           {{#if (isGreater this.glucoseLevel this.glucoseUpper)}} <tr><td> Glucose Level </td> <td style="color:#ff0000"> {{this.glucoseLevel}}</td></tr>
+            {{else if (isLess this.glucoseLevel this.glucoseLower)}} <tr ><td> Glucose Level </td> <td style="color:#ff0000"> {{this.glucoseLevel}}</td></tr>
+            {{else}} <tr><td> Glucose Level </td> <td> {{this.glucoseLevel}}</td></tr>
             {{/if}}
+            <tr><td> Patient Comment </td> <td> {{this.glucoseComment}}</td></tr>
+            <tr><td> Today's data </td> <td style="color:#ff0000"> False </td></tr>
         {{/if}}
+        </table> 
     {{/if}}
 
     {{/each}}
