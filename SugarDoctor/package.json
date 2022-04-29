@@ -1,5 +1,5 @@
 {
-  "name": "webinfotechnologies-1",
+  "name": "demo",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -10,16 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Koosha-Owji/WebInfoTechnologies.git"
+    "url": "tute_5_test"
   },
+  "keywords": [
+    "test"
+  ],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Koosha-Owji/WebInfoTechnologies/issues"
-  },
-  "homepage": "https://github.com/Koosha-Owji/WebInfoTechnologies#readme",
   "dependencies": {
-    "express": "^4.17.3",
+    "express": "^4.18.0",
     "express-handlebars": "^6.0.5"
   },
   "devDependencies": {

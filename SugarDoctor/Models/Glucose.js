@@ -8,7 +8,7 @@ const glucoseSchema = mongoose.Schema({
   glucoseComment: { type: String, required: false},
   first_name : { type: String, required: true, default: 'Liam'},
   last_name : { type: String, required: true, default: 'Pattison'},
-  glucose_today: { type: Boolean, required: true, default: 'false'}
+  glucose_today: { type: Boolean, required: true, default: 'true'}
 })
 
 export default mongoose.model("Glucose", glucoseSchema);

@@ -9,6 +9,7 @@ import glucoseRouter from "./Routes/Glucose.js";
 import patientRouter from "./Routes/patientRouter.js";
 
 const app = express();
+app.use(express.static('public'))
 app.use(express.json({ limit: '30mb', extended: true }))
 app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
