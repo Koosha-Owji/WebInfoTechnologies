@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 import cors from 'cors';
 import exphbs from 'express-handlebars';
 import dotenv from "dotenv";
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') { 
+  dotenv.config() 
+} 
 
 import glucoseRouter from "./Routes/Glucose.js";
 import patientRouter from "./Routes/patientRouter.js";
