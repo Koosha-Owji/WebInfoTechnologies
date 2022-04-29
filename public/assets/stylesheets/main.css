@@ -96,6 +96,7 @@
   }
   .topnav-left i{
     margin-left: 12px;
+    font-family: 'Courier New', Courier, monospace;
   }
   
   .fa-search {
@@ -126,6 +127,19 @@
     border-radius: 40px;}
 
   .main_logo {
-    margin-left: 20%;
-    font-size: larger;
+    margin-left: 10%;
+    font-size: 200%;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    text-align: left;
+  }
+
+  .footer p{
+    margin-left: 10%;
   }
