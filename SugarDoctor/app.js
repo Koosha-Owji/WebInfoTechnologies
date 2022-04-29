@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from 'cors';
 import exphbs from 'express-handlebars';
+import dotenv from "dotenv";
+dotenv.config();
 
 import glucoseRouter from "./Routes/Glucose.js";
 import patientRouter from "./Routes/patientRouter.js";
@@ -25,7 +27,7 @@ app.set('view engine', 'hbs')
 // send HTTP requests to router
 app.use('/', patientRouter)
 
-const CONNECTION_URL = 'mongodb+srv://WebInfoTech:Webinfotech@cluster0.r8yef.mongodb.net/WebInfoTech?retryWrites=true&w=majority'
+const CONNECTION_URL = process.env.CONNECTION_URL;
 const PORT = process.env.PORT|| 5000;
 
 

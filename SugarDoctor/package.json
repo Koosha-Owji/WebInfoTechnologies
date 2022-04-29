@@ -5,7 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "run"
+    "test": "run",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,8 @@
   "dependencies": {
     "express": "^4.17.3",
     "express-handlebars": "^6.0.5"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0"
   }
 }
