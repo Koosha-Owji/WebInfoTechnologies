@@ -19,7 +19,7 @@ export const get_one_glucose = async (req, res) => {
     try {
       const glucose = await glucoseModel.find({patient_id: "123"}).sort({$natural:-1}).lean();
       if (!glucose) return res.json("Patient has not enter data!");
-      return res.render('patientData.hbs',{data: glucose}); //db.foo.find().sort({x:1});
+      return res.render('patientData.hbs',{data: glucose});
     } catch (err) {
       res.status(500).json({ message: "Glucose retrieval failed!" });
     }
