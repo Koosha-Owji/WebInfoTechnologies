@@ -13,7 +13,7 @@ app.use(express.static('public'))
 app.use(express.json({ limit: '30mb', extended: true }))
 app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
-app.use("/glucose", glucoseRouter);
+app.use("/", glucoseRouter);
 app.engine('hbs', exphbs.engine({ // configure Handlebars
   defaultlayout: 'main',
   extname: 'hbs',

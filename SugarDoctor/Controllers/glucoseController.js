@@ -6,8 +6,9 @@ export const create_glucose = async (req, res) => {
             const newGlucose = glucoseModel.create({ ...req.body});
           (await newGlucose)
             .save()
-            .then((newGlucose) => res.json(newGlucose))
+            //.then((newGlucose) => res.json(newGlucose))
             .catch((err) => res.status(400).json(err));
+            return res.redirect('/getOne');
           } else {
             return res.status(200).json({ message: "Wrong content sent!" });
           }
@@ -25,6 +26,12 @@ export const get_one_glucose = async (req, res) => {
     }
   };
 
-  export const getPatientHome = (req, res) => {
-    res.render('patient-home.hbs',{data: get_one_glucose})
-}
+export const getOne = async (req, res) => {
+    try {
+      const glucose = await glucoseModel.find({patient_id: "123"}).sort({$natural:-1}).lean();
+      if (!glucose) return res.json("Patient has no data!");
+      return res.render('getOne.hbs',{data: glucose});
+    } catch (err) {
+      res.status(500).json({ message: "Glucose retrieval failed!" });
+    }
+  };

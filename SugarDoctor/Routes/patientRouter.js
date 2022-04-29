@@ -9,7 +9,6 @@ import {
 
 // process routes by calling controller functions
 patientRouter.get('/', (req, res) => get_one_glucose(req, res))
-patientRouter.get('/patient-home', (req, res) => getPatientHome(req, res))
 
 // export the router
 export default patientRouter;
