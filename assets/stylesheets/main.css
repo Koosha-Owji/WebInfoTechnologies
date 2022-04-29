@@ -70,7 +70,7 @@
     position: sticky;
     top: 0;
     background-color: #29B9F9;
-    padding: 12px;
+    padding: 20px;
   }
   
   .topnav {
@@ -91,7 +91,7 @@
   }
   
   .topnav-left {
-    float: right;
+    float: left;
     display: inline;
   }
   .topnav-left i{
@@ -112,9 +112,10 @@
     text-align: center;
     border: 1px solid grey;
     padding: 10px;
-    height: 16px;
+    height: 8px;
     width: 16px;
-    border-radius: 50%;}
+    border-radius: 50%;
+  }
   
   .fa-chevron-left {
     background-color: white;
@@ -123,3 +124,7 @@
     height: 16px;
     width: 16px;
     border-radius: 40px;}
+
+  .main_logo {
+    margin-left: 15%;
+  }
