@@ -5,7 +5,11 @@ const glucoseSchema = mongoose.Schema({
   glucoseLevel: { type: Number, required: true },
   glucoseUpper: { type: Number, required: true , default: '150' },
   glucoseLower: { type: Number, required: true , default: '50'},
-  glucoseComment: { type: String, required: false}
-});
+  glucoseComment: { type: String, required: false},
+  first_name : { type: String, required: true, default: 'Liam'},
+  last_name : { type: String, required: true, default: 'Pattison'},
+  glucose_today: { type: Boolean, required: true, default: 'true'},
+  dateTime: { type: Date, required: true, default: Date.now() }
+})
 
 export default mongoose.model("Glucose", glucoseSchema);
