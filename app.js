@@ -31,6 +31,7 @@ app.set('view engine', 'hbs')
 app.use('/', patientRouter)
 
 const CONNECTION_URL = process.env.CONNECTION_URL;
+//const CONNECTION_URL = 'mongodb+srv://WebInfoTech:Webinfotech@cluster0.r8yef.mongodb.net/WebInfoTech?retryWrites=true&w=majority'
 const PORT = process.env.PORT|| 5000;
 
 
