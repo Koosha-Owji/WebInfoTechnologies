@@ -1,9 +1,11 @@
 import glucoseModel from "../Models/Glucose.js";
+import userModel from "../models/user.js";
 
 export const create_glucose = async (req, res) => {
     try {
         if (req.body){
-            const newGlucose = glucoseModel.create({ ...req.body});
+          const date = new Date().toISOString().slice(0, 10);
+          const newGlucose = glucoseModel.create({ ...req.body, dateTime:date});
           (await newGlucose)
             .save()
             //.then((newGlucose) => res.json(newGlucose))
