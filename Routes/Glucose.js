@@ -11,7 +11,5 @@ glucoseRouter.post("/patient-home",(res,req) => {
     create_glucose(res,req)
 });
 glucoseRouter.get("/getOne",getOne);
-glucoseRouter.get('/patient-home', (req,res) => {
-    res.render('patient-home.hbs', {data: {"glucoseLevel" : null}})
-});
+
 export default glucoseRouter;
