@@ -1,9 +1,5 @@
 <h1>Displaying Patient Data</h1>
-<ul>{{{{def name='submittedToday' }}}}
-        submittedToday = false
-    {{{{/def}}}}
-
-
+<ul>
     {{#each data}}
     <li> {{this.first_name}}, {{this.last_name}} </li>
     {{!-- {{Check if the data has been added today, display check if true and cross if not}} --}}
