@@ -5,29 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sugar Doctor</title>
-    <link rel="stylesheet" href="/css/styles.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="assets/stylesheets/main.css">
-    <link rel="stylesheet" href="assets/stylesheets/side_menu.css">
-    <link rel="stylesheet" href="assets/stylesheets/index.css">
-    <link rel="stylesheet" src="assets/icons/fa/css/all.css">
-    <script type="text/javascript" href="scripts/openSide.js"></script>
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
+    <link rel="stylesheet" href="/assets/stylesheets/index.css">
+    <link rel="stylesheet" href="/assets/icons/fa/css/all.css">
+    <script type="text/javascript" src="/assets/scripts/openSide.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Mega&family=Rammetto+One&display=swap" rel="stylesheet"> 
 </head>
+
 <body>
     <header>
         <header class = "header">
             <div class="topnav">
-                <div class="main_logo">
-                    <h1>Sugar Doctor</h1>
-                </div>
-                <div class="topnav-left">  
-                </div>
+                <i class="fas fa-bars" onclick="openSide()"></i>
+                <a class="main_logo" href="main.hbs">Sugar Doctor</a>  
             </div>
         
             <div id="category" class="sidenav">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-              </div>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeSide()">&times;</a>
+                <h1>something</h1>
+            </div>
         </header>
     </header>
 
