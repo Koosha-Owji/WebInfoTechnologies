@@ -1,145 +1,137 @@
 
 @font-face {
-    font-family:"niagara";
-    src: url("../fonts/NIAGSOL.ttf");
-  }
-  
-  @font-face {
-    font-family:"modern";
-    src: url("../fonts/ModernNo20.ttf");
-  }
-  
-  @font-face {
-    font-family:"nunito";
-    src: url("https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap")
-  }
-  
-  @font-face {
-    font-family:"kanit";
-    src: url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,100&display=swap")
-  }
-  
-  html, body, div, span, applet, object, iframe,
-  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-  a, abbr, acronym, address, big, cite, code,
-  del, dfn, em, img, ins, kbd, q, s, samp,
-  small, strike, strong, sub, sup, tt, var,
-  b, u, i, center,
-  dl, dt, dd, ol, ul, li,
-  fieldset, form, label, legend,
-  table, caption, tbody, tfoot, thead, tr, th, td,
-  article, aside, canvas, details, embed,
-  figure, figcaption, footer, header, hgroup,
-  menu, nav, output, ruby, section, summary,
-  time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-  }
-  /* HTML5 display-role reset for older browsers */
-  article, aside, details, figcaption, figure,
-  footer, header, hgroup, menu, nav, section {
-    display: block;
-  }
-  
-  ol, ul {
-    list-style: none;
-  }
-  blockquote, q {
-    quotes: none;
-  }
-  blockquote:before, blockquote:after,
-  q:before, q:after {
-    content: '';
-    content: none;
-  }
-  table {
-    border-collapse: collapse;
-    border-spacing: 0;
-  }
-  
-  body {
-    line-height: 1;
-    background-color: #eeeeee;
-  }
-  
-  .header {
-    position: sticky;
-    top: 0;
-    background-color: #29B9F9;
-    padding: 20px;
-  }
-  
-  .topnav {
-    margin: 12px;
-  }
-  
-  .home_link {
-    float: left;
-    color: #000000;
-    text-align: center;
-    padding: 10px 165px 15px;
-    text-decoration: underline;
-    font-family: "niagara";
-    font-size: 40px;
-    letter-spacing: 6px;
-    border-radius: 40px;
-    background-color: #FFFFFF;
-  }
-  
-  .topnav-left {
-    float: left;
-    display: inline;
-  }
-  .topnav-left i{
-    margin-left: 12px;
-    font-family: 'Courier New', Courier, monospace;
-  }
-  
-  .fa-search {
-    background-color: white;
-    text-align: center;
-    border: 1px solid grey;
-    padding: 10px;
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;}
+  font-family:"niagara";
+  src: url("../fonts/NIAGSOL.ttf");
+}
 
-  .fa-menu {
-    background-color: white;
-    text-align: center;
-    border: 1px solid grey;
-    padding: 10px;
-    height: 8px;
-    width: 16px;
-    border-radius: 50%;
-  }
-  
-  .fa-chevron-left {
-    background-color: white;
-    text-align: center;
-    padding: 10px;
-    height: 16px;
-    width: 16px;
-    border-radius: 40px;}
+@font-face {
+  font-family:"modern";
+  src: url("../fonts/ModernNo20.ttf");
+}
 
-  .main_logo {
-    margin-left: 10%;
-    font-size: 200%;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
+@font-face {
+  font-family:"nunito";
+  src: url("https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap")
+}
 
-  .footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: white;
-    text-align: left;
-  }
+@font-face {
+  font-family:"kanit";
+  src: url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,100&display=swap")
+}
 
-  .footer p{
-    margin-left: 10%;
-  }
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body {
+  line-height: 1;
+  background-color: #eeeeee;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  background-color: #29B9F9;
+  padding: 20px;
+}
+
+.topnav {
+  margin: 12px;
+  display: inline;
+}
+
+.fa-bars {
+  margin: 12px;
+  color: #ffffff;
+  font-size: 200%;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 96px;
+  left: 0;
+  background-color: #eeeeee;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.sidenav a {
+  padding: 20px 8px 25px 60px;
+  text-decoration: none;
+  font-family: "kanit", sans-serif;
+  font-style: oblique;
+  font-size: 25px;
+  color: #929292;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #ffffff;
+}
+
+.sidenav .closebtn {
+  display: grid;
+  font-size: 36px;
+  align-self: left;
+}
+
+.main_logo {
+  margin-left: 10%;
+  font-size: 200%;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  text-align: left;
+}
+
+.footer p{
+  margin-left: 10%;
+}
