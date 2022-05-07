@@ -15,7 +15,7 @@ glucoseRouter.get('/patient-home', (req,res) => {
     res.render('patient-home.hbs', {data: {"glucoseLevel" : null}})
 });
 
-glucoseRouter.get('/registerPatient', (req,res) => res.render('registerPatient.hbs'))
+glucoseRouter.get('/registerPatient', (req,res) => res.render('registerPatient.hbs', {layout: 'doctorMain.hbs'} ))
 glucoseRouter.get('/login', (req,res) => res.render('login.hbs'))
 
 export default glucoseRouter;
