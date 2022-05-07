@@ -13,11 +13,25 @@ const isAuthenticated = (req, res, next) => {
     // Otherwise, proceed to next middleware function
     return next()
 }
+const hasRole = (thisRole) => {
+    return (req, res, next) => {
+        if (req.user.role == thisRole) 
+            return next()
+        else {
+            res.redirect('/')
+        }
+    }    
+}
 
 // Main page which requires login to access
 // Note use of authentication middleware here
 router.get('/', isAuthenticated, (req, res) => {
+    if (req.user.role === 'Clinician') {
     res.render('home', { title: 'Express', user: req.user })
+    }
+    else {
+        res.render('patient-home.hbs', {user: req.user})
+    }
 })
 
 // Login page (with failure message displayed upon login failure)

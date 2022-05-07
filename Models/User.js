@@ -17,11 +17,11 @@ const userSchema = new mongoose.Schema({
     password : { type: String, required: true },
     role: {type: String , required: true, default: 'Patient'},
     supportMessage: { type: String, required: false }
-  })
+  });
 
 userSchema.methods.verifyPassword = function (password, callback) {
   bcrypt.compare(password, this.password, (err, valid) => {
     callback(err, valid)
   })
 }
-  export default mongoose.model("User", userSchema);
+  export default mongoose.model("user", userSchema);

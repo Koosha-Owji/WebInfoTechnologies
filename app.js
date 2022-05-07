@@ -38,14 +38,16 @@ app.use(flash())
 app.use(
   session({
     // The secret used to sign session cookies (ADD ENV VAR)
-    secret: process.env.SESSION_SECRET || 'keyboard cat',
-    name: 'demo', // The cookie name (CHANGE THIS)
+    secret: process.env.SESSION_SECRET || 'sugardoctor123',
+    name: 'SugarDoctor', // The cookie name (CHANGE THIS)
     saveUninitialized: false,
     resave: false,
+    proxy: process.env.NODE_ENV === 'production',
     cookie: {
       sameSite: 'strict',
       httpOnly: true,
-      secure: app.get('env') === 'production'
+      secure: app.get('env') === 'production',
+      maxAge: 24 * 60 * 60 * 1000
     },
   })
 )

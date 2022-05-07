@@ -1,5 +1,4 @@
 import glucoseModel from "../Models/Glucose.js";
-import userModel from "../models/user.js";
 
 export const create_glucose = async (req, res) => {
     try {
