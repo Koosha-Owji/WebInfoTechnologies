@@ -31,6 +31,7 @@ passport.use(
             if (err) { return done(null, false, { message: 'Unknown error.' }) }
             if (!user) { return done(null, false, { message: 'Incorrect username.' }) }
         // if there is a user with this username, check if the password matches
+        // return done(null, user)
         user.verifyPassword(password, (err, valid) => {
           if (err) {  return done(null, false, { message: 'Unknown error.' }) }
           if (!valid) { return done(null, false, { message: 'Incorrect password.' }) }

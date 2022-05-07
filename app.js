@@ -12,6 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 import glucoseRouter from "./Routes/Glucose.js";
 import patientRouter from "./Routes/patientRouter.js";
+import clinicianRouter from "./Routes/clinician.js";
 
 const app = express();
 app.use(express.static('public'))
@@ -19,6 +20,7 @@ app.use(express.json({ limit: '30mb', extended: true }))
 app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 app.use("/", glucoseRouter);
+app.use("/", clinicianRouter);
 app.engine('hbs', exphbs.engine({ // configure Handlebars
   defaultlayout: 'main',
   extname: 'hbs',

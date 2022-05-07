@@ -27,7 +27,7 @@ const hasRole = (thisRole) => {
 // Note use of authentication middleware here
 router.get('/', isAuthenticated, (req, res) => {
     if (req.user.role === 'Clinician') {
-    res.render('home', { title: 'Express', user: req.user })
+    res.render('clinicianFunctionality.hbs', { title: 'Express', user: req.user })
     }
     else {
         res.render('patient-home.hbs', {user: req.user})

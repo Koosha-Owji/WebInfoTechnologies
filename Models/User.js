@@ -24,4 +24,4 @@ userSchema.methods.verifyPassword = function (password, callback) {
     callback(err, valid)
   })
 }
-  export default mongoose.model("user", userSchema);
+export default mongoose.model("user", userSchema);
