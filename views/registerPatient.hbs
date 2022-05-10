@@ -1,0 +1,46 @@
+<div>
+    <h2>Register a new patient</h2>
+    <form action="/registerPatient.hbs" method="post" >
+    <div>
+        <input tpe="Text" placeholder="First name" name="firstName"/>
+    </div>
+    <div>
+        <input tpe="Text" placeholder="Last name" name="lastName"/>
+    </div>
+    <div>
+        <input tpe="Text" placeholder="Username" name="username"/>
+    </div>
+    <div>
+        <input tpe="Text" placeholder="FiPassword" name="password"/>
+    </div>
+    <h4>Required Patient Data</h4>
+    <div>
+        <input type="checkbox" name="glucose"/>
+        <label>Blood Glucose</label>
+        <input type="Number" placeholder="Max glucose level" name="maxGlucose"/>
+        <input type="Number" placeholder="Minimum safety level" name="minGlucose"/>
+    </div>
+    <div>
+        <input type="checkbox" name="weight"/>
+        <label>Weight</label>
+        <input type="Number" placeholder="Maximum" name="maxWeight"/>
+        <input type="Number" placeholder="Minimum" name="minWeight"/>
+    </div>
+    <div>
+        <input type="checkbox" name="exercise"/>
+        <label>Exercise</label>
+        <input type="Number" placeholder="Maximum" name="maxExercise"/>
+        <input type="Number" placeholder="Minimum" name="minExercise"/>
+    </div>
+    <div>
+        <input type="checkbox" name="insulin"/>
+        <label>Insulin</label>
+        <input type="Number" placeholder="Maximum" name="maxInsulin"/>
+        <input type="Number" placeholder="Minimum" name="minInsulin"/>
+    </div>
+    <div>
+        <input type="Submit"/>
+    </div>
+
+    </form>
+</div>
