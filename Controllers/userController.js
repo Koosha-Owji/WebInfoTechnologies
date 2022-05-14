@@ -1,4 +1,5 @@
 import userModel from '../Models/User.js';
+import glucoseModel from '../Models/Glucose.js';
 import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
@@ -40,3 +41,60 @@ export const signup = async (req, res) => {
       res.status(500).json({ message: "Password did not change!" });
     }
   };
+
+  export const getAllPatientsData = async (req, res) => {
+    try {
+        //const weight = await userModel.find({clinicianId: "hardCodedId"}).lean();
+        //db.coll.distinct("_id", {clinicianId: "hardCodedId"})
+        //const weight = await userModel.distinct("_id", {clinicianId: "hardCodedId"}).lean();
+        // This returns each unique id_client which the Dr has.
+        // Change clinicianId to be a bit more generic
+        // Currently have the unique id for every patient of the doctor
+        // const weight = await userModel.distinct("patientId", {clinicianId: "hardCodedId"}).lean();
+
+        
+        // For most recent data for every patient which belongs to the doctor
+        // Currently have the unique id for every patient of the doctor
+        const weight = await glucoseModel.find({"$and": [{clinicianId: "hardCodedId"}, {mostRecent: true}]}).lean();
+        
+
+        
+        return res.render('allData.hbs',{data: weight});
+    } catch (err) {
+        res.status(500).json({ message: "weight retrieval failed!" });
+    }
+};
+
+// handle request to get one data instance OG code
+export const getDataByIdOG = (req, res) => {
+  // search the database by ID
+  const data = peopleData.find((data) => data.id === req.params.id)
+
+  // return data if this ID exists
+  if (data) {
+      res.render('oneData', { oneItem: data })
+  } else {
+      // You can decide what to do if the data is not found.
+      // Currently, an empty list will be returned.
+      res.sendStatus(404)
+  }
+};
+
+
+export const getDataById = async (req, res) => {
+  try {
+    // const data = await glucoseModel.find((data) => data.id === req.params.id).lean();
+    //const data = glucoseModel.find((data) => data.patientId === req.params.patientId).lean();
+    const patientInfo = await glucoseModel.findById(req.params.patientId).lean()
+    if (!patientInfo) {
+      // no patient found in database
+      return res.sendStatus(404)
+    }
+    // found the author
+    return res.render('oneData', {oneItem: patientInfo})
+  } catch (err) {
+    res.status(500).json({ message: "Something went wrong" });
+    
+    console.log(err);
+  }
+};
