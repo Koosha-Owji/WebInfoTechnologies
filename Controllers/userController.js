@@ -1,5 +1,6 @@
 import userModel from '../Models/User.js';
 import glucoseModel from '../Models/Glucose.js';
+import noteModel from '../Models/Notes.js';
 import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
@@ -81,11 +82,13 @@ export const getDataByIdOG = (req, res) => {
 };
 
 
-export const getDataById = async (req, res) => {
+export const getDataByIdOg = async (req, res) => {
   try {
     // const data = await glucoseModel.find((data) => data.id === req.params.id).lean();
     //const data = glucoseModel.find((data) => data.patientId === req.params.patientId).lean();
-    const patientInfo = await glucoseModel.findById(req.params.patientId).lean()
+    //const patientInfo = await glucoseModel.find(req.params.patientId).lean();
+    const patientInfo = await glucoseModel.find({_id: req.params.patientId}).lean();
+    //console.log(`Mongo connection started on ${req.params.patientId}`)
     if (!patientInfo) {
       // no patient found in database
       return res.sendStatus(404)
@@ -96,5 +99,18 @@ export const getDataById = async (req, res) => {
     res.status(500).json({ message: "Something went wrong" });
     
     console.log(err);
+  }
+};
+
+
+export const getDataById = async (req, res) => {
+  try {
+    // Get all of the medical data placed by the user displays most recent date is shown first
+      const patientPostInfo = await glucoseModel.find({"$and": [{patientId: "firstId"}, {dataType: "userInput"}]}).sort({dateTime: -1}).lean();
+      //const patientNotes = await noteModel.find({"$and": [{patientId: "firstId"}, {dataType: "note"}]}).sort({dateTime: -1}).lean();
+      const patientNotes = await glucoseModel.find({"$and": [{patientId: "firstId"}, {dataType: "note"}]}).sort({dateTime: -1}).lean();
+      return res.render('oneData.hbs',{data: patientPostInfo, note: patientNotes});
+  } catch (err) {
+      res.status(500).json({ message: "weight retrieval failed!" });
   }
 };

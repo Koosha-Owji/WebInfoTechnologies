@@ -10,6 +10,7 @@ const glucoseSchema = mongoose.Schema({
   glucoseUpper: { type: Number, required: true },
   glucoseLower: { type: Number, required: true },
   glucoseComment: { type: String, required: false},
+  dataType: { type: String, required: true, default: "userInput"},
   dateTime: { type: Date, required: true, default: Date.now() }
 })
 
