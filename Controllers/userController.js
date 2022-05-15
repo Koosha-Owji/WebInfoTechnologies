@@ -40,3 +40,14 @@ export const signup = async (req, res) => {
       res.status(500).json({ message: "Password did not change!" });
     }
   };
+
+  
+export const getUserByUsername = async (req, res) => {
+  try {
+    const user = await userModel.findOne({username: "BobCat"}).lean();
+    if (!user) return res.json("No user found");
+    return res.render('patientHome.hbs',{data: user});
+  } catch (err) {
+    res.status(500).json({ message: "Glucose retrieval failed!" });
+  }
+};
