@@ -66,20 +66,6 @@ export const signup = async (req, res) => {
     }
 };
 
-// handle request to get one data instance OG code
-export const getDataByIdOG = (req, res) => {
-  // search the database by ID
-  const data = peopleData.find((data) => data.id === req.params.id)
-
-  // return data if this ID exists
-  if (data) {
-      res.render('oneData', { oneItem: data })
-  } else {
-      // You can decide what to do if the data is not found.
-      // Currently, an empty list will be returned.
-      res.sendStatus(404)
-  }
-};
 
 
 export const getDataByIdOg = async (req, res) => {
@@ -108,7 +94,7 @@ export const getDataById = async (req, res) => {
     // Get all of the medical data placed by the user displays most recent date is shown first
       const patientPostInfo = await glucoseModel.find({"$and": [{patientId: "firstId"}, {dataType: "userInput"}]}).sort({dateTime: -1}).lean();
       //const patientNotes = await noteModel.find({"$and": [{patientId: "firstId"}, {dataType: "note"}]}).sort({dateTime: -1}).lean();
-      const patientNotes = await glucoseModel.find({"$and": [{patientId: "firstId"}, {dataType: "note"}]}).sort({dateTime: -1}).lean();
+      //const patientNotes = await glucoseModel.find({"$and": [{patientId: "firstId"}, {dataType: "note"}]}).sort({dateTime: -1}).lean();
       return res.render('oneData.hbs',{data: patientPostInfo, note: patientNotes});
   } catch (err) {
       res.status(500).json({ message: "weight retrieval failed!" });

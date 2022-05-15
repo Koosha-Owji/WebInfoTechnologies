@@ -1,9 +1,9 @@
 <div class="row_containers">
-    <p>Patient Name: {{patientProfile.firstName}} {{patientProfile.lastName}}</p>
+    <p>Patient Name: {{data.1.firstName}} {{data.1.lastName}}</p>
     <div class="patient_rows">
     {{#each data}}
         <div class="patient_info">
-            <p>Patient Name: {{this.firstName}} {{this.lastName}}</p>
+            
             {{#if (isGreater this.glucoseLevel this.glucoseUpper)}} <p style="color:red">Glucose Level: {{this.glucoseLevel}}</p> 
             {{!-- {{ Lower threshold is breached}} --}}  
             {{else if (isLess this.glucoseLevel this.glucoseLower)}} <p style="color:red">Glucose Level: {{this.glucoseLevel}}</p> 
@@ -24,3 +24,15 @@
         </div>
     {{/each}}
 </div>
+
+ <h2>Functions</h2>
+  <div class="container">
+    <div class = "box">
+      <a>Write a Note about {{data.1.firstName}} {{data.1.lastName}}</a>
+      <form action="/hard_data/{{data.1.patientId}}" method="post">
+        <input type="text" placeholder="Note" name="firstName" />
+        <input type="Submit" />       
+      </form>
+    </div>
+  </div>
+</main>

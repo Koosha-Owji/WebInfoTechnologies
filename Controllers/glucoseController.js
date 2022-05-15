@@ -36,3 +36,21 @@ export const getOne = async (req, res) => {
       res.status(500).json({ message: "Glucose retrieval failed!" });
     }
   };
+
+  export const writeNote = async (req, res) => {
+  
+    try {
+      if (req.body){
+        const date = new Date().toISOString().slice(0, 10);
+        const newNote = glucoseModel.create({ ...req.body, dateTime:date, dataType:"note",patientId:patientId,clinicianId:clinicianId}); 
+        // const result = await userModel.create({firstName, lastName, username, password: hashedPassword, clinicianId: clinicianId });  
+        res.status(201).json({ newNote });
+      }
+
+    } catch (error) {
+      res.status(500).json({ message: "Something went wrong" });
+      res.status(500).json({ message: newNote });
+      
+      console.log(error);
+    }
+  };
