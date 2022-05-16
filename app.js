@@ -75,6 +75,10 @@ app.use(express.static('public'))
 // send HTTP requests to router
 app.use('/', patientRouter)
 
+// Rough Implementation of Dashboard
+import patientData from "./Routes/patientData.js";
+app.use('/hard_data', patientData)
+
 //const CONNECTION_URL = process.env.CONNECTION_URL;
 const CONNECTION_URL = 'mongodb+srv://WebInfoTech:Webinfotech@cluster0.r8yef.mongodb.net/WebInfoTech?retryWrites=true&w=majority'
 const PORT = process.env.PORT|| 5000;

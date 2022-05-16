@@ -61,14 +61,24 @@ export const getAllPatientsData = async (req, res) => {
       // For some reason exercise is not being found
       // const exerciseData = await exerciseModel.find({"$and": [{mostRecent: true},{medicalData:"exercise"}]}).sort({dateTime: -1}).lean();
       const exerciseData = await glucoseModel.find({"$and": [{mostRecent: true},{medicalData:"exercise"}]}).sort({dateTime: -1}).lean();
-      
-      
 
       // Find all users
       const drPatients = await userModel.find({"$and": [{clinicianId: "627705c57364463ce0ff58fa"}, {role: "Patient"}]}).lean();
       
       return res.render('drHome.hbs',{exercisePost: exerciseData, glucosePost: glucoseData, users: drPatients});
 
+  } catch (err) {
+      res.status(500).json({ message: "Dashboard rendering failed!" });
+  }
+};
+
+export const getDataById = async (req, res) => {
+  try {
+    // Get all of the medical data placed by the user displays most recent date is shown first
+      const patientPostInfo = await glucoseModel.find({"$and": [{patientId: "firstId"}, {dataType: "userInput"}]}).sort({dateTime: -1}).lean();
+      //const patientNotes = await noteModel.find({"$and": [{patientId: "firstId"}, {dataType: "note"}]}).sort({dateTime: -1}).lean();
+      const patientNotes = await glucoseModel.find({"$and": [{patientId: "firstId"}, {dataType: "note"}]}).sort({dateTime: -1}).lean();
+      return res.render('oneData.hbs',{data: patientPostInfo, note: patientNotes});
   } catch (err) {
       res.status(500).json({ message: "weight retrieval failed!" });
   }
