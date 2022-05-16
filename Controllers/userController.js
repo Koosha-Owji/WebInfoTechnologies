@@ -1,4 +1,5 @@
 import userModel from '../Models/User.js';
+import glucoseModel from '../Models/Glucose.js';
 import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
@@ -10,12 +11,11 @@ export const signup = async (req, res) => {
       if (oldUser) return res.status(400).json({ message: "User already exists" });
   
       const hashedPassword = await bcrypt.hash(password, 12);
-  
-      const result = await userModel.create({firstName, lastName, username, password: hashedPassword, clinicianId: clinicianId });  
-      res.status(201).json({ result });
+
+      const result = await userModel.create({firstName, lastName, username, password: hashedPassword, clinicianId });  
+      res.render('clinicianFunctionality.hbs', {user: req.user});
     } catch (error) {
       res.status(500).json({ message: "Something went wrong" });
-      res.status(500).json({ message: result });
       
       console.log(error);
     }
@@ -49,5 +49,27 @@ export const getUserByUsername = async (req, res) => {
     return res.render('patientHome.hbs',{data: user});
   } catch (err) {
     res.status(500).json({ message: "Glucose retrieval failed!" });
+  }
+};
+
+
+export const getAllPatientsData = async (req, res) => {
+  try {
+      // Find and sort all the medical data by the date
+      const glucoseData = await glucoseModel.find({"$and": [{mostRecent: true},{medicalData:"glucose"}]}).sort({dateTime: -1}).lean();
+
+      // For some reason exercise is not being found
+      // const exerciseData = await exerciseModel.find({"$and": [{mostRecent: true},{medicalData:"exercise"}]}).sort({dateTime: -1}).lean();
+      const exerciseData = await glucoseModel.find({"$and": [{mostRecent: true},{medicalData:"exercise"}]}).sort({dateTime: -1}).lean();
+      
+      
+
+      // Find all users
+      const drPatients = await userModel.find({"$and": [{clinicianId: "627705c57364463ce0ff58fa"}, {role: "Patient"}]}).lean();
+      
+      return res.render('drHome.hbs',{exercisePost: exerciseData, glucosePost: glucoseData, users: drPatients});
+
+  } catch (err) {
+      res.status(500).json({ message: "weight retrieval failed!" });
   }
 };

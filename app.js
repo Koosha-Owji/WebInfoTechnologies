@@ -30,7 +30,8 @@ app.engine('hbs', exphbs.engine({
   extname: 'hbs',
   helpers :{
       isGreater: (x,y) => x > y,
-      isLess: (x,y) => x < y
+      isLess: (x,y) => x < y,
+      equalString: (s1,s2) => s1 == s2
   }
 }))
 // set Handlebars view engine

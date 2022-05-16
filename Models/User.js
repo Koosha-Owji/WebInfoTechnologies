@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     glucoseRequired: { type: Boolean, required: false, default: true },
     insulinRequired: { type: Boolean, required: false, default: true },
     exerciseRequired: { type: Boolean, required: false, default: true },
-    weightRequired: { type: Boolean, required: false, default: false }
+    weightRequired: { type: Boolean, required: false, default: true }
   });
 
 userSchema.methods.verifyPassword = function (password, callback) {
