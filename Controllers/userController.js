@@ -1,6 +1,10 @@
 import userModel from '../Models/User.js';
+import exerciseModel from '../Models/Exercise.js';
 import glucoseModel from '../Models/Glucose.js';
+import insulinModel from '../Models/Insulin.js';
+import weightModel from '../Models/Weight.js';
 import noteModel from '../Models/Notes.js';
+
 import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
@@ -70,11 +74,12 @@ export const getAllPatientsData = async (req, res) => {
   try {
       // Find and sort all the medical data by the date
       const glucoseData = await glucoseModel.find({mostRecent: true}).sort({dateTime: -1}).lean();
+      const exerciseData = await exerciseModel.find({mostRecent: true}).sort({dateTime: -1}).lean();
 
       // Find all users
       const drPatients = await userModel.find({"$and": [{clinicianId: "627705c57364463ce0ff58fa"}, {role: "Patient"}]}).lean();
       
-      return res.render('oneData.hbs',{glucostPost: glucoseData, users: drPatients});
+      return res.render('oneData.hbs',{exercisePost: exerciseData, glucosePost: glucoseData, users: drPatients});
 
   } catch (err) {
       res.status(500).json({ message: "weight retrieval failed!" });
