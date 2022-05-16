@@ -72,14 +72,27 @@ export const getAllPatientsData = async (req, res) => {
   }
 };
 
-export const getDataById = async (req, res) => {
+export const getDataByIdNotWorking = async (req, res) => {
   try {
     // Get all of the medical data placed by the user displays most recent date is shown first
       const patientPostInfo = await glucoseModel.find({"$and": [{patientId: "firstId"}, {dataType: "userInput"}]}).sort({dateTime: -1}).lean();
       //const patientNotes = await noteModel.find({"$and": [{patientId: "firstId"}, {dataType: "note"}]}).sort({dateTime: -1}).lean();
       const patientNotes = await glucoseModel.find({"$and": [{patientId: "firstId"}, {dataType: "note"}]}).sort({dateTime: -1}).lean();
-      return res.render('oneData.hbs',{data: patientPostInfo, note: patientNotes});
+      return res.render('showOnePatient.hbs',{data: patientPostInfo, note: patientNotes});
   } catch (err) {
       res.status(500).json({ message: "weight retrieval failed!" });
   }
 };
+
+
+export const getDataById =  async (req, res) => { // get one food, and render it
+	try {
+    // Information about the medical data posted by the patient
+		const patientPostInfo = await glucoseModel.find( {username: req.params.username} ).lean()
+    // Information about the user data of the patient
+    const patientUserInfo = await userModel.findOne({"$and": [{username: req.params.username}, {role: "Patient"}]}).lean();
+		res.render('showOnePatient', {user: req.user,medicalData: patientPostInfo, patientData: patientUserInfo})	
+	} catch (err) {
+		console.log(err)
+	}
+}

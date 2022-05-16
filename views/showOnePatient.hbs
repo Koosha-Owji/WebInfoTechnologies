@@ -1,0 +1,56 @@
+
+<h1>Showing data for {{patientData.firstName}} {{patientData.lastName}}</h1>
+
+
+
+<table border=2px solid>
+  <tr>
+    <th>Type of data</th>
+    <th>Lower Threshold</th>
+    <th>Upper Threshold</th>
+    <th>Can {{patientData.firstName}} record this data?</th>
+  </tr>
+
+  <tr>
+    <td>Exercise</td>
+    <td>{{patientData.exerciseLower}}</td>
+    <td>{{patientData.exerciseUpper}}</td>
+    <td>{{#if patientData.exerciseRequired}} <p style="color:green">Yes </p>
+        {{else}} <p style="color:red">No </p> {{/if}} </td>    
+  </tr>
+  
+  <tr>
+    <td>Glucose</td>
+    <td>{{patientData.glucoseLower}}</td>
+    <td>{{patientData.glucoseUpper}}</td>
+    <td>{{#if patientData.glucoseRequired}} <p style="color:green">Yes </p>
+        {{else}} <p style="color:red">No </p> {{/if}} </td>    
+  </tr>
+
+  <tr>
+    <td>Insulin</td>
+    <td>{{patientData.insulinLower}}</td>
+    <td>{{patientData.insulinUpper}}</td>
+    <td>{{#if patientData.insulinRequired}} <p style="color:green">Yes </p>
+        {{else}} <p style="color:red">No </p> {{/if}} </td>    
+  </tr>
+
+  <tr>
+    <td>Weight</td>
+    <td>{{patientData.weightLower}}</td>
+    <td>{{patientData.weightUpper}}</td>
+    <td>{{#if patientData.weightRequired}} <p style="color:green">Yes </p>
+        {{else}} <p style="color:red">No </p> {{/if}} </td>    
+  </tr>
+</table>
+
+<div class="row_containers">
+    <div class="patient_rows">
+        <div class="patient_info"> 
+            <p>hi</p>
+        </div>
+    </div>
+</div>
+
+<p>{{medicalData}}</p>
+<p>{{patientData.username}}</p>

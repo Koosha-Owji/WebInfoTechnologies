@@ -13,7 +13,7 @@ patientDataRouter.get('/', (req, res) => getAllPatientsData(req, res))
 
 // add a route to handle the GET request for one data instance
 //patientDataRouter.get('/:id', userController.getDataById)
-patientDataRouter.get('/:id', (req, res) => getDataById(req, res))
+patientDataRouter.get('/:username', (req, res) => getDataById(req, res))
 
 // export the router
 export default patientDataRouter;
