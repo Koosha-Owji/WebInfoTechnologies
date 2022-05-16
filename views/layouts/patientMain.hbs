@@ -4,11 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/stylesheets/styles.css">
     <title>Document</title>
 </head>
 <body>
     <header>
         <h1>This is the patient home</h1>
+        <div class="app">
+
+            <div class="menu-toggle">
+                <div class="hamburger">
+                    <span></span>
+                </div>
+            </div>
+            <aside class="sidebar">
+                <h3>Menu</h3>
+
+                <nav class="menu">
+                    <a href="#" class="menu-item is-active"><i class="fas fa-home"></i>Home</a>
+                    <a href="#" class="menu-item"><i class ="fas fa-user-circle"></i>Profile</a>
+                    <a href="#" class="menu-item"><i class ="fas fa-poll-h"></i>History</a>
+                    <a href="#" class="menu-item"><i class ="fas fa-award"></i>Leaderboards</a>
+                    <a href="#" class="menu-item"><i class ="fas fa-question-circle"></i>About Diabetes</a>
+                    <a href="#" class="menu-item"><i class ="fas fa-info-circle"></i>About this website</a>
+                </nav>
+            </aside>
     </header>
     <main>
         {{{body}}}
