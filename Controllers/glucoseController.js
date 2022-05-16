@@ -55,23 +55,3 @@ export const getOne = async (req, res) => {
         res.status(500).json({ message: "Glucose creation failed!" });
     }
 };
-
-export const signup = async (req, res) => {
-  const {firstName, lastName, username, password , clinicianId } = req.body;
-
-  try {
-    const oldUser = await userModel.findOne({ username });
-
-    if (oldUser) return res.status(400).json({ message: "User already exists" });
-
-    const hashedPassword = await bcrypt.hash(password, 12);
-
-    const result = await userModel.create({firstName, lastName, username, password: hashedPassword, clinicianId: clinicianId });  
-    res.status(201).json({ result });
-  } catch (error) {
-    res.status(500).json({ message: "Something went wrong" });
-    res.status(500).json({ message: result });
-    
-    console.log(error);
-  }
-};

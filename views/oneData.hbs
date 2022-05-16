@@ -1,14 +1,26 @@
 {{!-- {{ Iterate through every user}} --}}
 {{#each users as |user|}}
-    {{!-- {{ Iterate through every post}} --}}
-    <p>Patient Name: {{user.firstName}} {{user.lastName}} {{user.username}}</p>
-    {{#each ../posts as |post|}}
-        <p>{{post.username}}</p>
-        {{#if (equalString user.username post.username)}}
-            <p>Usernames are equal</p>
-        {{/if}}
+    <p>Patient Name: {{user.firstName}} {{user.lastName}}</p>
+    
+    {{!-- {{ Does the user need to record this data}} --}}
+    
+    {{#if glucoseRequired}}
+        {{!-- {{ Iterate through every glucose post to find the most recent from this user}} --}}
+        {{#each ../glucostPost as |post|}}
+            {{!-- {{ Found the post of this user}} --}}
+            {{#if (equalString user.username post.username)}}
+                {{!-- {{ Upper threshold is breached}} --}}
+                {{#if (isGreater post.glucoseLevel user.glucoseUpper)}} <p style="color:red">Glucose Level: {{post.glucoseLevel}}</p> 
+                {{!-- {{ Lower threshold is breached}} --}}  
+                {{else if (isLess post.glucoseLevel user.glucoseLower)}} <p style="color:red">Glucose Level: {{post.glucoseLevel}}</p> 
+                
+                {{!-- {{ Neither threshold breached }} --}}  
+                {{else}} <p>Glucose Level: {{post.glucoseLevel}}</p>
+                {{/if}}
+            {{/if}}
 
-    {{/each}}
+        {{/each}}
+    {{/if}}
 
 {{/each}}
 

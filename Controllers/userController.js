@@ -69,13 +69,12 @@ export const signup = async (req, res) => {
 export const getAllPatientsData = async (req, res) => {
   try {
       // Find and sort all the medical data by the date
-      const patientPosts = await glucoseModel.find().sort({dateTime: -1}).lean();
+      const glucoseData = await glucoseModel.find({mostRecent: true}).sort({dateTime: -1}).lean();
 
       // Find all users
-      // const drPatients = await userModel.find({role: "Patient"}).lean();
       const drPatients = await userModel.find({"$and": [{clinicianId: "627705c57364463ce0ff58fa"}, {role: "Patient"}]}).lean();
       
-      return res.render('oneData.hbs',{posts: patientPosts, users: drPatients});
+      return res.render('oneData.hbs',{glucostPost: glucoseData, users: drPatients});
 
   } catch (err) {
       res.status(500).json({ message: "weight retrieval failed!" });
