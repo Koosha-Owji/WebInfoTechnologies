@@ -68,11 +68,12 @@ export const signup = async (req, res) => {
 
 export const getAllPatientsData = async (req, res) => {
   try {
-      // Find and sort all the medical data by the date, which belongs to certain Dr
-      const patientPosts = await glucoseModel.find({clinicianId: "hardCodedId"}).sort({dateTime: -1}).lean();
+      // Find and sort all the medical data by the date
+      const patientPosts = await glucoseModel.find().sort({dateTime: -1}).lean();
 
       // Find all users
-      const drPatients = await userModel.find({role: "Patient"}).lean();
+      // const drPatients = await userModel.find({role: "Patient"}).lean();
+      const drPatients = await userModel.find({"$and": [{clinicianId: "627705c57364463ce0ff58fa"}, {role: "Patient"}]}).lean();
       
       return res.render('oneData.hbs',{posts: patientPosts, users: drPatients});
 

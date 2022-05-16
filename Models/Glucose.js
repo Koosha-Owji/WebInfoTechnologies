@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const glucoseSchema = mongoose.Schema({
-  patientId: {type: String, required: true , default: '123'},
+  username: {type: String, required: true , default: '123'},
   clinicianId: {type: String, required: false},
   firstName: {type: String, required: false},
   lastName: {type: String, required: false},
