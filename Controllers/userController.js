@@ -63,9 +63,9 @@ export const getAllPatientsData = async (req, res) => {
       const exerciseData = await glucoseModel.find({"$and": [{mostRecent: true},{medicalData:"exercise"}]}).sort({dateTime: -1}).lean();
 
       // Find all users
-      const drPatients = await userModel.find({"$and": [{clinicianId: "627705c57364463ce0ff58fa"}, {role: "Patient"}]}).lean();
+      const drPatients = await userModel.find({"$and": [{clinicianId: req.user._id}, {role: "Patient"}]}).lean();
       
-      return res.render('drHome.hbs',{exercisePost: exerciseData, glucosePost: glucoseData, users: drPatients});
+      return res.render('drHome.hbs',{user: req.user, exercisePost: exerciseData, glucosePost: glucoseData, patients: drPatients});
 
   } catch (err) {
       res.status(500).json({ message: "Dashboard rendering failed!" });
