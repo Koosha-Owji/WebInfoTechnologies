@@ -27,7 +27,7 @@ const hasRole = (thisRole) => {
 // Note use of authentication middleware here
 router.get('/', isAuthenticated, (req, res) => {
     if (req.user.role === 'Clinician') {
-    res.render('clinicianFunctionality.hbs', { title: 'Express', user: req.user })
+        res.render('clinicianFunctionality.hbs', {user: req.user});
     }
     else {
         res.render('patient-home.hbs', {user: req.user})
@@ -43,7 +43,10 @@ router.get('/login', (req, res) => {
 router.post('/login',
     passport.authenticate('local', {
         successRedirect: '/', failureRedirect: '/login', failureFlash: true
-    })
+    }),
+    (req, res) => {
+        res.redirect('/')
+    }
 )
 
 // Handle logout

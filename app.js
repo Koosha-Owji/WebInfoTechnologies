@@ -5,6 +5,9 @@ import exphbs from 'express-handlebars';
 import dotenv from "dotenv";
 import flash from 'express-flash';
 import session from 'express-session';
+import Handlebars from 'handlebars';
+import {allowInsecurePrototypeAccess} from '@handlebars/allow-prototype-access';
+
 
 if (process.env.NODE_ENV !== 'production') { 
   dotenv.config() 
@@ -21,7 +24,8 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 app.use("/", glucoseRouter);
 app.use("/", clinicianRouter);
-app.engine('hbs', exphbs.engine({ // configure Handlebars
+app.engine('hbs', exphbs.engine({
+  handlebars: allowInsecurePrototypeAccess(Handlebars), // configure Handlebars
   defaultlayout: 'main',
   extname: 'hbs',
   helpers :{
