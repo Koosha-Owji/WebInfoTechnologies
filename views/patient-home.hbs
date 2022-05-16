@@ -22,25 +22,63 @@
 
             <main class ="content">
                 <h1>Sugar Doctor</h1>
-                <p>Welcome Patient!</p>
+                {{#with user as |u| }}
+                   <p>Welcome {{u.firstName}} !</p>
+                    <h2>Today's Data</h2>
 
-                <h2>Today's Data</h2>
-                <div class="container">
-                    <div class = "box">
-                        <a>Blood Glucose</a>
-                        <form action="/patient-home" method="post">
-                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
-                            <input type="text" placeholder="Comment" name="glucoseComment" />
-                            <input type="Submit" />
+                    <div class="container">
+
+                        {{#if u.glucoseRequired}}
+                            <div class = "box">
+                                <a>Blood Glucose</a>
+                                {{#each ../glucose}}
+                                    {{#if (enteredToday this.dateTime) }}
+                                        <p>Level: {{this.glucoseLevel}} </p>
+                                        <p>Entered at {{this.dateTime}} </p>
+                                    {{else}}
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="Submit" />
                            
-                        </form>
+                                        </form>
+                                    {{/if}}
+                                {{/each}}
+                            
+                            </div>
+
+                        {{/if}}
+
+                        {{#if u.insulinRequired}}
+                            <div class = "box">
+                                <a>Insulin</a>
+                                {{#each ../glucose}}
+                                    {{#if (returnFalse) }}
+                                        <p>Level: {{this.glucoseLevel}} </p>
+                                        <p>Entered at {{this.dateTime}} </p>
+                                    {{else}}
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="Submit" />
+                           
+                                        </form>
+                                    {{/if}}
+                                {{/each}}
+                            
+                            </div>
+
+                        {{/if}}
+                        
+
+
+                        <div class = "box"><a>Weight</a><input></input></div>
+                        <div class = "box"><a>Insulin</a><input></input></div>
+                        <div class = "box"><a>Steps</a><input></input></div>
                     </div>
 
-
-                    <div class = "box"><a>Weight</a><input></input></div>
-                    <div class = "box"><a>Insulin</a><input></input></div>
-                    <div class = "box"><a>Steps</a><input></input></div>
-                </div>
+                {{/with}}
+                
             </main>
         </div>
 

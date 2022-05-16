@@ -3,25 +3,65 @@
     {{#with user as |u| }}
         {{u.firstName}}
         {{#if u.glucoseRequired}}
-            <p>Bllod glucose required</p>
+            <p>Bllod glucose</p>
             {{#each ../glucose}}
-            <p>level: {{this.glucoseLevel }} </p>
+            
             <p>date: {{this.dateTime }} </p>
             {{#if (enteredToday this.dateTime) }}
+                <p>level: {{this.glucoseLevel }} </p>
                 <p>date entered {{this.dateTime}} </p>
                 <p>today's date {{ dateToday }}  </p>
             {{else}}
                 <p>not entered today</p>
             {{/if}}
             {{/each}}
-        {{else}}
-            <p>not required</p>
         {{/if}}
+
+        {{#if u.exerciseRequired}}
+            <p>Exercise</p>
+            {{#each ../exercise}}
+            
+            <p>date: {{this.dateTime }} </p>
+            {{#if (enteredToday this.dateTime) }}
+                <p>level: {{this.exerciseLevel }} </p>
+                <p>date entered {{this.dateTime}} </p>
+                <p>today's date {{ dateToday }}  </p>
+            {{else}}
+                <p>not entered today</p>
+            {{/if}}
+            {{/each}}
+        {{/if}}
+
         {{#if u.insulinRequired}}
-            <p>Weight required</p>
-        {{else}}
-            <p>Weight not required</p>
+            <p>Insulin</p>
+            {{#each ../insulin}}
+            
+            <p>date: {{this.dateTime }} </p>
+            {{#if (enteredToday this.dateTime) }}
+                <p>level: {{this.insulinLevel }} </p>
+                <p>date entered {{this.dateTime}} </p>
+                <p>today's date {{ dateToday }}  </p>
+            {{else}}
+                <p>not entered today</p>
+            {{/if}}
+            {{/each}}
         {{/if}}
+
+        {{#if u.weight}}
+            <p>Weight</p>
+            {{#each ../weight}}
+            
+            <p>date: {{this.dateTime }} </p>
+            {{#if (enteredToday this.dateTime) }}
+                <p>level: {{this.weightLevel }} </p>
+                <p>date entered {{this.dateTime}} </p>
+                <p>today's date {{ dateToday }}  </p>
+            {{else}}
+                <p>not entered today</p>
+            {{/if}}
+            {{/each}}
+        {{/if}}
+
     {{/with}}
     
 </body>

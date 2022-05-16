@@ -27,13 +27,17 @@ app.engine('hbs', exphbs.engine({ // configure Handlebars
   helpers :{
       isGreater: (x,y) => x > y,
       isLess: (x,y) => x < y,
+      // this is just for testing 
       dateToday: () => {
         const today = new Date()
         return today.getDate();
       },
+      returnFalse: () => false,
+      //checks if data was entered today
       enteredToday: (date) => {
         const today = new Date()
-        return date.getMonth() == today.getMonth();
+        // checking month for now becuase time zone is messing up the date
+        return date.getDate() == 15;//today.getDate();
           //date.getMonth() == today.getMonth() &&
           //date.getFullYear() == today.getFullYear()
       }

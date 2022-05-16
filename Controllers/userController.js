@@ -48,7 +48,7 @@ export const getUserByUsername = async (req, res) => {
     const thisUser = await userModel.findOne({username: "BobCat"}).lean();
     const thisGlucose = await glucoseModel.find({patient_id: "123"}).sort({$natural:-1}).lean().limit(1);
 
-    return res.render('patientHome.hbs', {user: thisUser, glucose: thisGlucose} );
+    return res.render('patient-home.hbs', {user: thisUser, glucose: thisGlucose} );
     
     //return res.render('patientHome.hbs',{data: user});
   } catch (err) {

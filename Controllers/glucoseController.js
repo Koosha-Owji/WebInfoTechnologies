@@ -9,7 +9,7 @@ export const create_glucose = async (req, res) => {
             .save()
             //.then((newGlucose) => res.json(newGlucose))
             .catch((err) => res.status(400).json(err));
-            return res.redirect('/getOne');
+            return res.redirect('/patient-home');
           } else {
             return res.status(200).json({ message: "Wrong content sent!" });
           }
