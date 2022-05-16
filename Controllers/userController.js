@@ -1,5 +1,6 @@
 import userModel from '../Models/User.js';
 import bcrypt from "bcryptjs";
+import glucoseModel from "../Models/Glucose.js";
 
 export const signup = async (req, res) => {
     const {firstName, lastName, username, password , clinicianId } = req.body;
@@ -44,10 +45,14 @@ export const signup = async (req, res) => {
   
 export const getUserByUsername = async (req, res) => {
   try {
-    const user = await userModel.findOne({username: "BobCat"}).lean();
-    if (!user) return res.json("No user found");
-    return res.render('patientHome.hbs',{data: user});
+    const thisUser = await userModel.findOne({username: "BobCat"}).lean();
+    const thisGlucose = await glucoseModel.find({patient_id: "123"}).sort({$natural:-1}).lean().limit(1);
+
+    return res.render('patientHome.hbs', {user: thisUser, glucose: thisGlucose} );
+    
+    //return res.render('patientHome.hbs',{data: user});
   } catch (err) {
     res.status(500).json({ message: "Glucose retrieval failed!" });
   }
 };
+

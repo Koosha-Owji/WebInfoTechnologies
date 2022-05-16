@@ -26,7 +26,17 @@ app.engine('hbs', exphbs.engine({ // configure Handlebars
   extname: 'hbs',
   helpers :{
       isGreater: (x,y) => x > y,
-      isLess: (x,y) => x < y
+      isLess: (x,y) => x < y,
+      dateToday: () => {
+        const today = new Date()
+        return today.getDate();
+      },
+      enteredToday: (date) => {
+        const today = new Date()
+        return date.getMonth() == today.getMonth();
+          //date.getMonth() == today.getMonth() &&
+          //date.getFullYear() == today.getFullYear()
+      }
   }
 }))
 // set Handlebars view engine

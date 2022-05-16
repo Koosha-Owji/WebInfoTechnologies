@@ -1,13 +1,23 @@
 <body>
     <h1>test</h1>
-    {{#with data}}
-        {{this.firstName}}
-        {{#if this.glucoseRequired}}
+    {{#with user as |u| }}
+        {{u.firstName}}
+        {{#if u.glucoseRequired}}
             <p>Bllod glucose required</p>
+            {{#each ../glucose}}
+            <p>level: {{this.glucoseLevel }} </p>
+            <p>date: {{this.dateTime }} </p>
+            {{#if (enteredToday this.dateTime) }}
+                <p>date entered {{this.dateTime}} </p>
+                <p>today's date {{ dateToday }}  </p>
+            {{else}}
+                <p>not entered today</p>
+            {{/if}}
+            {{/each}}
         {{else}}
             <p>not required</p>
         {{/if}}
-        {{#if this.wightRequired}}
+        {{#if u.insulinRequired}}
             <p>Weight required</p>
         {{else}}
             <p>Weight not required</p>

@@ -29,9 +29,10 @@ export const get_one_glucose = async (req, res) => {
 
 export const getOne = async (req, res) => {
     try {
-      const glucose = await glucoseModel.find({patient_id: "123"}).sort({$natural:-1}).lean();
+      const glucose = await glucoseModel.find({patient_id: "123"}).sort({$natural:-1}).lean().limit(1);
       if (!glucose) return res.json("Patient has no data!");
       return res.render('getOne.hbs',{data: glucose});
+      //return glucose;
     } catch (err) {
       res.status(500).json({ message: "Glucose retrieval failed!" });
     }
