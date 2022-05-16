@@ -38,19 +38,40 @@ export const getOne = async (req, res) => {
   };
 
   export const writeNote = async (req, res) => {
-  
+    const {patientId, clinicianId, note, dataType} = req.body;
     try {
-      if (req.body){
-        const date = new Date().toISOString().slice(0, 10);
-        const newNote = glucoseModel.create({ ...req.body, dateTime:date, dataType:"note",patientId:patientId,clinicianId:clinicianId}); 
-        // const result = await userModel.create({firstName, lastName, username, password: hashedPassword, clinicianId: clinicianId });  
-        res.status(201).json({ newNote });
-      }
-
+        
+          const date = new Date().toISOString().slice(0, 10);
+          let dataTypeContent = "note";
+          //const dataContentType = new("note");
+          const newNote = await glucoseModel.create({patientId, clinicianId, note,dataType});
+          (await newNote)
+            .save()
+            //.then((newGlucose) => res.json(newGlucose))
+            .catch((err) => res.status(400).json(err));
+            return res.redirect('/hard_data');
+           
     } catch (error) {
-      res.status(500).json({ message: "Something went wrong" });
-      res.status(500).json({ message: newNote });
-      
-      console.log(error);
+        res.status(500).json({ message: "Glucose creation failed!" });
     }
-  };
+};
+
+export const signup = async (req, res) => {
+  const {firstName, lastName, username, password , clinicianId } = req.body;
+
+  try {
+    const oldUser = await userModel.findOne({ username });
+
+    if (oldUser) return res.status(400).json({ message: "User already exists" });
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const result = await userModel.create({firstName, lastName, username, password: hashedPassword, clinicianId: clinicianId });  
+    res.status(201).json({ result });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ message: result });
+    
+    console.log(error);
+  }
+};
