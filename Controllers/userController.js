@@ -47,39 +47,23 @@ export const signup = async (req, res) => {
     }
   };
 
-  export const getAllPatientsDataOG = async (req, res) => {
-    try {
-        //const weight = await userModel.find({clinicianId: "hardCodedId"}).lean();
-        //db.coll.distinct("_id", {clinicianId: "hardCodedId"})
-        //const weight = await userModel.distinct("_id", {clinicianId: "hardCodedId"}).lean();
-        // This returns each unique id_client which the Dr has.
-        // Change clinicianId to be a bit more generic
-        // Currently have the unique id for every patient of the doctor
-        // const weight = await userModel.distinct("patientId", {clinicianId: "hardCodedId"}).lean();
 
-        
-        // For most recent data for every patient which belongs to the doctor
-        // Currently have the unique id for every patient of the doctor
-        const weight = await glucoseModel.find({"$and": [{clinicianId: "hardCodedId"}, {mostRecent: true}]}).lean();
-        
-
-        
-        return res.render('allData.hbs',{data: weight});
-    } catch (err) {
-        res.status(500).json({ message: "weight retrieval failed!" });
-    }
-};
 
 export const getAllPatientsData = async (req, res) => {
   try {
       // Find and sort all the medical data by the date
-      const glucoseData = await glucoseModel.find({mostRecent: true}).sort({dateTime: -1}).lean();
-      const exerciseData = await exerciseModel.find({mostRecent: true}).sort({dateTime: -1}).lean();
+      const glucoseData = await glucoseModel.find({"$and": [{mostRecent: true},{medicalData:"glucose"}]}).sort({dateTime: -1}).lean();
+
+      // For some reason exercise is not being found
+      // const exerciseData = await exerciseModel.find({"$and": [{mostRecent: true},{medicalData:"exercise"}]}).sort({dateTime: -1}).lean();
+      const exerciseData = await glucoseModel.find({"$and": [{mostRecent: true},{medicalData:"exercise"}]}).sort({dateTime: -1}).lean();
+      
+      
 
       // Find all users
       const drPatients = await userModel.find({"$and": [{clinicianId: "627705c57364463ce0ff58fa"}, {role: "Patient"}]}).lean();
       
-      return res.render('oneData.hbs',{exercisePost: exerciseData, glucosePost: glucoseData, users: drPatients});
+      return res.render('dashboard.hbs',{exercisePost: exerciseData, glucosePost: glucoseData, users: drPatients});
 
   } catch (err) {
       res.status(500).json({ message: "weight retrieval failed!" });
@@ -99,27 +83,6 @@ export const getDataByIdOG = (req, res) => {
       // You can decide what to do if the data is not found.
       // Currently, an empty list will be returned.
       res.sendStatus(404)
-  }
-};
-
-
-export const getDataByIdOg = async (req, res) => {
-  try {
-    // const data = await glucoseModel.find((data) => data.id === req.params.id).lean();
-    //const data = glucoseModel.find((data) => data.patientId === req.params.patientId).lean();
-    //const patientInfo = await glucoseModel.find(req.params.patientId).lean();
-    const patientInfo = await glucoseModel.find({_id: req.params.patientId}).lean();
-    //console.log(`Mongo connection started on ${req.params.patientId}`)
-    if (!patientInfo) {
-      // no patient found in database
-      return res.sendStatus(404)
-    }
-    // found the author
-    return res.render('oneData', {oneItem: patientInfo})
-  } catch (err) {
-    res.status(500).json({ message: "Something went wrong" });
-    
-    console.log(err);
   }
 };
 
