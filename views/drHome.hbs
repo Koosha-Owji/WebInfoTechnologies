@@ -8,6 +8,7 @@
         {{#each patients as |patient|}}
             <div class="patient_info">
                 <p><a href="/hard_data/{{patient.username}}">Patient Name: {{patient.firstName}} {{patient.lastName}}</a></p>
+                <p>Data Added Today</p>
                 
                 {{!-- {{ Check to see if the Dr needs to see glucose}} --}}
                 
@@ -27,7 +28,7 @@
                                 {{else}} <p>Glucose Level: {{glucosePost.glucoseLevel}}</p>
                                 {{/if}}
                                 <p>Glucose Comment: {{glucosePost.glucoseComment}}</p>
-                                <p>Glucose Added on: {{glucosePost.dateTime}}</p>
+                                
                             {{/if}}
                             
                         {{/if}}
@@ -51,7 +52,6 @@
                                 {{else}} <p>Exercise Level: {{exercisepost.exerciseLevel}}</p>
                                 {{/if}}
                                 <p>Exercise Comment: {{exercisepost.exerciseComment}}</p>
-                                <p>Exercise Added on: {{exercisepost.dateTime}}</p>
                             {{/if}}
                         {{/if}}
 

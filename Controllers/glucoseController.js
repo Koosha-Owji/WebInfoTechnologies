@@ -1,10 +1,10 @@
-import medicalDataModel from "../Models/medicalData.js";
+import MedicalDataModel from "../Models/MedicalData.js";
 
-export const create_data = async (req, res) => {
+export const create_glucose = async (req, res) => {
     try {
         if (req.body){
           const date = new Date().toISOString().slice(0, 10);
-          const newGlucose = medicalDataModel.create({ ...req.body, dateTime:date});
+          const newGlucose = glucoseModel.create({ ...req.body, dateTime:date});
           (await newGlucose)
             .save()
             //.then((newGlucose) => res.json(newGlucose))
@@ -19,7 +19,7 @@ export const create_data = async (req, res) => {
 };
 export const get_one_glucose = async (req, res) => {
     try {
-      const glucose = await medicalDataModel.find({patient_id: "123"}).sort({$natural:-1}).lean();
+      const glucose = await glucoseModel.find({patient_id: "123"}).sort({$natural:-1}).lean();
       if (!glucose) return res.json("Patient has not enter data!");
       return res.render('patientData.hbs',{data: glucose});
     } catch (err) {
@@ -29,7 +29,7 @@ export const get_one_glucose = async (req, res) => {
 
 export const getOne = async (req, res) => {
     try {
-      const glucose = await medicalDataModel.find({patient_id: "123"}).sort({$natural:-1}).lean();
+      const glucose = await glucoseModel.find({patient_id: "123"}).sort({$natural:-1}).lean();
       if (!glucose) return res.json("Patient has no data!");
       return res.render('getOne.hbs',{data: glucose});
     } catch (err) {

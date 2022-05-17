@@ -6,7 +6,7 @@ export const writeNote = async (req, res) => {
     try {
           const date = new Date().toISOString().slice(0, 10);
           //const dataContentType = new("note");
-          const newNote = await medicalDataModel.create({patientId, clinicianId, note});
+          const newNote = await glucoseModel.create({patientId, clinicianId, note});
           (await newNote)
             .save()
             .catch((err) => res.status(400).json(err));
