@@ -60,16 +60,15 @@ export const getAllPatientsData = async (req, res) => {
       // If data has not been added, Can just render it something such as data enterted firstname secondname
       // Need to make sure that the user cannot enter multiple data
       const date = new Date().toISOString().slice(0, 10);
-      const glucoseData = await glucoseModel.find({"$and": [{dateTime: date},{dataType:"glucose"}]}).sort({dateTime: -1}).lean();
-
-      // For some reason exercise is not being found
-      // const exerciseData = await exerciseModel.find({"$and": [{mostRecent: true},{medicalData:"exercise"}]}).sort({dateTime: -1}).lean();
       const exerciseData = await glucoseModel.find({"$and": [{dateTime: date},{dataType:"exercise"}]}).sort({dateTime: -1}).lean();
+      const glucoseData = await glucoseModel.find({"$and": [{dateTime: date},{dataType:"glucose"}]}).sort({dateTime: -1}).lean();
+      const insulinData = await glucoseModel.find({"$and": [{dateTime: date},{dataType:"insulin"}]}).sort({dateTime: -1}).lean();
+      const weightData = await glucoseModel.find({"$and": [{dateTime: date},{dataType:"weight"}]}).sort({dateTime: -1}).lean();
 
       // Find all users
       const drPatients = await userModel.find({"$and": [{clinicianId: req.user._id}, {role: "Patient"}]}).lean();
       
-      return res.render('drHome.hbs',{user: req.user, exercisePost: exerciseData, glucosePost: glucoseData, patients: drPatients});
+      return res.render('drHome.hbs',{user: req.user, patients: drPatients, exercisePost: exerciseData, glucosePost: glucoseData, insulinPost: insulinData, weightPost: weightData});
 
   } catch (err) {
       res.status(500).json({ message: "Dashboard rendering failed!" });

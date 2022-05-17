@@ -8,10 +8,31 @@
         {{#each patients as |patient|}}
             <div class="patient_info">
                 <p><a href="/hard_data/{{patient.username}}">Patient Name: {{patient.firstName}} {{patient.lastName}}</a></p>
-                <p>Data Added Today</p>
-                
+                <p>Medical Data Added Today</p>
+
+                {{!-- {{ Check to see if the Dr needs to see exercise}} --}}
+                {{#if patient.exerciseRequired}}
+                    {{!-- {{ Iterate through every glucose post to find the most recent from this patient}} --}}
+                    {{#each ../exercisePost as |userDataPost|}}
+                        {{!-- {{ Found the post of this user}} --}}
+                        {{#if (equalString patient.username userDataPost.username)}}
+                            {{#if userDataPost.dataLevel}}
+                                {{!-- {{ Upper threshold is breached}} --}}
+                                {{#if (isGreater userDataPost.exerciseLevel patient.exerciseUpper)}} <p style="color:red">Exercise Level: {{userDataPost.exerciseLevel}} steps</p> 
+                                {{!-- {{ Lower threshold is breached}} --}}  
+                                {{else if (isLess userDataPost.exerciseLevel patient.exerciseLower)}} <p style="color:red">Exercise Level: {{userDataPost.exerciseLevel}} steps</p> 
+                                
+                                {{!-- {{ Neither threshold breached }} --}}  
+                                {{else}} <p>Exercise Level: {{userDataPost.exerciseLevel}} steps</p>
+                                {{/if}}
+                                <p>Exercise Comment: {{userDataPost.dataComment}}</p>
+                            {{/if}}
+                        {{/if}}
+
+                    {{/each}}
+                {{/if}}
+
                 {{!-- {{ Check to see if the Dr needs to see glucose}} --}}
-                
                 {{#if patient.glucoseRequired}}
                     {{!-- {{ Iterate through every glucose post to find the most recent from this patient}} --}}
                     {{#each ../glucosePost as |glucosePost|}}
@@ -20,12 +41,12 @@
                         {{#if (equalString patient.username glucosePost.username)}}
                             {{#if glucosePost.glucoseLevel}}
                                 {{!-- {{ Upper threshold is breached}} --}}
-                                {{#if (isGreater glucosePost.glucoseLevel patient.glucoseUpper)}} <p style="color:red">Glucose Level: {{glucosePost.glucoseLevel}}</p> 
+                                {{#if (isGreater glucosePost.glucoseLevel patient.glucoseUpper)}} <p style="color:red">Glucose Level: {{glucosePost.glucoseLevel}} nmol/L</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}  
-                                {{else if (isLess glucosePost.glucoseLevel patient.glucoseLower)}} <p style="color:red">Glucose Level: {{glucosePost.glucoseLevel}}</p> 
+                                {{else if (isLess glucosePost.glucoseLevel patient.glucoseLower)}} <p style="color:red">Glucose Level: {{glucosePost.glucoseLevel}} nmol/L</p> 
                                 
                                 {{!-- {{ Neither threshold breached }} --}}  
-                                {{else}} <p>Glucose Level: {{glucosePost.glucoseLevel}}</p>
+                                {{else}} <p>Glucose Level: {{glucosePost.glucoseLevel}} nmol/L</p>
                                 {{/if}}
                                 <p>Glucose Comment: {{glucosePost.glucoseComment}}</p>
                                 
@@ -36,22 +57,23 @@
                     {{/each}}
                 {{/if}}
 
+                
                 {{!-- {{ Check to see if the Dr needs to see exercise}} --}}
-                {{#if patient.exerciseRequired}}
+                {{#if patient.insulinRequired}}
                     {{!-- {{ Iterate through every glucose post to find the most recent from this patient}} --}}
-                    {{#each ../exercisePost as |exercisepost|}}
+                    {{#each ../insulinPost as |insulinPost|}}
                         {{!-- {{ Found the post of this user}} --}}
-                        {{#if (equalString patient.username exercisepost.username)}}
-                            {{#if exercisepost.exerciseLevel}}
+                        {{#if (equalString patient.username insulinPost.username)}}
+                            {{#if insulinPost.exerciseLevel}}
                                 {{!-- {{ Upper threshold is breached}} --}}
-                                {{#if (isGreater exercisepost.exerciseLevel patient.exerciseUpper)}} <p style="color:red">Exercise Level: {{exercisepost.exerciseLevel}}</p> 
+                                {{#if (isGreater insulinPost.exerciseLevel patient.exerciseUpper)}} <p style="color:red">Insulin Level: {{insulinPost.exerciseLevel}} steps</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}  
-                                {{else if (isLess exercisepost.exerciseLevel patient.exerciseLower)}} <p style="color:red">Exercise Level: {{exercisepost.exerciseLevel}}</p> 
+                                {{else if (isLess insulinPost.exerciseLevel patient.exerciseLower)}} <p style="color:red">Insulin Level: {{insulinPost.exerciseLevel}} steps</p> 
                                 
                                 {{!-- {{ Neither threshold breached }} --}}  
-                                {{else}} <p>Exercise Level: {{exercisepost.exerciseLevel}}</p>
+                                {{else}} <p>Exercise Level: {{insulinPost.exerciseLevel}} steps</p>
                                 {{/if}}
-                                <p>Exercise Comment: {{exercisepost.exerciseComment}}</p>
+                                <p>Exercise Comment: {{insulinPost.exerciseComment}}</p>
                             {{/if}}
                         {{/if}}
 
