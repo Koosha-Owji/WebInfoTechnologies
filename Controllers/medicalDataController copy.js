@@ -14,16 +14,16 @@ export const create_data = async (req, res) => {
             return res.status(200).json({ message: "Wrong content sent!" });
           }
     } catch (error) {
-        res.status(500).json({ message: "Glucose creation failed!" });
+        res.status(500).json({ message: "Data creation failed!" });
     }
 };
-export const get_one_glucose = async (req, res) => {
+export const get_one_data = async (req, res) => {
     try {
       const glucose = await medicalDataModel.find({patient_id: "123"}).sort({$natural:-1}).lean();
       if (!glucose) return res.json("Patient has not enter data!");
       return res.render('patientData.hbs',{data: glucose});
     } catch (err) {
-      res.status(500).json({ message: "Glucose retrieval failed!" });
+      res.status(500).json({ message: "Data retrieval failed!" });
     }
   };
 
@@ -33,6 +33,6 @@ export const getOne = async (req, res) => {
       if (!glucose) return res.json("Patient has no data!");
       return res.render('getOne.hbs',{data: glucose});
     } catch (err) {
-      res.status(500).json({ message: "Glucose retrieval failed!" });
+      res.status(500).json({ message: "Data retrieval failed!" });
     }
   };

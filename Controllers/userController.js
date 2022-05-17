@@ -1,5 +1,5 @@
 import userModel from '../Models/User.js';
-import glucoseModel from '../Models/Glucose.js';
+import medicalDataModel from "../Models/medicalData.js";
 import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
@@ -59,11 +59,11 @@ export const getAllPatientsData = async (req, res) => {
       // Instead of adding the mostRecent field, can just check if data has been added today.
       // If data has not been added, Can just render it something such as data enterted firstname secondname
       const date = new Date().toISOString().slice(0, 10);
-      const glucoseData = await glucoseModel.find({"$and": [{dateTime: date},{medicalData:"glucose"}]}).sort({dateTime: -1}).lean();
+      const glucoseData = await medicalDataModel.find({"$and": [{dateTime: date},{medicalData:"glucose"}]}).sort({dateTime: -1}).lean();
 
       // For some reason exercise is not being found
       // const exerciseData = await exerciseModel.find({"$and": [{mostRecent: true},{medicalData:"exercise"}]}).sort({dateTime: -1}).lean();
-      const exerciseData = await glucoseModel.find({"$and": [{mostRecent: true},{medicalData:"exercise"}]}).sort({dateTime: -1}).lean();
+      const exerciseData = await medicalDataModel.find({"$and": [{mostRecent: true},{medicalData:"exercise"}]}).sort({dateTime: -1}).lean();
 
       // Find all users
       const drPatients = await userModel.find({"$and": [{clinicianId: req.user._id}, {role: "Patient"}]}).lean();
@@ -79,7 +79,7 @@ export const getAllPatientsData = async (req, res) => {
 export const getDataById =  async (req, res) => { // get one food, and render it
 	try {
     // Information about the medical data posted by the patient
-		const patientPostInfo = await glucoseModel.find({username: req.params.username} ).sort({dateTime: -1}).lean();
+		const patientPostInfo = await medicalDataModel.find({username: req.params.username} ).sort({dateTime: -1}).lean();
     // Information about the user data of the patient
     const patientUserInfo = await userModel.find({"$and": [{username: req.params.username}, {role: "Patient"}]}).lean();
 		res.render('showOnePatient', {user: req.user,medicalData: patientPostInfo, patientData: patientUserInfo})	
