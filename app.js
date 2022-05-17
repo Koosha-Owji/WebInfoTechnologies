@@ -32,6 +32,7 @@ app.engine('hbs', exphbs.engine({
       isGreater: (x,y) => x > y,
       isLess: (x,y) => x < y,
       equalString: (s1,s2) => s1 == s2
+      // Try to find the most recent data. Using helper function
   }
 }))
 // set Handlebars view engine

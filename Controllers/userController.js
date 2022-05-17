@@ -56,7 +56,10 @@ export const getUserByUsername = async (req, res) => {
 export const getAllPatientsData = async (req, res) => {
   try {
       // Find and sort all the medical data by the date
-      const glucoseData = await glucoseModel.find({"$and": [{mostRecent: true},{medicalData:"glucose"}]}).sort({dateTime: -1}).lean();
+      // Instead of adding the mostRecent field, can just check if data has been added today.
+      // If data has not been added, Can just render it something such as data enterted firstname secondname
+      const date = new Date().toISOString().slice(0, 10);
+      const glucoseData = await glucoseModel.find({"$and": [{dateTime: date},{medicalData:"glucose"}]}).sort({dateTime: -1}).lean();
 
       // For some reason exercise is not being found
       // const exerciseData = await exerciseModel.find({"$and": [{mostRecent: true},{medicalData:"exercise"}]}).sort({dateTime: -1}).lean();
@@ -72,27 +75,37 @@ export const getAllPatientsData = async (req, res) => {
   }
 };
 
-export const getDataByIdNotWorking = async (req, res) => {
-  try {
-    // Get all of the medical data placed by the user displays most recent date is shown first
-      const patientPostInfo = await glucoseModel.find({"$and": [{patientId: "firstId"}, {dataType: "userInput"}]}).sort({dateTime: -1}).lean();
-      //const patientNotes = await noteModel.find({"$and": [{patientId: "firstId"}, {dataType: "note"}]}).sort({dateTime: -1}).lean();
-      const patientNotes = await glucoseModel.find({"$and": [{patientId: "firstId"}, {dataType: "note"}]}).sort({dateTime: -1}).lean();
-      return res.render('showOnePatient.hbs',{data: patientPostInfo, note: patientNotes});
-  } catch (err) {
-      res.status(500).json({ message: "weight retrieval failed!" });
-  }
-};
-
 
 export const getDataById =  async (req, res) => { // get one food, and render it
 	try {
     // Information about the medical data posted by the patient
-		const patientPostInfo = await glucoseModel.find( {username: req.params.username} ).lean()
+		const patientPostInfo = await glucoseModel.find({username: req.params.username} ).sort({dateTime: -1}).lean();
     // Information about the user data of the patient
-    const patientUserInfo = await userModel.findOne({"$and": [{username: req.params.username}, {role: "Patient"}]}).lean();
+    const patientUserInfo = await userModel.find({"$and": [{username: req.params.username}, {role: "Patient"}]}).lean();
 		res.render('showOnePatient', {user: req.user,medicalData: patientPostInfo, patientData: patientUserInfo})	
 	} catch (err) {
 		console.log(err)
 	}
 }
+
+export const updatePatientRequirements = async (req,res)=>{
+  const {firstName, lastName, username, password , clinicianId } = req.body;
+  try {
+    const oldUser = await userModel.findOne({"$and": [{username: req.params.username}, {role: "Patient"}]});
+    if (!oldUser)
+    return res.status(400).json({ message: "User doesn't exist" });
+    const isPasswordCorrect = await bcrypt.compare(req.body.current_password, oldUser.password);
+    if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
+    const hashedPassword = await bcrypt.hash(req.body.new_password, 12);
+
+    await userModel
+    .findByIdAndUpdate(req.user_id, {
+      password: hashedPassword
+    })
+    .exec();
+
+    return res.json({message: "Password Changed Successfully!"});      
+  } catch (error) {
+    res.status(500).json({ message: "Password did not change!" });
+  }
+};
