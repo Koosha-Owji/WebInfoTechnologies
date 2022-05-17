@@ -18,12 +18,12 @@
                         {{#if (equalString patient.username userDataPost.username)}}
                             {{#if userDataPost.dataLevel}}
                                 {{!-- {{ Upper threshold is breached}} --}}
-                                {{#if (isGreater userDataPost.exerciseLevel patient.exerciseUpper)}} <p style="color:red">Exercise Level: {{userDataPost.exerciseLevel}} steps</p> 
+                                {{#if (isGreater userDataPost.dataLevel patient.exerciseUpper)}} <p style="color:red">Amount of exercise: {{userDataPost.dataLevel}} steps</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}  
-                                {{else if (isLess userDataPost.exerciseLevel patient.exerciseLower)}} <p style="color:red">Exercise Level: {{userDataPost.exerciseLevel}} steps</p> 
+                                {{else if (isLess userDataPost.dataLevel patient.exerciseLower)}} <p style="color:red">Amount of exercise: {{userDataPost.dataLevel}} steps</p> 
                                 
                                 {{!-- {{ Neither threshold breached }} --}}  
-                                {{else}} <p>Exercise Level: {{userDataPost.exerciseLevel}} steps</p>
+                                {{else}} <p>Amount of exercise: {{userDataPost.dataLevel}} steps</p>
                                 {{/if}}
                                 <p>Exercise Comment: {{userDataPost.dataComment}}</p>
                             {{/if}}
@@ -32,48 +32,69 @@
                     {{/each}}
                 {{/if}}
 
+
                 {{!-- {{ Check to see if the Dr needs to see glucose}} --}}
                 {{#if patient.glucoseRequired}}
                     {{!-- {{ Iterate through every glucose post to find the most recent from this patient}} --}}
-                    {{#each ../glucosePost as |glucosePost|}}
-
+                    {{#each ../glucosePost as |userDataPost|}}
                         {{!-- {{ Found the post of this user}} --}}
-                        {{#if (equalString patient.username glucosePost.username)}}
-                            {{#if glucosePost.glucoseLevel}}
+                        {{#if (equalString patient.username userDataPost.username)}}
+                            {{#if userDataPost.dataLevel}}
                                 {{!-- {{ Upper threshold is breached}} --}}
-                                {{#if (isGreater glucosePost.glucoseLevel patient.glucoseUpper)}} <p style="color:red">Glucose Level: {{glucosePost.glucoseLevel}} nmol/L</p> 
+                                {{#if (isGreater userDataPost.dataLevel patient.glucoseUpper)}} <p style="color:red">Glucose Level: {{userDataPost.dataLevel}} nmol/L</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}  
-                                {{else if (isLess glucosePost.glucoseLevel patient.glucoseLower)}} <p style="color:red">Glucose Level: {{glucosePost.glucoseLevel}} nmol/L</p> 
+                                {{else if (isLess userDataPost.dataLevel patient.glucoseLower)}} <p style="color:red">Glucose Level: {{userDataPost.dataLevel}} nmol/L</p> 
                                 
                                 {{!-- {{ Neither threshold breached }} --}}  
-                                {{else}} <p>Glucose Level: {{glucosePost.glucoseLevel}} nmol/L</p>
+                                {{else}} <p>Glucose Level: {{userDataPost.dataLevel}} nmol/L</p>
                                 {{/if}}
-                                <p>Glucose Comment: {{glucosePost.glucoseComment}}</p>
-                                
+                                <p>Glucose Comment: {{userDataPost.dataComment}}</p>
                             {{/if}}
-                            
                         {{/if}}
 
                     {{/each}}
                 {{/if}}
 
-                
-                {{!-- {{ Check to see if the Dr needs to see exercise}} --}}
+                {{!-- {{ Check to see if the Dr needs to see insulin}} --}}
                 {{#if patient.insulinRequired}}
-                    {{!-- {{ Iterate through every glucose post to find the most recent from this patient}} --}}
-                    {{#each ../insulinPost as |insulinPost|}}
+                    {{!-- {{ Iterate through every insulin post to find the most recent from this patient}} --}}
+                    {{#each ../insulinPost as |userDataPost|}}
+
                         {{!-- {{ Found the post of this user}} --}}
-                        {{#if (equalString patient.username insulinPost.username)}}
-                            {{#if insulinPost.exerciseLevel}}
+                        {{#if (equalString patient.username userDataPost.username)}}
+                            {{#if userDataPost.dataLevel}}
                                 {{!-- {{ Upper threshold is breached}} --}}
-                                {{#if (isGreater insulinPost.exerciseLevel patient.exerciseUpper)}} <p style="color:red">Insulin Level: {{insulinPost.exerciseLevel}} steps</p> 
+                                {{#if (isGreater userDataPost.dataLevel patient.insulinUpper)}} <p style="color:red">Doses of Insulin taken: {{userDataPost.dataLevel}} doses</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}  
-                                {{else if (isLess insulinPost.exerciseLevel patient.exerciseLower)}} <p style="color:red">Insulin Level: {{insulinPost.exerciseLevel}} steps</p> 
+                                {{else if (isLess userDataPost.dataLevel patient.insulinLower)}} <p style="color:red">Doses of Insulin taken: {{userDataPost.dataLevel}} doses</p> 
                                 
                                 {{!-- {{ Neither threshold breached }} --}}  
-                                {{else}} <p>Exercise Level: {{insulinPost.exerciseLevel}} steps</p>
+                                {{else}} <p>Doses of Insulin taken: {{userDataPost.dataLevel}} doses</p>
                                 {{/if}}
-                                <p>Exercise Comment: {{insulinPost.exerciseComment}}</p>
+                                <p>Insulin Comment: {{userDataPost.dataComment}}</p>
+                            {{/if}}
+                        {{/if}}
+
+                    {{/each}}
+                {{/if}}
+
+                {{!-- {{ Check to see if the Dr needs to see weight}} --}}
+                {{#if patient.weightRequired}}
+                    {{!-- {{ Iterate through every weight post to find the most recent from this patient}} --}}
+                    {{#each ../weightPost as |userDataPost|}}
+
+                        {{!-- {{ Found the post of this user}} --}}
+                        {{#if (equalString patient.username userDataPost.username)}}
+                            {{#if userDataPost.dataLevel}}
+                                {{!-- {{ Upper threshold is breached}} --}}
+                                {{#if (isGreater userDataPost.dataLevel patient.weightUpper)}} <p style="color:red">Weight: {{userDataPost.dataLevel}} kg</p> 
+                                {{!-- {{ Lower threshold is breached}} --}}  
+                                {{else if (isLess userDataPost.dataLevel patient.weightLower)}} <p style="color:red">Weight: {{userDataPost.dataLevel}} kg</p> 
+                                
+                                {{!-- {{ Neither threshold breached }} --}}  
+                                {{else}} <p>Weight: {{userDataPost.dataLevel}} kg</p>
+                                {{/if}}
+                                <p>Weight Comment: {{userDataPost.dataComment}}</p>
                             {{/if}}
                         {{/if}}
 
