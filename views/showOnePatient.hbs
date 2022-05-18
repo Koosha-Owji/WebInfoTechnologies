@@ -45,24 +45,38 @@
   </table>
 
   <main class ="content">
-    <h2>Change Data to record</h2>
-    <div class="container">
-      <div class = "box">
-          <a>Check which data to record</a>
-          <form action="/showOnePatient" method="post">
-              <input type="checkbox" id="exercise" name="exerciseRequired" value="true">
-              <label for="exercise"> Exercise </label><br>
-              <input type="checkbox" id="glucose" name="glucoseRequired" value="true">
-              <label for="glucose"> Glucose </label><br>
-              <input type="checkbox" id="insulin" name="insulinRequired" value="true">
-              <label for="insulin"> Insulin </label><br>
-              <input type="checkbox" id="weight" name="weightRequired" value="true">
-              <label for="weight"> Weight </label><br>
-              <input type="hidden" name="username" value = {{patient.username}}/>
-              <input type = "hidden" name = "clinicianId" value = {{user._id}} />
-              <input type="Submit" />
-          </form>
-      </div>
+    <h4>Change Patient Data Requirements</h4>
+  
+    <div>
+        <input type="checkbox" name="exerciseRequired"/>
+        <label>Exercise</label>
+        <input type="Number" placeholder="Exercise lower threshold" name="exerciseLower"/>
+        <input type="Number" placeholder="Exercise upper threshold" name="exerciseUpper"/>
+    </div>
+
+    <div>
+        <input type="checkbox" name="glucoseRequired"/>
+        <label>Glucose</label>
+        <input type="Number" placeholder="Glucose lower threshold" name="glucoseLower"/>
+        <input type="Number" placeholder="Glucose upper threshold" name="glucoseUpper"/>
+    </div>
+
+    <div>
+        <input type="checkbox" name="insulinRequired"/>
+        <label>Insulin</label>
+        <input type="Number" placeholder="Insulin lower threshold" name="insulinLower"/>
+        <input type="Number" placeholder="Insulin upper threshold" name="insulinUpper"/>
+    </div>
+
+    <div>
+        <input type="checkbox" name="weightRequired"/>
+        <label>Weight</label>
+        <input type="Number" placeholder="Weight lower threshold" name="weightLower"/>
+        <input type="Number" placeholder="Weight upper threshold" name="weightUpper"/>
+    </div>
+
+    <div>
+        <input type="Submit"/>
     </div>
   </main>
   {{!-- {{ Display previous medical data}} --}}
@@ -139,3 +153,4 @@
   </table>
 
 {{/each}}
+
