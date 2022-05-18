@@ -64,5 +64,9 @@ router.use('/hardData', patientData)
 import aboutDiabetes from "./aboutDiabetes.js";
 router.use('/aboutDiabetes', aboutDiabetes)
 
+// Rough Implementation of About Diabetes
+import aboutUs from "./aboutUs.js";
+router.use('/aboutUs', aboutUs)
+
 //module.exports = router
 export default router;

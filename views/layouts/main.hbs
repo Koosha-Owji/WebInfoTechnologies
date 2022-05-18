@@ -19,16 +19,16 @@
         <header class = "header">
             <div class="topnav">
                 <div class="main_logo">
-
                     {{#if (equalString "Patient" user.role)}}
                         <h1>Sugar Doctor <p>hia</p></h1> 
 
                                         
                     {{else if (equalString "Clinician" user.role)}}
                         <h1>Sugar Doctor</h1>
-                        <p><a href="/hardData">Dashboard</a> <a href="/aboutDiabetes">About Diabetes</a></p>
-                    {{else}} 
-                        <p>Sugar Doctor <a href="/aboutDiabetes"> About Diabetes</a> <a href="/aboutTeam"> Meet the team</a> <a href="/login"> Login</a></p>
+                        <p><a href="/hardData">Dashboard</a> <a href="/aboutDiabetes">About Diabetes</a> <a href="/aboutUs">Team</a></p>
+                    {{else}}
+                        <h1>Sugar Doctor</h1> 
+                        <p><a href="/aboutDiabetes"> About Diabetes</a> <a href="/aboutUs">Team</a> <a href="/login"> Login</a></p>
                     {{/if}}
                     
                 </div>
