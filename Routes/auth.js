@@ -3,6 +3,7 @@ import express from "express";
 //const passport = require('passport')
 //const express = require('express')
 const router = express.Router()
+import { getUserByUsername } from "../Controllers/userController.js";
 
 // Authentication middleware
 const isAuthenticated = (req, res, next) => {
@@ -30,7 +31,8 @@ router.get('/', isAuthenticated, (req, res) => {
     res.render('clinicianFunctionality.hbs', { title: 'Express', user: req.user })
     }
     else {
-        res.render('patient-home.hbs', {user: req.user})
+        //res.render('patient-home.hbs', {user: req.user})
+        getUserByUsername(req,res)
     }
 })
 

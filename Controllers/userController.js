@@ -45,8 +45,8 @@ export const signup = async (req, res) => {
   
 export const getUserByUsername = async (req, res) => {
   try {
-    const thisUser = await userModel.findOne({username: "BobCat"}).lean();
-    const thisGlucose = await glucoseModel.find({patient_id: "123"}).sort({$natural:-1}).lean().limit(1);
+    const thisUser = await userModel.findOne({username: req.user.username }).lean();
+    const thisGlucose = await glucoseModel.find({patientId: req.user._id }).sort({$natural:-1}).lean().limit(1);
 
     return res.render('patient-home.hbs', {user: thisUser, glucose: thisGlucose} );
     

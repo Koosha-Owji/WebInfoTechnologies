@@ -22,6 +22,7 @@
 
             <main class ="content">
                 <h1>Sugar Doctor</h1>
+                <p>Test</p>
                 {{#with user as |u| }}
                    <p>Welcome {{u.firstName}} !</p>
                     <h2>Today's Data</h2>
@@ -33,13 +34,17 @@
                                 <a>Blood Glucose</a>
                                 {{#each ../glucose}}
                                     {{#if (enteredToday this.dateTime) }}
+                                    <p>{{u.username}} </p>
                                         <p>Level: {{this.glucoseLevel}} </p>
                                         <p>Entered at {{this.dateTime}} </p>
                                     {{else}}
+                                        <p>{{this.dateTime}} </p>
+                                        <p>{{dateToday }} </p>
                                         <form action="/patient-home" method="post">
                                             <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
                                             <input type="text" placeholder="Comment" name="glucoseComment" />
                                             <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
                            
                                         </form>
                                     {{/if}}
@@ -49,27 +54,6 @@
 
                         {{/if}}
 
-                        {{#if u.insulinRequired}}
-                            <div class = "box">
-                                <a>Insulin</a>
-                                {{#each ../glucose}}
-                                    {{#if (returnFalse) }}
-                                        <p>Level: {{this.glucoseLevel}} </p>
-                                        <p>Entered at {{this.dateTime}} </p>
-                                    {{else}}
-                                        <form action="/patient-home" method="post">
-                                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
-                                            <input type="text" placeholder="Comment" name="glucoseComment" />
-                                            <input type="Submit" />
-                           
-                                        </form>
-                                    {{/if}}
-                                {{/each}}
-                            
-                            </div>
-
-                        {{/if}}
-                        
 
 
                         <div class = "box"><a>Weight</a><input></input></div>

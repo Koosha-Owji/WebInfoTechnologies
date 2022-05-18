@@ -14,9 +14,9 @@ import {
 } from "../Controllers/userController.js";
 
 // process routes by calling controller functions
-patientRouter.get('/', (req, res) => get_one_glucose(req, res))
+//patientRouter.get('/', (req, res) => get_one_glucose(req, res))
 
-patientRouter.get('/patient-home', (req,res) => {
+patientRouter.get('/', (req,res) => {
     
     //getOne(req,res)
     getUserByUsername(req,res)
