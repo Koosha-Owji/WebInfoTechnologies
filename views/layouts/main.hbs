@@ -22,14 +22,14 @@
 
                     {{#if (equalString "Patient" user.role)}}
                         <h1>Sugar Doctor <p>hia</p></h1> 
-                    {{/if}}
 
                                         
-                    {{#if (equalString "Clinician" user.role)}}
+                    {{else if (equalString "Clinician" user.role)}}
                         <h1>Sugar Doctor</h1>
-                        <p><a href="/hard_data">Dashboard</a></p> 
+                        <p><a href="/hardData">Dashboard</a> <a href="/aboutDiabetes">About Diabetes</a></p>
+                    {{else}} 
+                        <p>Sugar Doctor <a href="/aboutDiabetes"> About Diabetes</a> <a href="/aboutTeam"> Meet the team</a> <a href="/login"> Login</a></p>
                     {{/if}}
-                    
                     
                 </div>
                 <div class="topnav-left">  

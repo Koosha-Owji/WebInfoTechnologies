@@ -55,5 +55,14 @@ router.post('/logout', (req, res) => {
     res.redirect('/')
 })
 
+
+// Rough Implementation of Dashboard
+import patientData from "./patientData.js";
+router.use('/hardData', patientData)
+
+// Rough Implementation of About Diabetes
+import aboutDiabetes from "./aboutDiabetes.js";
+router.use('/aboutDiabetes', aboutDiabetes)
+
 //module.exports = router
 export default router;
