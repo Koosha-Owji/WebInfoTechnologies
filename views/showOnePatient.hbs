@@ -1,75 +1,141 @@
 
 {{#each patientData as |patient|}}
 
-<h1>Showing data for {{patient.firstName}} {{patient.lastName}}</h1>
+  <h1>Showing data for {{patient.firstName}} {{patient.lastName}}</h1>
 
+  <table border=2px solid>
+    <tr>
+      <th>Type of data</th>
+      <th>Lower Threshold</th>
+      <th>Upper Threshold</th>
+      <th>Can {{patient.firstName}} record this data?</th>
+    </tr>
 
+    <tr>
+      <td>Exercise</td>
+      <td>{{patient.exerciseLower}}</td>
+      <td>{{patient.exerciseUpper}}</td>
+      <td>{{#if patient.exerciseRequired}} <p style="color:green">Yes </p>
+          {{else}} <p style="color:red">No </p> {{/if}} </td>    
+    </tr>
+    
+    <tr>
+      <td>Glucose</td>
+      <td>{{patient.glucoseLower}}</td>
+      <td>{{patient.glucoseUpper}}</td>
+      <td>{{#if patient.glucoseRequired}} <p style="color:green">Yes </p>
+          {{else}} <p style="color:red">No </p> {{/if}} </td>    
+    </tr>
 
-<table border=2px solid>
-  <tr>
-    <th>Type of data</th>
-    <th>Lower Threshold</th>
-    <th>Upper Threshold</th>
-    <th>Can {{patient.firstName}} record this data?</th>
-  </tr>
+    <tr>
+      <td>Insulin</td>
+      <td>{{patient.insulinLower}}</td>
+      <td>{{patient.insulinUpper}}</td>
+      <td>{{#if patient.insulinRequired}} <p style="color:green">Yes </p>
+          {{else}} <p style="color:red">No </p> {{/if}} </td>    
+    </tr>
 
-  <tr>
-    <td>Exercise</td>
-    <td>{{patient.exerciseLower}}</td>
-    <td>{{patient.exerciseUpper}}</td>
-    <td>{{#if patient.exerciseRequired}} <p style="color:green">Yes </p>
-        {{else}} <p style="color:red">No </p> {{/if}} </td>    
-  </tr>
-  
-  <tr>
-    <td>Glucose</td>
-    <td>{{patient.glucoseLower}}</td>
-    <td>{{patient.glucoseUpper}}</td>
-    <td>{{#if patient.glucoseRequired}} <p style="color:green">Yes </p>
-        {{else}} <p style="color:red">No </p> {{/if}} </td>    
-  </tr>
+    <tr>
+      <td>Weight</td>
+      <td>{{patient.weightLower}}</td>
+      <td>{{patient.weightUpper}}</td>
+      <td>{{#if patient.weightRequired}} <p style="color:green">Yes </p>
+          {{else}} <p style="color:red">No </p> {{/if}} </td>    
+    </tr>
+  </table>
 
-  <tr>
-    <td>Insulin</td>
-    <td>{{patient.insulinLower}}</td>
-    <td>{{patient.insulinUpper}}</td>
-    <td>{{#if patient.insulinRequired}} <p style="color:green">Yes </p>
-        {{else}} <p style="color:red">No </p> {{/if}} </td>    
-  </tr>
-
-  <tr>
-    <td>Weight</td>
-    <td>{{patient.weightLower}}</td>
-    <td>{{patient.weightUpper}}</td>
-    <td>{{#if patient.weightRequired}} <p style="color:green">Yes </p>
-        {{else}} <p style="color:red">No </p> {{/if}} </td>    
-  </tr>
-</table>
-
-<main class ="content">
-  <h2>Change Data to record</h2>
-  <div class="container">
-    <div class = "box">
-        <a>Check which data to record</a>
-        <form action="/showOnePatient" method="post">
-            <input type="checkbox" id="exercise" name="exerciseRequired" value="true">
-            <label for="exercise"> Exercise </label><br>
-            <input type="checkbox" id="glucose" name="glucoseRequired" value="true">
-            <label for="glucose"> Glucose </label><br>
-            <input type="checkbox" id="insulin" name="insulinRequired" value="true">
-            <label for="insulin"> Insulin </label><br>
-            <input type="checkbox" id="weight" name="weightRequired" value="true">
-            <label for="weight"> Weight </label><br>
-            <input type="hidden" name="username" value = {{patient.username}}/>
-            <input type = "hidden" name = "clinicianId" value = {{user._id}} />
-            <input type="Submit" />
-        </form>
+  <main class ="content">
+    <h2>Change Data to record</h2>
+    <div class="container">
+      <div class = "box">
+          <a>Check which data to record</a>
+          <form action="/showOnePatient" method="post">
+              <input type="checkbox" id="exercise" name="exerciseRequired" value="true">
+              <label for="exercise"> Exercise </label><br>
+              <input type="checkbox" id="glucose" name="glucoseRequired" value="true">
+              <label for="glucose"> Glucose </label><br>
+              <input type="checkbox" id="insulin" name="insulinRequired" value="true">
+              <label for="insulin"> Insulin </label><br>
+              <input type="checkbox" id="weight" name="weightRequired" value="true">
+              <label for="weight"> Weight </label><br>
+              <input type="hidden" name="username" value = {{patient.username}}/>
+              <input type = "hidden" name = "clinicianId" value = {{user._id}} />
+              <input type="Submit" />
+          </form>
+      </div>
     </div>
-  </div>
-</main>
+  </main>
+  {{!-- {{ Display previous medical data}} --}}
+  {{!-- {{ Important to show all the previous posts even if they're not being recorded anymore}} --}}
+  <table border=2px solid>
+    <tr>
+      <th>Type of data</th>
+      <th>Data level</th>
+      <th>Date when data was recorded</th>
+    </tr>
+  
+    {{#each ../medicalData as |medicalPost|}}
+      {{#if (equalString patient.username medicalPost.username)}}
+        {{!-- {{ Found the post of this user}} --}}
+        
+        {{#if (equalString "exercise" medicalPost.dataType)}}
+          <tr>
+            <th>Exercise</th>
+            <th>{{medicalPost.dataLevel}} steps</th>
+            <th>{{medicalPost.dateTime}}</th>
+          </tr>
+        {{/if}}
 
-{{#each ../medicalData as |medicalPost|}}
- {{medicalPost.medicalData}}</p>
-{{/each}}
+        {{#if (equalString "glucose" medicalPost.dataType)}}
+          <tr>
+            <th>Glucose</th>
+            <th>{{medicalPost.dataLevel}} nmol/L</th>
+            <th>{{medicalPost.dateTime}}</th>
+          </tr>
+        {{/if}}
+
+        {{#if (equalString "insulin" medicalPost.dataType)}}
+          <tr>
+            <th>Insulin</th>
+            <th>{{medicalPost.dataLevel}} doses</th>
+            <th>{{medicalPost.dateTime}}</th>
+          </tr>
+        {{/if}}
+
+        {{#if (equalString "weight" medicalPost.dataType)}}
+          <tr>
+            <th>Weight</th>
+            <th>{{medicalPost.dataLevel}} kg</th>
+            <th>{{medicalPost.dateTime}}</th>
+          </tr>
+        {{/if}}
+
+
+      {{/if}}
+    {{/each}}
+  </table>
+
+  {{!-- {{ Display previous notes made}} --}}
+  {{!-- {{ Important to show all the previous posts even if they're not being recorded anymore}} --}}
+  <table border=2px solid>
+    <tr>
+      <th>Content of the note</th>
+      <th>Date when note was made</th>
+    </tr>
+  
+    {{#each ../medicalData as |medicalPost|}}
+      {{#if (equalString patient.username medicalPost.username)}}
+        {{!-- {{ Found the post of this user}} --}}
+        
+        {{#if (equalString "note" medicalPost.dataType)}}
+          <tr>
+            <th>{{medicalPost.dataComment}}</th>
+            <th>{{medicalPost.dateTime}}</th>
+          </tr>
+        {{/if}}
+
+      {{/if}}
+    {{/each}}
+  </table>
 
 {{/each}}

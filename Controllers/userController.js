@@ -76,7 +76,7 @@ export const getAllPatientsData = async (req, res) => {
 };
 
 
-export const getDataById =  async (req, res) => { // get one food, and render it
+export const getDataById =  async (req, res) => {
 	try {
     // Information about the medical data posted by the patient
 		const patientPostInfo = await glucoseModel.find({username: req.params.username} ).sort({dateTime: -1}).lean();
