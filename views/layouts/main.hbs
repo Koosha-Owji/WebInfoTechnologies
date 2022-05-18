@@ -19,7 +19,18 @@
         <header class = "header">
             <div class="topnav">
                 <div class="main_logo">
-                    <h1>Sugar Doctor</h1>
+
+                    {{#if (equalString "Patient" user.role)}}
+                        <h1>Sugar Doctor <p>hia</p></h1> 
+                    {{/if}}
+
+                                        
+                    {{#if (equalString "Clinician" user.role)}}
+                        <h1>Sugar Doctor</h1>
+                        <p><a href="/hard_data">Dashboard</a></p> 
+                    {{/if}}
+                    
+                    
                 </div>
                 <div class="topnav-left">  
                 </div>
