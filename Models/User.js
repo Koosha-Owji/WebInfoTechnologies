@@ -17,10 +17,10 @@ const userSchema = new mongoose.Schema({
     password : { type: String, required: true },
     role: {type: String , required: true, default: 'Patient'},
     supportMessage: { type: String, required: false },
-    glucoseRequired: { type: Boolean, required: false, default: true },
-    insulinRequired: { type: Boolean, required: false, default: true },
-    exerciseRequired: { type: Boolean, required: false, default: true },
-    weightRequired: { type: Boolean, required: false, default: true }
+    glucoseRequired: { type: Boolean, required: false, default: false },
+    insulinRequired: { type: Boolean, required: false, default: false },
+    exerciseRequired: { type: Boolean, required: false, default: false },
+    weightRequired: { type: Boolean, required: false, default: false }
   });
 
 userSchema.methods.verifyPassword = function (password, callback) {

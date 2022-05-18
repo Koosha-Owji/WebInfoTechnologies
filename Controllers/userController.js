@@ -2,6 +2,26 @@ import userModel from '../Models/User.js';
 import glucoseModel from '../Models/Glucose.js';
 import bcrypt from "bcryptjs";
 
+export const signupOG = async (req, res) => {
+  const {firstName, lastName, username, password , clinicianId, exerciseLower } = req.body;
+
+  try {
+    const oldUser = await userModel.findOne({ username });
+
+    if (oldUser) return res.status(400).json({ message: "User already exists" });
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const result = await userModel.create({firstName, lastName, username, password: hashedPassword, clinicianId,exerciseLower });  
+    res.render('clinicianFunctionality.hbs', {user: req.user});
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+    
+    console.log(error);
+  }
+};
+
+
 export const signup = async (req, res) => {
     const {firstName, lastName, username, password , clinicianId } = req.body;
   
