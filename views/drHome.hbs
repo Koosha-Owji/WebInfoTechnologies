@@ -100,6 +100,20 @@
 
                     {{/each}}
                 {{/if}}
+                
+                <div class="container">
+                    <div class = "box">
+                        <a>Write a note about {{patient.firstName}}</a>
+                        <form action="/drHome" method="post">
+                            
+                            <input type="text" placeholder="note" name="content" />
+                            <input type="hidden" name="username" value = {{patient.username}}/>
+                            <input type = "hidden" name = "clinicianId" value = {{../user._id}} />
+                            <input type = "hidden" name = "dataType" value = "note" />
+                            <input type="Submit" />
+                        </form>
+                    </div>
+                </div>
             </div>
         {{/each}}
     </div>
