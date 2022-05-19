@@ -5,161 +5,109 @@
 <p><a href="/allComments">View recent comments</a>           <a href="/allNotes">View all notes</a></p>
 <p><a href="/"> Link to Register Patient</a> </p>
 </div>
+
+
+
 {{!-- {{ Iterate through every patient}} --}}
 <div class="row_containers">
     <div class="patient_rows">
         {{#each patients as |patient|}}
             <div class="patient_info">
                 {{!-- {{Show patient data and link to their individal page }} --}}
-                <p>Patient Name: <a href="/hardData/{{patient.username}}">{{patient.firstName}} {{patient.lastName}}</a></p>
+                <p>Patient Name: <a href="/hardData/{{patient.username}}">{{patient.firstName}} {{patient.lastName}} {{patient._id}}</a></p>
                 <p>Medical Data Added Today</p>
 
-                {{!-- {{ Check to see if the Dr needs to see exercise}} --}}
+                {{!-- {{ See if exercise is required }} --}}
                 {{#if patient.exerciseRequired}}
-                    {{!-- {{ Check if any exercise data has been added}} --}}
-                    {{#if ../exercisePost.length}}        
-                        {{#each ../exercisePost as |userDataPost|}}
-                        {{!-- {{ Iterate through every glucose post to find the most recent from this patient}} --}}
-                            {{!-- {{ Found the post of this user}} --}}
-                            {{#if (equalString patient.username userDataPost.username)}}
-                                {{#if userDataPost.dataLevel}}
-                                    {{!-- {{ Upper threshold is breached}} --}}
-                                    {{#if (isGreater userDataPost.dataLevel patient.exerciseUpper)}} <p style="color:red">Amount of exercise: {{userDataPost.dataLevel}} steps</p> 
-                                    {{!-- {{ Lower threshold is breached}} --}}  
-                                    {{else if (isLess userDataPost.dataLevel patient.exerciseLower)}} <p style="color:red">Amount of exercise: {{userDataPost.dataLevel}} steps</p> 
-                                    
-                                    {{!-- {{ Neither threshold breached }} --}}  
-                                    {{else}} <p>Amount of exercise: {{userDataPost.dataLevel}} steps</p>
-                                    {{/if}}
-                                {{else}} 
-                                    <p style="color:red">No steps have been added</p>
-                                {{/if}}
-                                <p>Exercise Comment: {{userDataPost.dataComment}}</p>
-                            {{/if}}
-
-                        {{/each}}
-                    {{else}}
-                    <p style="color:red">No exercise data has been added</p>
-                    {{/if}}
-
-                    {{#each ../exercisePost as |userDataPost|}}
-                    {{!-- {{ Iterate through every glucose post to find the most recent from this patient}} --}}
-                        {{!-- {{ Found the post of this user}} --}}
-                        {{#if (equalString patient.username userDataPost.username)}}
-                            {{#if userDataPost.dataLevel}}
+                    {{!-- {{ Go through every exercise post and see if it belongs to the patient }} --}}
+                    {{#each ../exercisePost as |dataPost|}}
+                        {{!-- {{ This post belongs to the patient }} --}}
+                        {{#if (equalString patient._id dataPost.patientId)}}
+                            {{!-- {{ See if the data has been aded and if it breaches any of the thresholds }} --}}
+                            {{#if dataPost.glucoseLevel}}
                                 {{!-- {{ Upper threshold is breached}} --}}
-                                {{#if (isGreater userDataPost.dataLevel patient.exerciseUpper)}} <p style="color:red">Amount of exercise: {{userDataPost.dataLevel}} steps</p> 
-                                {{!-- {{ Lower threshold is breached}} --}}  
-                                {{else if (isLess userDataPost.dataLevel patient.exerciseLower)}} <p style="color:red">Amount of exercise: {{userDataPost.dataLevel}} steps</p> 
-                                
-                                {{!-- {{ Neither threshold breached }} --}}  
-                                {{else}} <p>Amount of exercise: {{userDataPost.dataLevel}} steps</p>
+                                {{#if (isGreater dataPost.glucoseLevel patient.exerciseUpper)}} <p style="color:red">Amount of exercise: {{dataPost.glucoseLevel}} steps</p> 
+                                {{!-- {{ Lower threshold is breached}} --}}
+                                {{else if (isLess dataPost.glucoseLevel patient.exerciseLower)}} <p style="color:red">Amount of exercise: {{dataPost.glucoseLevel}} steps</p>   
+                                <p>Amount of exercise: {{dataPost.glucoseLevel}} steps</p>
                                 {{/if}}
-                            {{else}} 
+                            {{else}}
                                 <p style="color:red">No steps have been added</p>
                             {{/if}}
-                            <p>Exercise Comment: {{userDataPost.dataComment}}</p>
+                        <p>Exercise Comment: {{dataPost.glucoseComment}}</p>
+                        <p>Exercise Added on: {{dataPost.dateTime}}</p>    
                         {{/if}}
-
                     {{/each}}
                 {{/if}}
 
-
-                {{!-- {{ Check to see if the Dr needs to see glucose}} --}}
+                {{!-- {{ See if glucose is required }} --}}
                 {{#if patient.glucoseRequired}}
-                    {{#if ../glucosePost.length}}
-                    {{else}}
-                    <p style="color:red">No glucose values has been added</p>
-                    {{/if}}
-                    {{!-- {{ Iterate through every glucose post to find the most recent from this patient}} --}}
-
-                    {{#each ../glucosePost as |userDataPost|}}
-                        {{!-- {{ Found the post of this user}} --}}
-                        {{#if (equalString patient.username userDataPost.username)}}
-                            {{#if userDataPost.dataLevel}}
+                    {{!-- {{ Go through every glucose post and see if it belongs to the patient }} --}}
+                    {{#each ../glucosePost as |dataPost|}}
+                        {{!-- {{ This post belongs to the patient }} --}}
+                        {{#if (equalString patient._id dataPost.patientId)}}
+                            {{!-- {{ See if the data has been aded and if it breaches any of the thresholds }} --}}
+                            {{#if dataPost.glucoseLevel}}
                                 {{!-- {{ Upper threshold is breached}} --}}
-                                {{#if (isGreater userDataPost.dataLevel patient.glucoseUpper)}} <p style="color:red">Glucose Level: {{userDataPost.dataLevel}} nmol/L</p> 
-                                {{!-- {{ Lower threshold is breached}} --}}  
-                                {{else if (isLess userDataPost.dataLevel patient.glucoseLower)}} <p style="color:red">Glucose Level: {{userDataPost.dataLevel}} nmol/L</p> 
-                                
-                                {{!-- {{ Neither threshold breached }} --}}  
-                                {{else}} <p>Glucose Level: {{userDataPost.dataLevel}} nmol/L</p>
+                                {{#if (isGreater dataPost.glucoseLevel patient.glucoseUpper)}} <p style="color:red">Blood glucose level: {{dataPost.glucoseLevel}} nmol/L</p> 
+                                {{!-- {{ Lower threshold is breached}} --}}
+                                {{else if (isLess dataPost.glucoseLevel patient.glucoseLower)}} <p style="color:red">Blood glucose level: {{dataPost.glucoseLevel}} nmol/L</p>   
+                                <p>Blood glucose level: {{dataPost.glucoseLevel}} nmol/L
                                 {{/if}}
-                                
-                            {{else}} 
-                                <p style="color:red">No glucose values has been added</p>
-                            
+                            {{else}}
+                                <p style="color:red">No glucose data has been added</p>
                             {{/if}}
-                            <p>Glucose Comment: {{userDataPost.dataComment}}</p>
-                        
+                        <p>Glucose Comment: {{dataPost.glucoseComment}}</p>
+                        <p>Glucose Added on: {{dataPost.dateTime}}</p>    
                         {{/if}}
-
                     {{/each}}
                 {{/if}}
 
-                {{!-- {{ Check to see if the Dr needs to see insulin}} --}}
+                {{!-- {{ See if insulin is required }} --}}
                 {{#if patient.insulinRequired}}
-                    {{#if ../insulinPost.length}}
-                    {{else}}
-                    <p style="color:red">No insulin values has been added</p>
-                    {{/if}}
-                    {{!-- {{ Iterate through every insulin post to find the most recent from this patient}} --}}
-                    {{#each ../insulinPost as |userDataPost|}}
-
-                        {{!-- {{ Found the post of this user}} --}}
-                        {{#if (equalString patient.username userDataPost.username)}}
-                            {{#if userDataPost.dataLevel}}
+                    {{!-- {{ Go through every insulin post and see if it belongs to the patient }} --}}
+                    {{#each ../insulinPost as |dataPost|}}
+                        {{!-- {{ This post belongs to the patient }} --}}
+                        {{#if (equalString patient._id dataPost.patientId)}}
+                            {{!-- {{ See if the data has been aded and if it breaches any of the thresholds }} --}}
+                            {{#if dataPost.glucoseLevel}}
                                 {{!-- {{ Upper threshold is breached}} --}}
-                                {{#if (isGreater userDataPost.dataLevel patient.insulinUpper)}} <p style="color:red">Doses of Insulin taken: {{userDataPost.dataLevel}} doses</p> 
-                                {{!-- {{ Lower threshold is breached}} --}}  
-                                {{else if (isLess userDataPost.dataLevel patient.insulinLower)}} <p style="color:red">Doses of Insulin taken: {{userDataPost.dataLevel}} doses</p> 
-                                
-                                {{!-- {{ Neither threshold breached }} --}}  
-                                {{else}} <p>Doses of Insulin taken: {{userDataPost.dataLevel}} doses</p>
+                                {{#if (isGreater dataPost.glucoseLevel patient.insulinUpper)}} <p style="color:red">Insulin taken: {{dataPost.glucoseLevel}} doses</p> 
+                                {{!-- {{ Lower threshold is breached}} --}}
+                                {{else if (isLess dataPost.glucoseLevel patient.insulinLower)}} <p style="color:red">Insulin taken: {{dataPost.glucoseLevel}} doses</p>   
+                                <p>Insulin taken: {{dataPost.glucoseLevel}} doses</p>
                                 {{/if}}
-                                
-                                {{else}} 
-                                    <p style="color:red">No insulin values has been added</p>
-                                
+                            {{else}}
+                                <p style="color:red">No insulin data has been added</p>
                             {{/if}}
-                            <p>Insulin Comment: {{userDataPost.dataComment}}</p>
-                        
+                        <p>Insulin Comment: {{dataPost.glucoseComment}}</p>
+                        <p>Insulin Added on: {{dataPost.dateTime}}</p>    
                         {{/if}}
-
                     {{/each}}
                 {{/if}}
 
-                {{!-- {{ Check to see if the Dr needs to see weight}} --}}
+                {{!-- {{ See if weight is required }} --}}
                 {{#if patient.weightRequired}}
-                    {{#if ../weightPost.length}}
-                    {{else}}
-                    <p style="color:red">No weight values has been added</p>
-                    {{/if}}
-                    {{!-- {{ Iterate through every weight post to find the most recent from this patient}} --}}
-                    {{#each ../weightPost as |userDataPost|}}
-
-                        {{!-- {{ Found the post of this user}} --}}
-                        {{#if (equalString patient.username userDataPost.username)}}
-                            {{#if userDataPost.dataLevel}}
+                    {{!-- {{ Go through every weight post and see if it belongs to the patient }} --}}
+                    {{#each ../weightPost as |dataPost|}}
+                        {{!-- {{ This post belongs to the patient }} --}}
+                        {{#if (equalString patient._id dataPost.patientId)}}
+                            {{!-- {{ See if the data has been aded and if it breaches any of the thresholds }} --}}
+                            {{#if dataPost.glucoseLevel}}
                                 {{!-- {{ Upper threshold is breached}} --}}
-                                {{#if (isGreater userDataPost.dataLevel patient.weightUpper)}} <p style="color:red">Weight: {{userDataPost.dataLevel}} kg</p> 
-                                {{!-- {{ Lower threshold is breached}} --}}  
-                                {{else if (isLess userDataPost.dataLevel patient.weightLower)}} <p style="color:red">Weight: {{userDataPost.dataLevel}} kg</p> 
-                                
-                                {{!-- {{ Neither threshold breached }} --}}  
-                                {{else}} <p>Weight: {{userDataPost.dataLevel}} kg</p>
+                                {{#if (isGreater dataPost.glucoseLevel patient.weightUpper)}} <p style="color:red">Weight recorded: {{dataPost.glucoseLevel}} kg</p> 
+                                {{!-- {{ Lower threshold is breached}} --}}
+                                {{else if (isLess dataPost.glucoseLevel patient.weightLower)}} <p style="color:red">Weight recorded: {{dataPost.glucoseLevel}} kg</p>   
+                                <p>Weight recorded: {{dataPost.glucoseLevel}} kg </p>
                                 {{/if}}
-                                
-                            {{else}} 
-                                <p style="color:red">No weight values has been added</p>
-                            
+                            {{else}}
+                                <p style="color:red">No weight data has been added</p>
                             {{/if}}
-                            <p>Weight Comment: {{userDataPost.dataComment}}</p>
+                        <p>Weight Comment: {{dataPost.glucoseComment}}</p>
+                        <p>Weight Added on: {{dataPost.dateTime}}</p>    
                         {{/if}}
-
                     {{/each}}
                 {{/if}}
-                
                 <div class="container">
                     <div class = "box">
                         <a>Write a note about {{patient.firstName}}</a>
@@ -176,3 +124,4 @@
         {{/each}}
     </div>
 </div>
+
