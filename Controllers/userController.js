@@ -163,7 +163,7 @@ export const getDataById =  async (req, res) => {
 		const patientPostInfo = await glucoseModel.find({username: req.params._id} ).sort({dateTime: -1}).lean();
     // Information about the user data of the patient
     const patientUserInfo = await userModel.find({"$and": [{username: req.params.username}, {role: "Patient"}]}).lean();
-    const noteData = await noteModel.find({"$and": [{username: req.params.username}]}).lean();
+    const noteData = await noteModel.find({"$and": [{username: req.params.username}]}).sort({dateTime: -1}).lean();
 		res.render('showOnePatient', {user: req.user,medicalData: patientPostInfo, patients: patientUserInfo, notePost: noteData})	
 	} catch (err) {
 		console.log(err)

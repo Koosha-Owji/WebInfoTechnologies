@@ -1,4 +1,7 @@
 {{#each patients as |patient|}}
+{{/each}}
+
+{{#each patients as |patient|}}
 
   <h1>Showing data for {{patient.firstName}} {{patient.lastName}}</h1>
 
@@ -95,13 +98,13 @@
     </tr>
   
     {{#each ../medicalData as |medicalPost|}}
-      {{#if (equalString patient.username medicalPost.username)}}
+      {{#if (equalString patient._id medicalPost.patientId)}}
         {{!-- {{ Found the post of this user}} --}}
         
         {{#if (equalString "exercise" medicalPost.dataType)}}
           <tr>
             <th>Exercise</th>
-            <th>{{medicalPost.dataLevel}} steps</th>
+            <th>{{medicalPost.glucoseLevel}} steps</th>
             <th>{{medicalPost.dateTime}}</th>
           </tr>
         {{/if}}
@@ -109,7 +112,7 @@
         {{#if (equalString "glucose" medicalPost.dataType)}}
           <tr>
             <th>Glucose</th>
-            <th>{{medicalPost.dataLevel}} nmol/L</th>
+            <th>{{medicalPost.glucoseLevel}} nmol/L</th>
             <th>{{medicalPost.dateTime}}</th>
           </tr>
         {{/if}}
@@ -117,7 +120,7 @@
         {{#if (equalString "insulin" medicalPost.dataType)}}
           <tr>
             <th>Insulin</th>
-            <th>{{medicalPost.dataLevel}} doses</th>
+            <th>{{medicalPost.glucoseLevel}} doses</th>
             <th>{{medicalPost.dateTime}}</th>
           </tr>
         {{/if}}
@@ -125,7 +128,7 @@
         {{#if (equalString "weight" medicalPost.dataType)}}
           <tr>
             <th>Weight</th>
-            <th>{{medicalPost.dataLevel}} kg</th>
+            <th>{{medicalPost.glucoseLevel}} kg</th>
             <th>{{medicalPost.dateTime}}</th>
           </tr>
         {{/if}}
@@ -143,7 +146,7 @@
       <th>Date when note was made</th>
     </tr>
   
-    {{#each notePost as |note|}}
+    {{#each ../notePost as |note|}}
         {{!-- {{ Found the post of this user}} --}}
           <tr>
             <th>{{note.content}}</th>
