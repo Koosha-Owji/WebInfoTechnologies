@@ -89,10 +89,23 @@ export const getAllPatientsData = async (req, res) => {
       const insulinData = await glucoseModel.find({"$and": [{dateTime: date},{dataType:"insulin"}]}).sort({dateTime: -1}).lean();
       const weightData = await glucoseModel.find({"$and": [{dateTime: date},{dataType:"weight"}]}).sort({dateTime: -1}).lean();
 
-      // Find all users
+      // Find all patients of the Dr
       const drPatients = await userModel.find({"$and": [{clinicianId: req.user._id}, {role: "Patient"}]}).lean();
       
       return res.render('drHome.hbs',{user: req.user, patients: drPatients, exercisePost: exerciseData, glucosePost: glucoseData, insulinPost: insulinData, weightPost: weightData});
+
+  } catch (err) {
+      res.status(500).json({ message: "Dashboard rendering failed!" });
+  }
+};
+
+
+export const writeSupportMessage = async (req, res) => {
+  try {
+      // Find all patients of the Dr
+      const drPatients = await userModel.find({"$and": [{clinicianId: req.user._id}, {role: "Patient"}]}).lean();
+      
+      return res.render('writeSupportMessage.hbs',{user: req.user, patients: drPatients});
 
   } catch (err) {
       res.status(500).json({ message: "Dashboard rendering failed!" });

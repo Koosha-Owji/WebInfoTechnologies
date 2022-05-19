@@ -1,0 +1,30 @@
+
+<h1> <font size="+2"> <b>Write a support message</b></font></h1> <br>
+{{!-- {{ Iterate through every patient}} --}}
+<div class="row_containers">
+    <div class="patient_rows">
+        {{#each patients as |patient|}}
+            <div class="patient_info">
+                {{#if patient.supportMessage}}
+                    <p>Current support message for {{patient.firstName}} {{patient.lastName}}:</p>
+                    <p>{{patient.supportMessage}}</p>
+                {{else}}
+                    <p style="color:red">{{patient.firstName}} {{patient.lastName}} does not have a support message!</p>
+                {{/if}}
+                
+                <div class="container">
+                    <div class = "box">
+                        {{!-- {{ Update the support message for the user}} --}}
+                        <a>Write a new support message for {{patient.firstName}} {{patient.lastName}}</a>
+                        <form action="/writeSupportMessage" method="post">
+                            
+                            <input type="text" placeholder="Support Message" name="supportMessage" />
+                            <input type="hidden" name="username" value = {{patient.username}}/>
+                            <input type="Submit" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
