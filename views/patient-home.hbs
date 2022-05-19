@@ -54,7 +54,6 @@
                                         <p>Level: {{this.glucoseLevel}} </p>
                                         <p>Entered at {{this.dateTime}} </p>
                                     {{else}}
-                                      
                                         <form action="/patient-home" method="post">
                                             <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
                                             <input type="text" placeholder="Comment" name="glucoseComment" />
@@ -64,6 +63,15 @@
                            
                                         </form>
                                     {{/if}}
+                                    {{else}}
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="glucose" name="dataType"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
+                           
+                                        </form>
                                 {{/each}}
                             
                             </div>
@@ -89,6 +97,16 @@
                            
                                         </form>
                                     {{/if}}
+                                    {{else}}
+                                      
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="insulin" name="dataType"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
+                           
+                                        </form>
                                 {{/each}}
                             
                             </div>
@@ -114,6 +132,16 @@
                            
                                         </form>
                                     {{/if}}
+                                    {{else}}
+                                      
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="insulin" name="dataType"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
+                           
+                                        </form>
                                 {{/each}}
                             
                             </div>
@@ -139,6 +167,16 @@
                            
                                         </form>
                                     {{/if}}
+                                    {{else}}
+                                      
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="insulin" name="dataType"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
+                           
+                                        </form>
                                 {{/each}}
                             
                             </div>
