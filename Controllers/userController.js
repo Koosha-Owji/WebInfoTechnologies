@@ -64,13 +64,17 @@ export const signup = async (req, res) => {
   
 export const getUserByUsername = async (req, res) => {
   try {
-    const user = await userModel.findOne({username: "BobCat"}).lean();
-    if (!user) return res.json("No user found");
-    return res.render('patientHome.hbs',{data: user});
+    const thisUser = await userModel.findOne({username: req.user.username }).lean();
+    const thisGlucose = await glucoseModel.find({patientId: req.user._id }).sort({$natural:-1}).lean().limit(1);
+
+    return res.render('patient-home.hbs', {user: thisUser, glucose: thisGlucose} );
+    
+    //return res.render('patientHome.hbs',{data: user});
   } catch (err) {
     res.status(500).json({ message: "Glucose retrieval failed!" });
   }
 };
+
 
 
 export const getAllPatientsData = async (req, res) => {
