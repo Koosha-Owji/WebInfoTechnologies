@@ -66,7 +66,7 @@ export const signup = async (req, res) => {
   };
   export const update_password = async (req,res)=>{
     try {
-      const oldUser = await userModel.findOne({ _id: req.user_id });
+      const oldUser = await userModel.findOne({ username: req.body.username });
       if (!oldUser)
       return res.status(400).json({ message: "User doesn't exist" });
       const isPasswordCorrect = await bcrypt.compare(req.body.current_password, oldUser.password);
@@ -74,12 +74,12 @@ export const signup = async (req, res) => {
       const hashedPassword = await bcrypt.hash(req.body.new_password, 12);
   
       await userModel
-      .findByIdAndUpdate(req.user_id, {
+      .findByIdAndUpdate(oldUser._id, {
         password: hashedPassword
       })
       .exec();
   
-      return res.json({message: "Password Changed Successfully!"});      
+      return res.redirect('/');     
     } catch (error) {
       res.status(500).json({ message: "Password did not change!" });
     }
@@ -250,5 +250,15 @@ export const engagementRate = async (req,res) => {
 
   } catch (err) {
     res.status(500).json({ message: "Could not get engagement rate!" });
+  }
+};
+export const getProfile = async (req, res) => {
+  try {
+    const thisUser = await userModel.findOne({username: req.user.username }).lean();
+    return res.render('Profile.hbs', {user: thisUser} );
+    
+    //return res.render('patientHome.hbs',{data: user});
+  } catch (err) {
+    res.status(500).json({ message: "Glucose retrieval failed!" });
   }
 };

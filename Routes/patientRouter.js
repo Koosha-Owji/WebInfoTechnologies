@@ -9,7 +9,9 @@ import {
 
 import {
     getUserByUsername,
-    engagementRate
+    engagementRate,
+    getProfile,
+    update_password
 } from "../Controllers/userController.js";
 
 // process routes by calling controller functions
@@ -19,6 +21,8 @@ patientRouter.get('/', (req,res) => getUserByUsername(req,res) )
 // export the router
 
 patientRouter.get('/leaderboard', (req,res) => engagementRate(req,res) )
+patientRouter.get('/Profile', (req,res) => getProfile(req,res))
+patientRouter.post('/updatePass', (req,res) => update_password(req,res))
 
 
 export default patientRouter;
