@@ -188,7 +188,7 @@ export const engagementRate = async (req,res) => {
     const users = await userModel.find( {username: ['BatMan','CatMan', 'IronMan'] }, {username:true, dateRegistered: true}).lean()
 
 
-    return res.render('leaderboard.hbs', {data: users} )
+    return res.render('leaderboard.hbs', {data: users, layout: 'patientMain.hbs'} )
 
 
   } catch (err) {
