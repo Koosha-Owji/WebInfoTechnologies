@@ -5,13 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sugar Doctor</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="assets/stylesheets/styles.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="assets/stylesheets/main.css">
     <link rel="stylesheet" href="assets/stylesheets/side_menu.css">
     <link rel="stylesheet" href="assets/stylesheets/index.css">
     <link rel="stylesheet" src="assets/icons/fa/css/all.css">
     <script type="text/javascript" href="scripts/openSide.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Mega&family=Rammetto+One&display=swap" rel="stylesheet"> 
 </head>
 <body>
@@ -20,7 +21,7 @@
             <div class="topnav">
                 <div class="main_logo">
                     {{#if (equalString "Patient" user.role)}}
-                        <h1>Sugar Doctor <p>hia</p></h1> 
+                        <h1>Sugar Doctor</h1> 
 
                                         
                     {{else if (equalString "Clinician" user.role)}}

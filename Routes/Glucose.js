@@ -8,7 +8,7 @@ import {
 } from "../Controllers/glucoseController.js";
 
 glucoseRouter.post("/patient-home",(res,req) => {
-    create_glucose(res,req)
+    create_glucose(res,req), {layout: 'patientMain.hbs'}
 });
 glucoseRouter.get("/getOne",getOne);
 
