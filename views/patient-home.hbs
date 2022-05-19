@@ -34,11 +34,9 @@
                                 <a>Blood Glucose</a>
                                 {{#each ../glucose}}
                                     {{#if (enteredToday this.dateTime) }}
-                                    <p>{{u.username}} </p>
                                         <p>Level: {{this.glucoseLevel}} </p>
                                         <p>Entered at {{this.dateTime}} </p>
                                     {{else}}
-                                        <p>{{u._id}} </p>
                                         <p>{{this.dateTime}} </p>
                                         <p>{{dateToday }} </p>
                                         <p>{{this.glucoseLevel}} </p>
@@ -68,7 +66,6 @@
                                         <p>Level: {{this.glucoseLevel}} </p>
                                         <p>Entered at {{this.dateTime}} </p>
                                     {{else}}
-                                        <p>{{u._id}} </p>
                                         <p>{{this.dateTime}} </p>
                                         <p>{{dateToday }} </p>
                                         <p>{{this.glucoseLevel}} </p>
@@ -98,7 +95,6 @@
                                         <p>Level: {{this.glucoseLevel}} </p>
                                         <p>Entered at {{this.dateTime}} </p>
                                     {{else}}
-                                        <p>{{u._id}} </p>
                                         <p>{{this.dateTime}} </p>
                                         <p>{{dateToday }} </p>
                                         <p>{{this.glucoseLevel}} </p>
@@ -120,7 +116,7 @@
                         {{/if}}
 
                         
-                        {{#if u.insulinRequired}}
+                        {{#if u.weightRequired}}
                             <div class = "box">
                                 <a>Weight</a>
                                 {{#each ../weight}}
@@ -128,7 +124,6 @@
                                         <p>Level: {{this.glucoseLevel}} </p>
                                         <p>Entered at {{this.dateTime}} </p>
                                     {{else}}
-                                        <p>{{u._id}} </p>
                                         <p>{{this.dateTime}} </p>
                                         <p>{{dateToday }} </p>
                                         <p>{{this.glucoseLevel}} </p>
