@@ -65,9 +65,12 @@ export const signup = async (req, res) => {
 export const getUserByUsername = async (req, res) => {
   try {
     const thisUser = await userModel.findOne({username: req.user.username }).lean();
-    const thisGlucose = await glucoseModel.find({patientId: req.user._id }).sort({$natural:-1}).lean().limit(1);
+    const thisGlucose = await glucoseModel.find({patientId: req.user._id, dataType: 'glucose' }).sort({$natural:-1}).lean().limit(1);
+    const thisInsulin = await glucoseModel.find({patientId: req.user._id, dataType: 'insulin' }).sort({$natural:-1}).lean().limit(1);
+    const thisExercise = await glucoseModel.find({patientId: req.user._id, dataType: 'exercise' }).sort({$natural:-1}).lean().limit(1);
+    const thisWeight = await glucoseModel.find({patientId: req.user._id, dataType: 'weight' }).sort({$natural:-1}).lean().limit(1);
 
-    return res.render('patient-home.hbs', {user: thisUser, glucose: thisGlucose} );
+    return res.render('patient-home.hbs', {user: thisUser, glucose: thisGlucose, insulin: thisInsulin, exercise: thisExercise, weight: thisWeight} );
     
     //return res.render('patientHome.hbs',{data: user});
   } catch (err) {

@@ -59,6 +59,96 @@
 
                         {{/if}}
 
+                        
+                        {{#if u.insulinRequired}}
+                            <div class = "box">
+                                <a>Insulin</a>
+                                {{#each ../insulin}}
+                                    {{#if (enteredToday this.dateTime) }}
+                                        <p>Level: {{this.glucoseLevel}} </p>
+                                        <p>Entered at {{this.dateTime}} </p>
+                                    {{else}}
+                                        <p>{{u._id}} </p>
+                                        <p>{{this.dateTime}} </p>
+                                        <p>{{dateToday }} </p>
+                                        <p>{{this.glucoseLevel}} </p>
+                                        <p>{{this.patientId}} </p>
+                                        <p>{{this.dataType}} </p>
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="insulin" name="dataType"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
+                           
+                                        </form>
+                                    {{/if}}
+                                {{/each}}
+                            
+                            </div>
+
+                        {{/if}}
+
+                        
+                        {{#if u.exerciseRequired}}
+                            <div class = "box">
+                                <a>Exercise</a>
+                                {{#each ../exercise}}
+                                    {{#if (enteredToday this.dateTime) }}
+                                        <p>Level: {{this.glucoseLevel}} </p>
+                                        <p>Entered at {{this.dateTime}} </p>
+                                    {{else}}
+                                        <p>{{u._id}} </p>
+                                        <p>{{this.dateTime}} </p>
+                                        <p>{{dateToday }} </p>
+                                        <p>{{this.glucoseLevel}} </p>
+                                        <p>{{this.patientId}} </p>
+                                        <p>{{this.dataType}} </p>
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="exercise" name="dataType"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
+                           
+                                        </form>
+                                    {{/if}}
+                                {{/each}}
+                            
+                            </div>
+
+                        {{/if}}
+
+                        
+                        {{#if u.insulinRequired}}
+                            <div class = "box">
+                                <a>Weight</a>
+                                {{#each ../weight}}
+                                    {{#if (enteredToday this.dateTime) }}
+                                        <p>Level: {{this.glucoseLevel}} </p>
+                                        <p>Entered at {{this.dateTime}} </p>
+                                    {{else}}
+                                        <p>{{u._id}} </p>
+                                        <p>{{this.dateTime}} </p>
+                                        <p>{{dateToday }} </p>
+                                        <p>{{this.glucoseLevel}} </p>
+                                        <p>{{this.patientId}} </p>
+                                        <p>{{this.dataType}} </p>
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="weight" name="dataType"/>
+                                            <input type="hidden" value={{u._id}} name="patientId" />                                            
+                                            <input type="Submit" />
+                           
+                                        </form>
+                                    {{/if}}
+                                {{/each}}
+                            
+                            </div>
+
+                        {{/if}}
+
 
 
                         <div class = "box"><a>Weight</a><input></input></div>
