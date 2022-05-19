@@ -149,3 +149,16 @@ export const updatePatientRequirements = async (req,res)=>{
     res.status(500).json({ message: "Password did not change!" });
   }
 };
+
+export const engagementRate = async (req,res) => {
+  try {
+    const users = await userModel.find( {username: ['BatMan','CatMan', 'IronMan'] }, {username:true, dateRegistered: true}).lean()
+
+
+    return res.render('leaderboard.hbs', {data: users} )
+
+
+  } catch (err) {
+    res.status(500).json({ message: "Could not get engagement rate!" });
+  }
+}

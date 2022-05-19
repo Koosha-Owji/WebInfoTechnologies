@@ -20,7 +20,9 @@ const userSchema = new mongoose.Schema({
     glucoseRequired: { type: Boolean, required: false, default: false },
     insulinRequired: { type: Boolean, required: false, default: false },
     exerciseRequired: { type: Boolean, required: false, default: false },
-    weightRequired: { type: Boolean, required: false, default: false }
+    weightRequired: { type: Boolean, required: false, default: false },
+    dateRegistered: {type: Date, required: true, default: 'May 1, 2022'},
+    engagementRate: {type: Number, required: true, default: '100'}
   });
 
 userSchema.methods.verifyPassword = function (password, callback) {

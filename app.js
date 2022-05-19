@@ -51,6 +51,15 @@ app.engine('hbs', exphbs.engine({
         return date.getDate() == today.getDate();
           //date.getMonth() == today.getMonth() &&
           //date.getFullYear() == today.getFullYear()
+      },
+
+      getEngRate: (dateRegistered) => {
+        const msInDay = 1000 * 60 * 60 * 24
+        const today = new Date()
+        const diff = today - dateRegistered
+        const daysRegisteredFor = Math.floor(diff / msInDay)
+        return daysRegisteredFor;
+
       }
   }
 }))

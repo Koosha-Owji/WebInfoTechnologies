@@ -8,7 +8,8 @@ import {
 } from "../Controllers/glucoseController.js";
 
 import {
-    getUserByUsername
+    getUserByUsername,
+    engagementRate
 } from "../Controllers/userController.js";
 
 // process routes by calling controller functions
@@ -16,4 +17,8 @@ import {
 
 patientRouter.get('/', (req,res) => getUserByUsername(req,res) )
 // export the router
+
+patientRouter.get('/leaderboard', (req,res) => engagementRate(req,res) )
+
+
 export default patientRouter;
