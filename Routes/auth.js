@@ -60,6 +60,10 @@ router.post('/logout', (req, res) => {
 import patientData from "./patientData.js";
 router.use('/hardData', patientData)
 
+// Rough Implementation of Dashboard
+import supportMessage from "./writeSupportMessage.js";
+router.use('/supportMessages', supportMessage)
+
 // Rough Implementation of About Diabetes
 import aboutDiabetes from "./aboutDiabetes.js";
 router.use('/aboutDiabetes', aboutDiabetes)

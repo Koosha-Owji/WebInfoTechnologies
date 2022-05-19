@@ -9,6 +9,7 @@ import {
 } from "../Controllers/userController.js";
 
 // process routes by calling controller functions
+// Send data into AllPatients Data
 patientDataRouter.get('/', (req, res) => getAllPatientsData(req, res))
 
 // add a route to handle the GET request for one data instance
