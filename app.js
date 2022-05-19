@@ -8,15 +8,12 @@ import session from 'express-session';
 import Handlebars from 'handlebars';
 import {allowInsecurePrototypeAccess} from '@handlebars/allow-prototype-access';
 
-import {glucoseModel} from "./Models/Glucose.js";
-
 
 if (process.env.NODE_ENV !== 'production') { 
   dotenv.config() 
 } 
 
 import glucoseRouter from "./Routes/Glucose.js";
-import medicalDataRouter from "./Routes/medicalDataRouter.js";
 
 import patientRouter from "./Routes/patientRouter.js";
 import clinicianRouter from "./Routes/clinician.js";
@@ -27,7 +24,6 @@ app.use(express.json({ limit: '30mb', extended: true }))
 app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 app.use("/", glucoseRouter);
-app.use("/", medicalDataRouter);
 
 app.use("/", clinicianRouter);
 app.engine('hbs', exphbs.engine({
@@ -104,7 +100,6 @@ app.use(passport.authenticate('session'))
 
 // Load authentication router
 import authRouter from "./Routes/auth.js";
-import { all } from "express/lib/application";
 app.use(authRouter)
 
 app.use(express.static('public'))

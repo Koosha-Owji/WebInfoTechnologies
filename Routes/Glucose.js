@@ -3,7 +3,6 @@ const glucoseRouter = express.Router();
 
 import {
     create_glucose,
-    get_one_glucose,
     getOne
 } from "../Controllers/glucoseController.js";
 

@@ -1,6 +1,6 @@
 <main class ="content">
   <h1>Welcome {{user.firstName}} {{user.lastName}}</h1>
-  <p><a href="/hardData"> Link to hard data</a> </p>
+  <p><a href="/hardData"> Link to Patients Data</a> </p>
 
   <h2>Functions</h2>
   <div class="container">
@@ -10,39 +10,42 @@
         <input type="text" placeholder="First Name" name="firstName" />
         <input type="text" placeholder="Last Name" name="lastName" />
         <input type="text" placeholder="Username" name="username" />
-        <input type="text" placeholder="Password" name="password" />
+        <input type="password" placeholder="Password" name="password" />
         <input type = "hidden" name = "clinicianId" value = {{user._id}} />
 
       <p>Tick the checkboxes of time-series you want the patient to record</p>
       <div>
-          <input type="checkbox" name="exerciseRequired"/>
-          <label>Exercise</label>
+          <input type="checkbox" name="exerciseRequired" value=true id="exerciseRequired"/>
+          <label for="exerciseRequired">Exercise</label>
           <input type="Number" placeholder="Exercise lower threshold" name="exerciseLower"/>
           <input type="Number" placeholder="Exercise upper threshold" name="exerciseUpper"/>
       </div>
 
       <div>
-          <input type="checkbox" name="glucoseRequired"/>
-          <label>Glucose</label>
+          <input type="checkbox" name="glucoseRequired" value=true id="glucoseRequired"/>
+          <label for="glucoseRequired">Glucose</label>
           <input type="Number" placeholder="Glucose lower threshold" name="glucoseLower"/>
           <input type="Number" placeholder="Glucose upper threshold" name="glucoseUpper"/>
       </div>
 
       <div>
-          <input type="checkbox" name="insulinRequired"/>
-          <label>Insulin</label>
+          <input type="checkbox" name="insulinRequired" value=true id="insulinRequired"/>
+          <label for="insulinRequired">Insulin</label>
           <input type="Number" placeholder="Insulin lower threshold" name="insulinLower"/>
           <input type="Number" placeholder="Insulin upper threshold" name="insulinUpper"/>
       </div>
 
       <div>
-          <input type="checkbox" name="weightRequired"/>
-          <label>Weight</label>
+          <input type="checkbox" name="weightRequired" value=true id="weightRequired"/>
+          <label for="weightRequired">Weight</label>
           <input type="Number" placeholder="Weight lower threshold" name="weightLower"/>
           <input type="Number" placeholder="Weight upper threshold" name="weightUpper"/>
       </div>
 
-        <input type="Submit" />       
+        <input type="Submit" />     
+      </form>
+      <form action="/logout" method="post">
+        <button type="submit">LogOut</button>
       </form>
     </div>
   </div>

@@ -1,5 +1,4 @@
-
-{{#each patientData as |patient|}}
+{{#each patients as |patient|}}
 
   <h1>Showing data for {{patient.firstName}} {{patient.lastName}}</h1>
 
@@ -47,37 +46,44 @@
   <main class ="content">
     <h4>Change Patient Data Requirements</h4>
     <p>Tick the checkboxes of time-series you want the patient to record</p>
+    <form action="/updatePatientRequirements" method="post">
     <div>
-        <input type="checkbox" name="exerciseRequired"/>
-        <label>Exercise</label>
-        <input type="Number" placeholder="Exercise lower threshold" name="exerciseLower"/>
-        <input type="Number" placeholder="Exercise upper threshold" name="exerciseUpper"/>
-    </div>
+          <input type="hidden" name="exerciseRequired" value=false>
+          <input type="checkbox" name="exerciseRequired" value=true id="exerciseRequired" {{#if patient.exerciseRequired}}checked{{/if}}/>
+          <label for="exerciseRequired">Exercise</label>
+          <input type="Number" placeholder="Exercise lower threshold" name="exerciseLower"/>
+          <input type="Number" placeholder="Exercise upper threshold" name="exerciseUpper"/>
+      </div>
+
+      <div>
+          <input type="hidden" name="glucoseRequired" value=false>
+          <input type="checkbox" name="glucoseRequired" value=true id="glucoseRequired" {{#if patient.glucoseRequired}}checked{{/if}}/>
+          <label for="glucoseRequired">Glucose</label>
+          <input type="Number" placeholder="Glucose lower threshold" name="glucoseLower"/>
+          <input type="Number" placeholder="Glucose upper threshold" name="glucoseUpper"/>
+      </div>
+
+      <div>
+          <input type="hidden" name="insulinRequired" value=false>
+          <input type="checkbox" name="insulinRequired" value=true id="insulinRequired" {{#if patient.insulinRequired}}checked{{/if}}/>
+          <label for="insulinRequired">Insulin</label>
+          <input type="Number" placeholder="Insulin lower threshold" name="insulinLower"/>
+          <input type="Number" placeholder="Insulin upper threshold" name="insulinUpper"/>
+      </div>
+
+      <div>
+          <input type="hidden" name="weightRequired" value=false>
+          <input type="checkbox" name="weightRequired" value=true id="weightRequired" {{#if patient.weightRequired}}checked{{/if}}/>
+          <label for="weightRequired">Weight</label>
+          <input type="Number" placeholder="Weight lower threshold" name="weightLower"/>
+          <input type="Number" placeholder="Weight upper threshold" name="weightUpper"/>
+      </div>
 
     <div>
-        <input type="checkbox" name="glucoseRequired"/>
-        <label>Glucose</label>
-        <input type="Number" placeholder="Glucose lower threshold" name="glucoseLower"/>
-        <input type="Number" placeholder="Glucose upper threshold" name="glucoseUpper"/>
+      <input type = "hidden" name = "username" value = {{patient.username}} />
+      <input type="Submit"/>
     </div>
-
-    <div>
-        <input type="checkbox" name="insulinRequired"/>
-        <label>Insulin</label>
-        <input type="Number" placeholder="Insulin lower threshold" name="insulinLower"/>
-        <input type="Number" placeholder="Insulin upper threshold" name="insulinUpper"/>
-    </div>
-
-    <div>
-        <input type="checkbox" name="weightRequired"/>
-        <label>Weight</label>
-        <input type="Number" placeholder="Weight lower threshold" name="weightLower"/>
-        <input type="Number" placeholder="Weight upper threshold" name="weightUpper"/>
-    </div>
-
-    <div>
-        <input type="Submit"/>
-    </div>
+    </form>
   </main>
   {{!-- {{ Display previous medical data}} --}}
   {{!-- {{ Important to show all the previous posts even if they're not being recorded anymore}} --}}
@@ -137,20 +143,13 @@
       <th>Date when note was made</th>
     </tr>
   
-    {{#each ../medicalData as |medicalPost|}}
-      {{#if (equalString patient.username medicalPost.username)}}
+    {{#each notePost as |note|}}
         {{!-- {{ Found the post of this user}} --}}
-        
-        {{#if (equalString "note" medicalPost.dataType)}}
           <tr>
-            <th>{{medicalPost.dataComment}}</th>
-            <th>{{medicalPost.dateTime}}</th>
+            <th>{{note.content}}</th>
+            <th>{{note.dateTime}}</th>
           </tr>
-        {{/if}}
-
-      {{/if}}
     {{/each}}
   </table>
-
 {{/each}}
 

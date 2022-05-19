@@ -1,4 +1,3 @@
-import MedicalDataModel from "../Models/MedicalData.js";
 import glucoseModel from "../Models/Glucose.js";
 
 export const create_glucose = async (req, res) => {

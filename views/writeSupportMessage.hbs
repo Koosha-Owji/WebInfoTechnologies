@@ -16,11 +16,10 @@
                     <div class = "box">
                         {{!-- {{ Update the support message for the user}} --}}
                         <a>Write a new support message for {{patient.firstName}} {{patient.lastName}}</a>
-                        <form action="/writeSupportMessage" method="post">
-                            
+                        <form action="/supportMessages/submitSupportMessage" method="post">
                             <input type="text" placeholder="Support Message" name="supportMessage" />
                             <input type="hidden" name="username" value = {{patient.username}}/>
-                            <input type="Submit" />
+                            <input type="Submit"/>
                         </form>
                     </div>
                 </div>

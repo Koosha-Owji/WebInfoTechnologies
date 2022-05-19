@@ -16,7 +16,7 @@
                 {{#each ../patients as |patient|}}
                     {{#if (equalString patient.username note.username)}}
                         <p>This note relates to: <a href="/hardData/{{patient.username}}">{{patient.firstName}} {{patient.lastName}}</a></p>
-                        <p>Note relates to: {{note.dataComment}}</p>
+                        <p>Note: {{note.content}}</p>
                         <p>Note written on: {{note.dateTime}}</p>
                     {{/if}}
                 {{/each}}

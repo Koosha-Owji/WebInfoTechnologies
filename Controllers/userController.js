@@ -1,5 +1,6 @@
 import userModel from '../Models/User.js';
 import glucoseModel from '../Models/Glucose.js';
+import noteModel from "../models/Notes.js";
 import bcrypt from "bcryptjs";
 
 export const signupOG = async (req, res) => {
@@ -23,7 +24,19 @@ export const signupOG = async (req, res) => {
 
 
 export const signup = async (req, res) => {
-    const {firstName, lastName, username, password , clinicianId } = req.body;
+    const {firstName, lastName, username, password , clinicianId,
+      glucoseUpper,
+      glucoseLower,
+      weightUpper,
+      weightLower,
+      insulinUpper,
+      insulinLower,
+      exerciseUpper,
+      exerciseLower,
+      glucoseRequired,
+      insulinRequired,
+      exerciseRequired,
+      weightRequired} = req.body;
   
     try {
       const oldUser = await userModel.findOne({ username });
@@ -32,7 +45,18 @@ export const signup = async (req, res) => {
   
       const hashedPassword = await bcrypt.hash(password, 12);
 
-      const result = await userModel.create({firstName, lastName, username, password: hashedPassword, clinicianId });  
+      const result = await userModel.create({firstName, lastName, username, password: hashedPassword, clinicianId,glucoseUpper,
+        glucoseLower,
+        weightUpper,
+        weightLower,
+        insulinUpper,
+        insulinLower,
+        exerciseUpper,
+        exerciseLower,
+        glucoseRequired,
+        insulinRequired,
+        exerciseRequired,
+        weightRequired});  
       res.render('clinicianFunctionality.hbs', {user: req.user});
     } catch (error) {
       res.status(500).json({ message: "Something went wrong" });
@@ -114,6 +138,23 @@ export const writeSupportMessage = async (req, res) => {
       res.status(500).json({ message: "Dashboard rendering failed!" });
   }
 };
+export const submitSupportMessage = async (req, res) => {
+  var {supportMessage, username}= req.body;
+  try {
+      username = username.slice(0, -1);
+      const oldUser = await userModel.findOne({username: username, role: "Patient"});
+      if (!oldUser)
+      return res.status(400).json({ message: "User doesn't exist" });
+      await userModel
+    .findByIdAndUpdate(oldUser._id, {
+      supportMessage
+    })
+    .exec();
+    return res.redirect('back');      
+  } catch (error) {
+    res.status(500).json({ message: "Reguirements did not change!" });
+  }
+};
 
 
 export const getDataById =  async (req, res) => {
@@ -122,29 +163,12 @@ export const getDataById =  async (req, res) => {
 		const patientPostInfo = await glucoseModel.find({username: req.params.username} ).sort({dateTime: -1}).lean();
     // Information about the user data of the patient
     const patientUserInfo = await userModel.find({"$and": [{username: req.params.username}, {role: "Patient"}]}).lean();
-		res.render('showOnePatient', {user: req.user,medicalData: patientPostInfo, patientData: patientUserInfo})	
+    const noteData = await noteModel.find({"$and": [{username: req.params.username}]}).lean();
+		res.render('showOnePatient', {user: req.user,medicalData: patientPostInfo, patients: patientUserInfo, notePost: noteData})	
 	} catch (err) {
 		console.log(err)
 	}
 }
-
-export const viewNotes = async (req, res) => {
-  try {
-      // Find and sort all the medical data by the date
-      // Instead of adding the mostRecent field, can just check if data has been added today.
-      // If data has not been added, Can just render it something such as data enterted firstname secondname
-      // Need to make sure that the user cannot enter multiple data
-      const noteData = await glucoseModel.find({"$and": [{dataType:"note"}]}).sort({dateTime: -1}).lean();
-
-      // Find all patients of the Dr
-      const drPatients = await userModel.find({"$and": [{clinicianId: req.user._id}, {role: "Patient"}]}).lean();
-      
-      return res.render('viewNotes.hbs',{user: req.user, patients: drPatients, notePost: noteData});
-
-  } catch (err) {
-      res.status(500).json({ message: "Dashboard rendering failed!" });
-  }
-};
 
 export const viewComments = async (req, res) => {
   try {
@@ -162,27 +186,60 @@ export const viewComments = async (req, res) => {
 };
 
 export const updatePatientRequirements = async (req,res)=>{
-  const {firstName, lastName, username, password , clinicianId } = req.body;
+  var {glucoseUpper,
+    glucoseLower,
+    weightUpper,
+    weightLower,
+    insulinUpper,
+    insulinLower,
+    exerciseUpper,
+    exerciseLower,
+    glucoseRequired,
+    insulinRequired,
+    exerciseRequired,
+    weightRequired} = req.body;
   try {
-    const oldUser = await userModel.findOne({"$and": [{username: req.params.username}, {role: "Patient"}]});
+    if(Array.isArray(glucoseRequired)==true)
+    {
+      glucoseRequired = glucoseRequired[1];
+    }
+    if(Array.isArray(exerciseRequired)==true)
+    {
+      exerciseRequired = exerciseRequired[1];
+    }
+    if(Array.isArray(insulinRequired)==true)
+    {
+      insulinRequired = insulinRequired[1];
+    }
+    if(Array.isArray(weightRequired)==true)
+    {
+      weightRequired = weightRequired[1];
+    }
+    const oldUser = await userModel.findOne({"$and": [{username: req.body.username}, {role: "Patient"}]});
     if (!oldUser)
     return res.status(400).json({ message: "User doesn't exist" });
-    const isPasswordCorrect = await bcrypt.compare(req.body.current_password, oldUser.password);
-    if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
-    const hashedPassword = await bcrypt.hash(req.body.new_password, 12);
-
     await userModel
-    .findByIdAndUpdate(req.user_id, {
-      password: hashedPassword
+    .findByIdAndUpdate(oldUser._id, {
+      glucoseUpper,
+        glucoseLower,
+        weightUpper,
+        weightLower,
+        insulinUpper,
+        insulinLower,
+        exerciseUpper,
+        exerciseLower,
+        glucoseRequired,
+        insulinRequired,
+        exerciseRequired,
+        weightRequired
     })
     .exec();
 
-    return res.json({message: "Password Changed Successfully!"});      
+    return res.redirect('back');      
   } catch (error) {
-    res.status(500).json({ message: "Password did not change!" });
+    res.status(500).json({ message: "Reguirements did not change!" });
   }
 };
-
 export const engagementRate = async (req,res) => {
   try {
     const users = await userModel.find().lean()
@@ -194,4 +251,4 @@ export const engagementRate = async (req,res) => {
   } catch (err) {
     res.status(500).json({ message: "Could not get engagement rate!" });
   }
-}
+};
