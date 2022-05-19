@@ -1,0 +1,19 @@
+<h1>Testing New Data</h1>
+<form action="/patient-home" method="post" >
+    <input type="Number" placeholder="Level" name="glucoseLevel"/>
+    <input type="text" placeholder="Comment" name="glucoseComment"/>
+    <input type="hidden" value="BobCat" name="username"/>
+    <input type="hidden" value="exercise" name="dataType"/>
+    <input type="Submit"/>
+
+</form>
+
+<div>
+    {{data}}
+    {{#each data}} 
+        <p>{{this.glucoseLevel}} </p>
+        <p>{{this.glucoseComment}} </p>
+        <p>{{this.dataType}} </p>
+        <p>{{this.username}} </p>
+    {{/each}}
+</div>

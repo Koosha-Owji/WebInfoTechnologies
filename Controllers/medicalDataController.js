@@ -1,23 +1,24 @@
-import MedicalDataModel from "../Models/MedicalData.js";
-import glucoseModel from "../Models/Glucose.js";
+import medicalDataModel from "../Models/MedicalData.js";
+//import glucoseModel from "../Models/Glucose.js";
 
-export const create_glucose = async (req, res) => {
+export const createData = async (req, res) => {
     try {
         if (req.body){
           const date = new Date().toISOString().slice(0, 10);
-          const newGlucose = glucoseModel.create({ ...req.body, dateTime:date});
-          (await newGlucose)
+          const newData = medicalDataModel.create({ ...req.body, dateTime:date});
+          (await newData)
             .save()
             //.then((newGlucose) => res.json(newGlucose))
             .catch((err) => res.status(400).json(err));
-            return res.redirect('/');
+            return res.redirect('/testData', {data: newData} );
           } else {
             return res.status(200).json({ message: "Wrong content sent!" });
           }
     } catch (error) {
-        res.status(500).json({ message: "Glucose creation failed!" });
+        res.status(500).json({ message: "Data creation failed!" });
     }
 };
+/*
 export const get_one_glucose = async (req, res) => {
     try {
       const glucose = await glucoseModel.find({patient_id: "123"}).sort({$natural:-1}).lean();
@@ -36,4 +37,4 @@ export const getOne = async (req, res) => {
     } catch (err) {
       res.status(500).json({ message: "Glucose retrieval failed!" });
     }
-  };
+  };*/

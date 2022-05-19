@@ -10,7 +10,7 @@ export const create_exercise = async (req, res) => {
             .save()
             //.then((newexercise) => res.json(newexercise))
             .catch((err) => res.status(400).json(err));
-            return res.redirect('/getOne');
+            return res.render()
           } else {
             return res.status(200).json({ message: "Wrong content sent!" });
           }

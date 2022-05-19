@@ -14,6 +14,8 @@ if (process.env.NODE_ENV !== 'production') {
 } 
 
 import glucoseRouter from "./Routes/Glucose.js";
+import medicalDataRouter from "./Routes/medicalDataRouter.js";
+
 import patientRouter from "./Routes/patientRouter.js";
 import clinicianRouter from "./Routes/clinician.js";
 
@@ -23,6 +25,8 @@ app.use(express.json({ limit: '30mb', extended: true }))
 app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 app.use("/", glucoseRouter);
+app.use("/", medicalDataRouter);
+
 app.use("/", clinicianRouter);
 app.engine('hbs', exphbs.engine({
   handlebars: allowInsecurePrototypeAccess(Handlebars), // configure Handlebars
@@ -31,8 +35,23 @@ app.engine('hbs', exphbs.engine({
   helpers :{
       isGreater: (x,y) => x > y,
       isLess: (x,y) => x < y,
-      equalString: (s1,s2) => s1 == s2
+      equalString: (s1,s2) => s1 == s2,
       // Try to find the most recent data. Using helper function
+
+      // this is just for testing 
+      dateToday: () => {
+        const today = new Date()
+        return today.getDate();
+      },
+      returnFalse: () => false,
+      //checks if data was entered today
+      enteredToday: (date) => {
+        const today = new Date()
+        // checking month for now becuase time zone is messing up the date
+        return date.getDate() == today.getDate();
+          //date.getMonth() == today.getMonth() &&
+          //date.getFullYear() == today.getFullYear()
+      }
   }
 }))
 // set Handlebars view engine

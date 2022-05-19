@@ -64,13 +64,20 @@ export const signup = async (req, res) => {
   
 export const getUserByUsername = async (req, res) => {
   try {
-    const user = await userModel.findOne({username: "BobCat"}).lean();
-    if (!user) return res.json("No user found");
-    return res.render('patientHome.hbs',{data: user});
+    const thisUser = await userModel.findOne({username: req.user.username }).lean();
+    const thisGlucose = await glucoseModel.find({patientId: req.user._id, dataType: 'glucose' }).sort({$natural:-1}).lean().limit(1);
+    const thisInsulin = await glucoseModel.find({patientId: req.user._id, dataType: 'insulin' }).sort({$natural:-1}).lean().limit(1);
+    const thisExercise = await glucoseModel.find({patientId: req.user._id, dataType: 'exercise' }).sort({$natural:-1}).lean().limit(1);
+    const thisWeight = await glucoseModel.find({patientId: req.user._id, dataType: 'weight' }).sort({$natural:-1}).lean().limit(1);
+
+    return res.render('patient-home.hbs', {user: thisUser, glucose: thisGlucose, insulin: thisInsulin, exercise: thisExercise, weight: thisWeight} );
+    
+    //return res.render('patientHome.hbs',{data: user});
   } catch (err) {
     res.status(500).json({ message: "Glucose retrieval failed!" });
   }
 };
+
 
 
 export const getAllPatientsData = async (req, res) => {

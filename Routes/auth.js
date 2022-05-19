@@ -1,5 +1,7 @@
 import passport from "passport";
 import express from "express";
+import { getUserByUsername } from "../Controllers/userController.js";
+
 //const passport = require('passport')
 //const express = require('express')
 const router = express.Router()
@@ -30,7 +32,8 @@ router.get('/', isAuthenticated, (req, res) => {
         res.render('clinicianFunctionality.hbs', {user: req.user});
     }
     else {
-        res.render('patient-home.hbs', {user: req.user})
+        //res.render('patient-home.hbs', {user: req.user})
+        getUserByUsername(req,res)
     }
 })
 

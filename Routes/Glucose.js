@@ -12,4 +12,6 @@ glucoseRouter.post("/patient-home",(res,req) => {
 });
 glucoseRouter.get("/getOne",getOne);
 
+//glucoseRouter.get('/testData', (req,res) => res.render('testData.hbs') );
+
 export default glucoseRouter;
