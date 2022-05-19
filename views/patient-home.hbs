@@ -71,7 +71,6 @@
                                             <input type="hidden" value="glucose" name="dataType"/>
                                             <input type="Submit" />
                                             <input type="hidden" value={{u._id}} name="patientId" />
-                           
                                         </form>
                                 {{/each}}
                             
@@ -138,7 +137,7 @@
                                         <form action="/patient-home" method="post">
                                             <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
                                             <input type="text" placeholder="Comment" name="glucoseComment" />
-                                            <input type="hidden" value="insulin" name="dataType"/>
+                                            <input type="hidden" value="exercise" name="dataType"/>
                                             <input type="Submit" />
                                             <input type="hidden" value={{u._id}} name="patientId" />
                            
@@ -173,9 +172,9 @@
                                         <form action="/patient-home" method="post">
                                             <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
                                             <input type="text" placeholder="Comment" name="glucoseComment" />
-                                            <input type="hidden" value="insulin" name="dataType"/>
+                                            <input type="hidden" value="weight" name="dataType"/>
+                                            <input type="hidden" value={{u._id}} name="patientId" />                                            
                                             <input type="Submit" />
-                                            <input type="hidden" value={{u._id}} name="patientId" />
                            
                                         </form>
                                 {{/each}}
