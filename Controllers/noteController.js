@@ -23,7 +23,7 @@ export const viewNotes = async (req, res) => {
         // If data has not been added, Can just render it something such as data enterted firstname secondname
         // Need to make sure that the user cannot enter multiple data
         //const noteData = await noteModel.find({"$and": [{clinicianId:req.user._id}]}).sort({dateTime: -1}).lean();
-        const noteData = await noteModel.find({"$and": [{clinicianId: req.user._id}]}).lean();
+        const noteData = await noteModel.find({"$and": [{clinicianId: req.user._id}]}).sort({dateTime: -1}).lean();
         // Find all patients of the Dr
         const drPatients = await userModel.find({"$and": [{clinicianId: req.user._id}, {role: "Patient"}]}).lean();
         return res.render('viewNotes.hbs',{user: req.user, patients: drPatients, notePost: noteData});
