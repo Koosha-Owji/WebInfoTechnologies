@@ -28,7 +28,8 @@
                                 {{#if (isGreater dataPost.glucoseLevel patient.exerciseUpper)}} <p style="color:red">Amount of exercise: {{dataPost.glucoseLevel}} steps</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}
                                 {{else if (isLess dataPost.glucoseLevel patient.exerciseLower)}} <p style="color:red">Amount of exercise: {{dataPost.glucoseLevel}} steps</p>   
-                                <p>Amount of exercise: {{dataPost.glucoseLevel}} steps</p>
+                                {{else}}
+                                <p>Amount of exercise: {{dataPost.glucoseLevel}} steps </p>
                                 {{/if}}
                             {{else}}
                                 <p style="color:red">No steps have been added</p>
@@ -51,7 +52,8 @@
                                 {{#if (isGreater dataPost.glucoseLevel patient.glucoseUpper)}} <p style="color:red">Blood glucose level: {{dataPost.glucoseLevel}} nmol/L</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}
                                 {{else if (isLess dataPost.glucoseLevel patient.glucoseLower)}} <p style="color:red">Blood glucose level: {{dataPost.glucoseLevel}} nmol/L</p>   
-                                <p>Blood glucose level: {{dataPost.glucoseLevel}} nmol/L
+                                {{else}}
+                                <p>Blood glucose level: {{dataPost.glucoseLevel}} nmol/L </p>
                                 {{/if}}
                             {{else}}
                                 <p style="color:red">No glucose data has been added</p>
@@ -74,6 +76,7 @@
                                 {{#if (isGreater dataPost.glucoseLevel patient.insulinUpper)}} <p style="color:red">Insulin taken: {{dataPost.glucoseLevel}} doses</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}
                                 {{else if (isLess dataPost.glucoseLevel patient.insulinLower)}} <p style="color:red">Insulin taken: {{dataPost.glucoseLevel}} doses</p>   
+                                {{else}}
                                 <p>Insulin taken: {{dataPost.glucoseLevel}} doses</p>
                                 {{/if}}
                             {{else}}
@@ -97,7 +100,8 @@
                                 {{#if (isGreater dataPost.glucoseLevel patient.weightUpper)}} <p style="color:red">Weight recorded: {{dataPost.glucoseLevel}} kg</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}
                                 {{else if (isLess dataPost.glucoseLevel patient.weightLower)}} <p style="color:red">Weight recorded: {{dataPost.glucoseLevel}} kg</p>   
-                                <p>Weight recorded: {{dataPost.glucoseLevel}} kg </p>
+                                {{else}}
+                                <p>Weight recorded: {{dataPost.glucoseLevel}} kg</p>
                                 {{/if}}
                             {{else}}
                                 <p style="color:red">No weight data has been added</p>
