@@ -46,9 +46,9 @@ app.engine('hbs', exphbs.engine({
       enteredToday: (date) => {
         const today = new Date()
         // checking month for now becuase time zone is messing up the date
-        return date.getDate() == today.getDate();
-          //date.getMonth() == today.getMonth() &&
-          //date.getFullYear() == today.getFullYear()
+        return date.getDate() == today.getDate() &&
+          date.getMonth() == today.getMonth() &&
+          date.getFullYear() == today.getFullYear();
       },
 
       getEngRate: (pId, dateRegistered) => {
