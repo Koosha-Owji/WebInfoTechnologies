@@ -5,10 +5,17 @@
     <div class="patient_rows">
         {{#each patients as |patient|}}
             <div class="patient_info">
+                {{#if patient.supportMessage}}
+                    <p>Current support message for {{patient.firstName}} {{patient.lastName}}:</p>
+                    <p>{{patient.supportMessage}}</p>
+                {{else}}
+                    <p style="color:red">{{patient.firstName}} {{patient.lastName}} does not have a support message!</p>
+                {{/if}}
+                
                 <div class="container">
                     <div class = "box">
                         {{!-- {{ Update the support message for the user}} --}}
-                        <a>Write a support message for {{patient.firstName}} {{patient.lastName}}</a>
+                        <a>Write a new support message for {{patient.firstName}} {{patient.lastName}}</a>
                         <form action="/writeSupportMessage" method="post">
                             
                             <input type="text" placeholder="Support Message" name="supportMessage" />

@@ -1,7 +1,9 @@
 
-<h1>Patients of {{user.firstName}} {{user.lastName}} </h1>
 
-<p><a href="./"> Link to hard data</a> </p>
+<div class="row_containers">
+<h1> <font size="+2"> <b>Currently viewing comments and data entered today by {{user.firstName}} {{user.lastName}} patient's</b></font></h1> <br>
+<p><a href="/allComments">View recent comments</a><a href="/allNotes">View all notes</a></p>
+</div>
 {{!-- {{ Iterate through every patient}} --}}
 <div class="row_containers">
     <div class="patient_rows">
