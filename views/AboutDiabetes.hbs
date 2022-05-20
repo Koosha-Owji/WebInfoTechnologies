@@ -18,6 +18,8 @@
 </head>
 
     <body>
+        {{#with user as |u| }}
+        {{#if (equalString u.role "Patient")}}
         <div class="app">
 
             <div class="menu-toggle">
@@ -40,6 +42,8 @@
                     </form>
                 </nav>
             </aside>
+            {{/if}}
+            {{/with}}
 
 
       <div class="container">
