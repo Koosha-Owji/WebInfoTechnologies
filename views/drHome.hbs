@@ -3,7 +3,6 @@
 <div class="row_containers">
 <h1> <font size="+2"> <b>Currently viewing comments and data entered today by {{user.firstName}} {{user.lastName}} patient's</b></font></h1> <br>
 <p><a href="/allComments">View recent comments</a>           <a href="/allNotes">View all notes</a></p>
-<p><a href="/"> Link to Register Patient</a> </p>
 </div>
 
 
@@ -14,7 +13,7 @@
         {{#each patients as |patient|}}
             <div class="patient_info">
                 {{!-- {{Show patient data and link to their individal page }} --}}
-                <p>Patient Name: <a href="/hardData/{{patient.username}}">{{patient.firstName}} {{patient.lastName}} {{patient._id}}</a></p>
+                <p>Patient Name: <a href="/hardData/{{patient.username}}">{{patient.firstName}} {{patient.lastName}}</a></p>
                 <p>Medical Data Added Today</p>
 
                 {{!-- {{ See if exercise is required }} --}}
@@ -29,7 +28,8 @@
                                 {{#if (isGreater dataPost.glucoseLevel patient.exerciseUpper)}} <p style="color:red">Amount of exercise: {{dataPost.glucoseLevel}} steps</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}
                                 {{else if (isLess dataPost.glucoseLevel patient.exerciseLower)}} <p style="color:red">Amount of exercise: {{dataPost.glucoseLevel}} steps</p>   
-                                <p>Amount of exercise: {{dataPost.glucoseLevel}} steps</p>
+                                {{else}}
+                                <p>Amount of exercise: {{dataPost.glucoseLevel}} steps </p>
                                 {{/if}}
                             {{else}}
                                 <p style="color:red">No steps have been added</p>
@@ -52,7 +52,8 @@
                                 {{#if (isGreater dataPost.glucoseLevel patient.glucoseUpper)}} <p style="color:red">Blood glucose level: {{dataPost.glucoseLevel}} nmol/L</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}
                                 {{else if (isLess dataPost.glucoseLevel patient.glucoseLower)}} <p style="color:red">Blood glucose level: {{dataPost.glucoseLevel}} nmol/L</p>   
-                                <p>Blood glucose level: {{dataPost.glucoseLevel}} nmol/L
+                                {{else}}
+                                <p>Blood glucose level: {{dataPost.glucoseLevel}} nmol/L </p>
                                 {{/if}}
                             {{else}}
                                 <p style="color:red">No glucose data has been added</p>
@@ -75,6 +76,7 @@
                                 {{#if (isGreater dataPost.glucoseLevel patient.insulinUpper)}} <p style="color:red">Insulin taken: {{dataPost.glucoseLevel}} doses</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}
                                 {{else if (isLess dataPost.glucoseLevel patient.insulinLower)}} <p style="color:red">Insulin taken: {{dataPost.glucoseLevel}} doses</p>   
+                                {{else}}
                                 <p>Insulin taken: {{dataPost.glucoseLevel}} doses</p>
                                 {{/if}}
                             {{else}}
@@ -98,7 +100,8 @@
                                 {{#if (isGreater dataPost.glucoseLevel patient.weightUpper)}} <p style="color:red">Weight recorded: {{dataPost.glucoseLevel}} kg</p> 
                                 {{!-- {{ Lower threshold is breached}} --}}
                                 {{else if (isLess dataPost.glucoseLevel patient.weightLower)}} <p style="color:red">Weight recorded: {{dataPost.glucoseLevel}} kg</p>   
-                                <p>Weight recorded: {{dataPost.glucoseLevel}} kg </p>
+                                {{else}}
+                                <p>Weight recorded: {{dataPost.glucoseLevel}} kg</p>
                                 {{/if}}
                             {{else}}
                                 <p style="color:red">No weight data has been added</p>
@@ -110,7 +113,7 @@
                 {{/if}}
                 <div class="container">
                     <div class = "box">
-                        <a>Write a note about {{patient.firstName}}</a>
+                        <a>Write a note about {{patient.firstName}} {{patient.lastName}}</a>
                         <form action="/allNotes/writeNote" method="post">
                             <input type="text" placeholder="note" name="content" />
                             <input type="hidden" name="username" value = {{patient.username}}/>

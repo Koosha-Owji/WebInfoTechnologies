@@ -160,10 +160,10 @@ export const submitSupportMessage = async (req, res) => {
 export const getDataById =  async (req, res) => {
 	try {
     // Information about the medical data posted by the patient
-		const patientPostInfo = await glucoseModel.find({username: req.params.username} ).sort({dateTime: -1}).lean();
+		const patientPostInfo = await glucoseModel.find({username: req.params._id} ).sort({dateTime: -1}).lean();
     // Information about the user data of the patient
     const patientUserInfo = await userModel.find({"$and": [{username: req.params.username}, {role: "Patient"}]}).lean();
-    const noteData = await noteModel.find({"$and": [{username: req.params.username}]}).lean();
+    const noteData = await noteModel.find({"$and": [{username: req.params.username}]}).sort({dateTime: -1}).lean();
 		res.render('showOnePatient', {user: req.user,medicalData: patientPostInfo, patients: patientUserInfo, notePost: noteData})	
 	} catch (err) {
 		console.log(err)
@@ -174,6 +174,7 @@ export const viewComments = async (req, res) => {
   try {
       // Making sure that the data is not a note
       const commentData = await glucoseModel.find( { dataType: { $ne: "note" } } ).sort({dateTime: -1}).lean();
+      //const commentData = await glucoseModel.find().sort({dateTime: -1}).lean();
 
       // Find all patients of the Dr
       const drPatients = await userModel.find({"$and": [{clinicianId: req.user._id}, {role: "Patient"}]}).lean();
