@@ -185,10 +185,10 @@ export const updatePatientRequirements = async (req,res)=>{
 
 export const engagementRate = async (req,res) => {
   try {
-    const users = await userModel.find( {username: ['BatMan','CatMan', 'IronMan'] }, {username:true, dateRegistered: true}).lean()
+    const users = await userModel.find().lean()
 
 
-    return res.render('leaderboard.hbs', {data: users, layout: 'patientMain.hbs'} )
+    return res.render('leaderboard.hbs', {/*layout: 'patientMain.hbs',*/ data: users } );
 
 
   } catch (err) {

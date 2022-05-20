@@ -1,8 +1,13 @@
 
-<ol>
-    {{#each data}} 
-    <li>
-        <p>{{this.username}} {{getEngRate this.dateRegistered}} </p>
-    </li>
-    {{/each}}
-</ol>
+
+<main>
+    <h1>Welcome to the Leaderboard!</h1>
+    
+    <ol>
+        {{#each data}} 
+        <li>
+            <p>{{this.username}} {{getEngRate this._id this.dateRegistered}} </p>
+        </li>
+        {{/each}}
+    </ol>
+</main>

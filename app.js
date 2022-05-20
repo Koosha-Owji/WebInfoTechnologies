@@ -8,6 +8,8 @@ import session from 'express-session';
 import Handlebars from 'handlebars';
 import {allowInsecurePrototypeAccess} from '@handlebars/allow-prototype-access';
 
+import {glucoseModel} from "./Models/Glucose.js";
+
 
 if (process.env.NODE_ENV !== 'production') { 
   dotenv.config() 
@@ -53,12 +55,16 @@ app.engine('hbs', exphbs.engine({
           //date.getFullYear() == today.getFullYear()
       },
 
-      getEngRate: (dateRegistered) => {
+      getEngRate: (pId, dateRegistered) => {
         const msInDay = 1000 * 60 * 60 * 24
         const today = new Date()
         const diff = today - dateRegistered
         const daysRegisteredFor = Math.floor(diff / msInDay)
+
+        //const allDates = glucoseModel.find({patientId: pId}, {dateTime: true} ).distinct().count()
         return daysRegisteredFor;
+
+        //return daysRegisteredFor / allDates * 100;
 
       }
   }
@@ -98,6 +104,7 @@ app.use(passport.authenticate('session'))
 
 // Load authentication router
 import authRouter from "./Routes/auth.js";
+import { all } from "express/lib/application";
 app.use(authRouter)
 
 app.use(express.static('public'))
