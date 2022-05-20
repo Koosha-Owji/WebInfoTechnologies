@@ -1,4 +1,4 @@
-import noteModel from "../models/Notes.js";
+import noteModel from "../Models/Notes.js";
 import userModel from '../Models/User.js';
 
 export const writeNote = async (req, res) => {

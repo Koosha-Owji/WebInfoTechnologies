@@ -1,6 +1,6 @@
 import userModel from '../Models/User.js';
 import glucoseModel from '../Models/Glucose.js';
-import noteModel from "../models/Notes.js";
+import noteModel from "../Models/Notes.js";
 import bcrypt from "bcryptjs";
 
 export const signupOG = async (req, res) => {
