@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import flash from 'express-flash';
 import session from 'express-session';
 import Handlebars from 'handlebars';
+import path from "path";
 import {allowInsecurePrototypeAccess} from '@handlebars/allow-prototype-access';
 
 
@@ -18,11 +19,13 @@ import glucoseRouter from "./Routes/Glucose.js";
 import patientRouter from "./Routes/patientRouter.js";
 import clinicianRouter from "./Routes/clinician.js";
 
+const __dirname = path.resolve();
 const app = express();
 app.use(express.static('public'))
 app.use(express.json({ limit: '30mb', extended: true }))
 app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
+app.use("/images", express.static(path.join(__dirname, "/public/assets")));
 app.use("/", glucoseRouter);
 
 app.use("/", clinicianRouter);
