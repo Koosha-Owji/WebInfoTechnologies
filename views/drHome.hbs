@@ -2,14 +2,15 @@
 
 <div class="row_containers">
 <h1> <font size="+2"> <b>Currently viewing comments and data entered today by {{user.firstName}} {{user.lastName}} patient's</b></font></h1> <br>
-<p><a href="/allComments">View recent comments</a><a href="/allNotes">View all notes</a></p>
+<p><a href="/allComments">View recent comments</a>           <a href="/allNotes">View all notes</a></p>
 </div>
 {{!-- {{ Iterate through every patient}} --}}
 <div class="row_containers">
     <div class="patient_rows">
         {{#each patients as |patient|}}
             <div class="patient_info">
-                <p><a href="/hardData/{{patient.username}}">Patient Name: {{patient.firstName}} {{patient.lastName}}</a></p>
+                {{!-- {{Show patient data and link to their individal page }} --}}
+                <p>Patient Name: <a href="/hardData/{{patient.username}}">{{patient.firstName}} {{patient.lastName}}</a></p>
                 <p>Medical Data Added Today</p>
 
                 {{!-- {{ Check to see if the Dr needs to see exercise}} --}}

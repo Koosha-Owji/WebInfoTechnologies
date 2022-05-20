@@ -128,6 +128,39 @@ export const getDataById =  async (req, res) => {
 	}
 }
 
+export const viewNotes = async (req, res) => {
+  try {
+      // Find and sort all the medical data by the date
+      // Instead of adding the mostRecent field, can just check if data has been added today.
+      // If data has not been added, Can just render it something such as data enterted firstname secondname
+      // Need to make sure that the user cannot enter multiple data
+      const noteData = await glucoseModel.find({"$and": [{dataType:"note"}]}).sort({dateTime: -1}).lean();
+
+      // Find all patients of the Dr
+      const drPatients = await userModel.find({"$and": [{clinicianId: req.user._id}, {role: "Patient"}]}).lean();
+      
+      return res.render('viewNotes.hbs',{user: req.user, patients: drPatients, notePost: noteData});
+
+  } catch (err) {
+      res.status(500).json({ message: "Dashboard rendering failed!" });
+  }
+};
+
+export const viewComments = async (req, res) => {
+  try {
+      // Making sure that the data is not a note
+      const commentData = await glucoseModel.find( { dataType: { $ne: "note" } } ).sort({dateTime: -1}).lean();
+
+      // Find all patients of the Dr
+      const drPatients = await userModel.find({"$and": [{clinicianId: req.user._id}, {role: "Patient"}]}).lean();
+      
+      return res.render('viewComments.hbs',{user: req.user, patients: drPatients, commentPost: commentData});
+
+  } catch (err) {
+      res.status(500).json({ message: "Dashboard rendering failed!" });
+  }
+};
+
 export const updatePatientRequirements = async (req,res)=>{
   const {firstName, lastName, username, password , clinicianId } = req.body;
   try {

@@ -67,6 +67,14 @@ router.use('/hardData', patientData)
 import supportMessage from "./writeSupportMessage.js";
 router.use('/supportMessages', supportMessage)
 
+// Rough Implementation of Dashboard
+import notes from "./viewNotes.js";
+router.use('/allNotes', notes)
+
+// Rough Implementation of Dashboard
+import comments from "./viewComments.js";
+router.use('/allComments', comments)
+
 // Rough Implementation of About Diabetes
 import aboutDiabetes from "./aboutDiabetes.js";
 router.use('/aboutDiabetes', aboutDiabetes)
