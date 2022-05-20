@@ -11,7 +11,8 @@ import {
     getUserByUsername,
     engagementRate,
     getProfile,
-    update_password
+    update_password,
+    getPatientHistory
 } from "../Controllers/userController.js";
 
 // process routes by calling controller functions
@@ -23,6 +24,8 @@ patientRouter.get('/', (req,res) => getUserByUsername(req,res) )
 patientRouter.get('/leaderboard', (req,res) => engagementRate(req,res) )
 patientRouter.get('/Profile', (req,res) => getProfile(req,res))
 patientRouter.post('/updatePass', (req,res) => update_password(req,res))
+patientRouter.get('/patientHistory', (req, res) => getPatientHistory(req, res))
+
 
 
 export default patientRouter;

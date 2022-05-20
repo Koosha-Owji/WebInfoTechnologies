@@ -1,5 +1,82 @@
-{{#each data}}
-    <h4>Blood Glucose</h4>
-    <p>Level: {{this.glucoseLevel}}</p>
-    <p>{{this.glucoseComment}}</p>
-{{/each}}
+<main>
+
+<div>
+    {{#with user as |u| }}
+        <h3>{{u.firstName}} </h3>
+
+        <section>
+        {{#if u.glucoseRequired}}
+            <h4>Blood Glucose History</h4>
+            <table border=2px solid>
+                <tr>
+                    <th> Level (nmol/L) </th><th> Date </th>
+                </tr>
+                {{#each ../medicalData as |md| }}
+                    {{#if (equalString "glucose" md.dataType) }}
+                        <tr>
+                            <td> {{md.glucoseLevel}} </td><td> {{md.dateTime}} </td>
+
+                        </tr>
+                    {{/if}}
+                {{/each}}
+            </table>
+        {{/if}}
+        </section>
+
+        <section>
+        {{#if u.insulinRequired}}
+            <h4>Insulin History</h4>
+            <table border=2px solid>
+                <tr>
+                    <th> Doses </th><th> Date </th>
+                </tr>
+                {{#each ../medicalData as |md| }}
+                    {{#if (equalString "insulin" md.dataType) }}
+                        <tr>
+                            <td> {{md.glucoseLevel}} </td><td> {{md.dateTime}} </td>
+
+                        </tr>
+                    {{/if}}
+                {{/each}}
+            </table>
+        {{/if}}
+        </section>
+
+          {{#if u.exerciseRequired}}
+            <h4>Exercise History</h4>
+            <table border=2px solid>
+                <tr>
+                    <th> Steps/day </th><th> Date </th>
+                </tr>
+                {{#each ../medicalData as |md| }}
+                    {{#if (equalString "exercise" md.dataType) }}
+                        <tr>
+                            <td> {{md.glucoseLevel}} </td><td> {{md.dateTime}} </td>
+
+                        </tr>
+                    {{/if}}
+                {{/each}}
+            </table>
+        {{/if}}
+
+          {{#if u.weightRequired}}
+            <h4>Weight History</h4>
+            <table border=2px solid>
+                <tr>
+                    <th> Level (kg) </th><th> Date </th>
+                </tr>
+                {{#each ../medicalData as |md| }}
+                    {{#if (equalString "weight" md.dataType) }}
+                        <tr>
+                            <td> {{md.glucoseLevel}} </td><td> {{md.dateTime}} </td>
+
+                        </tr>
+                    {{/if}}
+                {{/each}}
+            </table>
+        {{/if}}
+
+    {{/with}}
+</div>
+
+</main>

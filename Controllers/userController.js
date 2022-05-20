@@ -262,3 +262,16 @@ export const getProfile = async (req, res) => {
     res.status(500).json({ message: "Glucose retrieval failed!" });
   }
 };
+
+
+export const getPatientHistory =  async (req, res) => {
+	try {
+    // Information about the medical data posted by the patient
+    const thisUser = await userModel.findOne({username: req.user.username }).lean();
+    const data = await glucoseModel.find({patientId: req.user._id} ).sort({dateTime: -1}).lean();
+
+		res.render('patientHistory.hbs', {user: thisUser,medicalData: data })	
+	} catch (err) {
+		console.log(err)
+	}
+}
