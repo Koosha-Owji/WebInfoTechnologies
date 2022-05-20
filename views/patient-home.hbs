@@ -1,28 +1,196 @@
-<body>
- <div class="app">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugar Doctor</title>
+    <link rel="stylesheet" href="assets/stylesheets/styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="assets/stylesheets/main.css">
+    <link rel="stylesheet" href="assets/stylesheets/side_menu.css">
+    <link rel="stylesheet" href="assets/stylesheets/index.css">
+    <link rel="stylesheet" src="assets/icons/fa/css/all.css">
+    <script type="text/javascript" href="scripts/openSide.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Mega&family=Rammetto+One&display=swap" rel="stylesheet"> 
+</head>
 
+    <body>
+        <div class="app">
+
+            <div class="menu-toggle">
+                <div class="hamburger">
+                    <span></span>
+                </div>
+            </div>
+            <aside class="sidebar">
+                <h3>Menu</h3>
+
+                <nav class="menu">
+                    <a href="/" class="menu-item is-active"><i class="fas fa-home"></i>Home</a>
+                    <a href="/Profile" class="menu-item"><i class ="fas fa-user-circle"></i>Profile</a>
+                    <a href="/patientHistory" class="menu-item"><i class ="fas fa-poll-h"></i>History</a>
+                    <a href="/leaderboard" class="menu-item"><i class ="fas fa-award"></i>Leaderboards</a>
+                    <a href="/aboutDiabetes" class="menu-item"><i class ="fas fa-question-circle"></i>About Diabetes</a>
+                    <a href="/aboutUs" class="menu-item"><i class ="fas fa-info-circle"></i>About this website</a>
+                    <form action="/logout" method="post">
+                    <a href="#" onclick="this.parentNode.submit();" class="menu-item"><i class="fas fa-sign-out-alt"></i>Log Out</a>
+                    </form>
+                </nav>
+            </aside>
 
             <main class ="content">
                 <h1>Sugar Doctor</h1>
-                <p>Welcome Patient!</p>
+                
+                {{#with user as |u| }}
+                   <h2>Welcome {{u.firstName}} !</h2>
+                   {{u.supportMessage}}
+                    <h2>Today's Data</h2>
 
-                <h2>Today's Data</h2>
-                <div class="container">
-                    <div class = "box">
-                        <a>Blood Glucose</a>
-                        <form action="/patient-home" method="post">
-                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
-                            <input type="text" placeholder="Comment" name="glucoseComment" />
-                            <input type="Submit" />
+                    <div class="container">
+
+                        {{#if u.glucoseRequired}}
+                            <div class = "box">
+                                <a>Blood Glucose</a>
+                                {{#each ../glucose}}
+                                    {{#if (enteredToday this.dateTime) }}
+                                        <p>Level: {{this.glucoseLevel}} </p>
+                                        <p>Entered at {{this.dateTime}} </p>
+                                    {{else}}
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="glucose" name="dataType"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
                            
-                        </form>
+                                        </form>
+                                    {{/if}}
+                                    {{else}}
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Blood glucose level" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="glucose" name="dataType"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
+                                        </form>
+                                {{/each}}
+                            
+                            </div>
+
+                        {{/if}}
+
+                        
+                        {{#if u.insulinRequired}}
+                            <div class = "box">
+                                <a>Insulin</a>
+                                {{#each ../insulin}}
+                                    {{#if (enteredToday this.dateTime) }}
+                                        <p>Level: {{this.glucoseLevel}} </p>
+                                        <p>Entered at {{this.dateTime}} </p>
+                                    {{else}}
+                                      
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Insulin doses" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="insulin" name="dataType"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
+                           
+                                        </form>
+                                    {{/if}}
+                                    {{else}}
+                                      
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Insulin doses" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="insulin" name="dataType"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
+                           
+                                        </form>
+                                {{/each}}
+                            
+                            </div>
+
+                        {{/if}}
+
+                        
+                        {{#if u.exerciseRequired}}
+                            <div class = "box">
+                                <a>Exercise</a>
+                                {{#each ../exercise}}
+                                    {{#if (enteredToday this.dateTime) }}
+                                        <p>Level: {{this.glucoseLevel}} </p>
+                                        <p>Entered at {{this.dateTime}} </p>
+                                    {{else}}
+                                       
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Steps taken" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="exercise" name="dataType"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
+                           
+                                        </form>
+                                    {{/if}}
+                                    {{else}}
+                                      
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Steps taken" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="exercise" name="dataType"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u._id}} name="patientId" />
+                           
+                                        </form>
+                                {{/each}}
+                            
+                            </div>
+
+                        {{/if}}
+
+                        
+                        {{#if u.weightRequired}}
+                            <div class = "box">
+                                <a>Weight</a>
+                                {{#each ../weight}}
+                                    {{#if (enteredToday this.dateTime) }}
+                                        <p>Level: {{this.glucoseLevel}} </p>
+                                        <p>Entered at {{this.dateTime}} </p>
+                                    {{else}}
+                                      
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Current Weight (kg)" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="weight" name="dataType"/>
+                                            <input type="hidden" value={{u._id}} name="patientId" />                                            
+                                            <input type="Submit" />
+                           
+                                        </form>
+                                    {{/if}}
+                                    {{else}}
+                                      
+                                        <form action="/patient-home" method="post">
+                                            <input type="Number" placeholder="Current Weight (kg)" name="glucoseLevel" />
+                                            <input type="text" placeholder="Comment" name="glucoseComment" />
+                                            <input type="hidden" value="weight" name="dataType"/>
+                                            <input type="hidden" value={{u._id}} name="patientId" />                                            
+                                            <input type="Submit" />
+                           
+                                        </form>
+                                {{/each}}
+                            
+                            </div>
+
+                        {{/if}}
+
+
                     </div>
 
-
-                    <div class = "box"><a>Weight</a><input></input></div>
-                    <div class = "box"><a>Insulin</a><input></input></div>
-                    <div class = "box"><a>Steps</a><input></input></div>
-                </div>
+                {{/with}}
+                
             </main>
         </div>
 
@@ -35,5 +203,5 @@
                 sidebar.classList.toggle('is-active');
             })
         </script>
-</body>
+    </body>
   

@@ -1,0 +1,158 @@
+{{#each patients as |patient|}}
+{{/each}}
+
+{{#each patients as |patient|}}
+
+  <h1>Showing data for {{patient.firstName}} {{patient.lastName}}</h1>
+
+  <table border=2px solid>
+    <tr>
+      <th>Type of data</th>
+      <th>Lower Threshold</th>
+      <th>Upper Threshold</th>
+      <th>Can {{patient.firstName}} record this data?</th>
+    </tr>
+
+    <tr>
+      <td>Exercise</td>
+      <td>{{patient.exerciseLower}}</td>
+      <td>{{patient.exerciseUpper}}</td>
+      <td>{{#if patient.exerciseRequired}} <p style="color:green">Yes </p>
+          {{else}} <p style="color:red">No </p> {{/if}} </td>    
+    </tr>
+    
+    <tr>
+      <td>Glucose</td>
+      <td>{{patient.glucoseLower}}</td>
+      <td>{{patient.glucoseUpper}}</td>
+      <td>{{#if patient.glucoseRequired}} <p style="color:green">Yes </p>
+          {{else}} <p style="color:red">No </p> {{/if}} </td>    
+    </tr>
+
+    <tr>
+      <td>Insulin</td>
+      <td>{{patient.insulinLower}}</td>
+      <td>{{patient.insulinUpper}}</td>
+      <td>{{#if patient.insulinRequired}} <p style="color:green">Yes </p>
+          {{else}} <p style="color:red">No </p> {{/if}} </td>    
+    </tr>
+
+    <tr>
+      <td>Weight</td>
+      <td>{{patient.weightLower}}</td>
+      <td>{{patient.weightUpper}}</td>
+      <td>{{#if patient.weightRequired}} <p style="color:green">Yes </p>
+          {{else}} <p style="color:red">No </p> {{/if}} </td>    
+    </tr>
+  </table>
+
+  <main class ="content">
+    <h4>Change Patient Data Requirements</h4>
+    <p>Tick the checkboxes of time-series you want the patient to record</p>
+    <form action="/updatePatientRequirements" method="post">
+    <div>
+          <input type="hidden" name="exerciseRequired" value=false>
+          <input type="checkbox" name="exerciseRequired" value=true id="exerciseRequired" {{#if patient.exerciseRequired}}checked{{/if}}/>
+          <label for="exerciseRequired">Exercise</label>
+          <input type="Number" placeholder="Exercise lower threshold" name="exerciseLower"/>
+          <input type="Number" placeholder="Exercise upper threshold" name="exerciseUpper"/>
+      </div>
+
+      <div>
+          <input type="hidden" name="glucoseRequired" value=false>
+          <input type="checkbox" name="glucoseRequired" value=true id="glucoseRequired" {{#if patient.glucoseRequired}}checked{{/if}}/>
+          <label for="glucoseRequired">Glucose</label>
+          <input type="Number" placeholder="Glucose lower threshold" name="glucoseLower"/>
+          <input type="Number" placeholder="Glucose upper threshold" name="glucoseUpper"/>
+      </div>
+
+      <div>
+          <input type="hidden" name="insulinRequired" value=false>
+          <input type="checkbox" name="insulinRequired" value=true id="insulinRequired" {{#if patient.insulinRequired}}checked{{/if}}/>
+          <label for="insulinRequired">Insulin</label>
+          <input type="Number" placeholder="Insulin lower threshold" name="insulinLower"/>
+          <input type="Number" placeholder="Insulin upper threshold" name="insulinUpper"/>
+      </div>
+
+      <div>
+          <input type="hidden" name="weightRequired" value=false>
+          <input type="checkbox" name="weightRequired" value=true id="weightRequired" {{#if patient.weightRequired}}checked{{/if}}/>
+          <label for="weightRequired">Weight</label>
+          <input type="Number" placeholder="Weight lower threshold" name="weightLower"/>
+          <input type="Number" placeholder="Weight upper threshold" name="weightUpper"/>
+      </div>
+
+    <div>
+      <input type = "hidden" name = "username" value = {{patient.username}} />
+      <input type="Submit"/>
+    </div>
+    </form>
+  </main>
+  {{!-- {{ Display previous medical data}} --}}
+  {{!-- {{ Important to show all the previous posts even if they're not being recorded anymore}} --}}
+  <table border=2px solid>
+    <tr>
+      <th>Type of data</th>
+      <th>Data level</th>
+      <th>Date when data was recorded</th>
+    </tr>
+  
+    {{#each ../medicalData as |medicalPost|}}
+      {{#if (equalString patient._id medicalPost.patientId)}}
+        {{!-- {{ Found the post of this user}} --}}
+        
+        {{#if (equalString "exercise" medicalPost.dataType)}}
+          <tr>
+            <th>Exercise</th>
+            <th>{{medicalPost.glucoseLevel}} steps</th>
+            <th>{{medicalPost.dateTime}}</th>
+          </tr>
+        {{/if}}
+
+        {{#if (equalString "glucose" medicalPost.dataType)}}
+          <tr>
+            <th>Glucose</th>
+            <th>{{medicalPost.glucoseLevel}} nmol/L</th>
+            <th>{{medicalPost.dateTime}}</th>
+          </tr>
+        {{/if}}
+
+        {{#if (equalString "insulin" medicalPost.dataType)}}
+          <tr>
+            <th>Insulin</th>
+            <th>{{medicalPost.glucoseLevel}} doses</th>
+            <th>{{medicalPost.dateTime}}</th>
+          </tr>
+        {{/if}}
+
+        {{#if (equalString "weight" medicalPost.dataType)}}
+          <tr>
+            <th>Weight</th>
+            <th>{{medicalPost.glucoseLevel}} kg</th>
+            <th>{{medicalPost.dateTime}}</th>
+          </tr>
+        {{/if}}
+
+
+      {{/if}}
+    {{/each}}
+  </table>
+
+  {{!-- {{ Display previous notes made}} --}}
+  {{!-- {{ Important to show all the previous posts even if they're not being recorded anymore}} --}}
+  <table border=2px solid>
+    <tr>
+      <th>Content of the note</th>
+      <th>Date when note was made</th>
+    </tr>
+  
+    {{#each ../notePost as |note|}}
+        {{!-- {{ Found the post of this user}} --}}
+          <tr>
+            <th>{{note.content}}</th>
+            <th>{{note.dateTime}}</th>
+          </tr>
+    {{/each}}
+  </table>
+{{/each}}
+

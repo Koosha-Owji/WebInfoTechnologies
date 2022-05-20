@@ -1,0 +1,130 @@
+
+
+<div class="row_containers">
+<h1> <font size="+2"> <b>Currently viewing comments and data entered today by {{user.firstName}} {{user.lastName}} patient's</b></font></h1> <br>
+<p><a href="/allComments">View recent comments</a>           <a href="/allNotes">View all notes</a></p>
+</div>
+
+
+
+{{!-- {{ Iterate through every patient}} --}}
+<div class="row_containers">
+    <div class="patient_rows">
+        {{#each patients as |patient|}}
+            <div class="patient_info">
+                {{!-- {{Show patient data and link to their individal page }} --}}
+                <p>Patient Name: <a href="/hardData/{{patient.username}}">{{patient.firstName}} {{patient.lastName}}</a></p>
+                <p>Medical Data Added Today</p>
+
+                {{!-- {{ See if exercise is required }} --}}
+                {{#if patient.exerciseRequired}}
+                    {{!-- {{ Go through every exercise post and see if it belongs to the patient }} --}}
+                    {{#each ../exercisePost as |dataPost|}}
+                        {{!-- {{ This post belongs to the patient }} --}}
+                        {{#if (equalString patient._id dataPost.patientId)}}
+                            {{!-- {{ See if the data has been aded and if it breaches any of the thresholds }} --}}
+                            {{#if dataPost.glucoseLevel}}
+                                {{!-- {{ Upper threshold is breached}} --}}
+                                {{#if (isGreater dataPost.glucoseLevel patient.exerciseUpper)}} <p style="color:red">Amount of exercise: {{dataPost.glucoseLevel}} steps</p> 
+                                {{!-- {{ Lower threshold is breached}} --}}
+                                {{else if (isLess dataPost.glucoseLevel patient.exerciseLower)}} <p style="color:red">Amount of exercise: {{dataPost.glucoseLevel}} steps</p>   
+                                {{else}}
+                                <p>Amount of exercise: {{dataPost.glucoseLevel}} steps </p>
+                                {{/if}}
+                            {{else}}
+                                <p style="color:red">No steps have been added</p>
+                            {{/if}}
+                        <p>Exercise Comment: {{dataPost.glucoseComment}}</p>
+                        <p>Exercise Added on: {{dataPost.dateTime}}</p>    
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+
+                {{!-- {{ See if glucose is required }} --}}
+                {{#if patient.glucoseRequired}}
+                    {{!-- {{ Go through every glucose post and see if it belongs to the patient }} --}}
+                    {{#each ../glucosePost as |dataPost|}}
+                        {{!-- {{ This post belongs to the patient }} --}}
+                        {{#if (equalString patient._id dataPost.patientId)}}
+                            {{!-- {{ See if the data has been aded and if it breaches any of the thresholds }} --}}
+                            {{#if dataPost.glucoseLevel}}
+                                {{!-- {{ Upper threshold is breached}} --}}
+                                {{#if (isGreater dataPost.glucoseLevel patient.glucoseUpper)}} <p style="color:red">Blood glucose level: {{dataPost.glucoseLevel}} nmol/L</p> 
+                                {{!-- {{ Lower threshold is breached}} --}}
+                                {{else if (isLess dataPost.glucoseLevel patient.glucoseLower)}} <p style="color:red">Blood glucose level: {{dataPost.glucoseLevel}} nmol/L</p>   
+                                {{else}}
+                                <p>Blood glucose level: {{dataPost.glucoseLevel}} nmol/L </p>
+                                {{/if}}
+                            {{else}}
+                                <p style="color:red">No glucose data has been added</p>
+                            {{/if}}
+                        <p>Glucose Comment: {{dataPost.glucoseComment}}</p>
+                        <p>Glucose Added on: {{dataPost.dateTime}}</p>    
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+
+                {{!-- {{ See if insulin is required }} --}}
+                {{#if patient.insulinRequired}}
+                    {{!-- {{ Go through every insulin post and see if it belongs to the patient }} --}}
+                    {{#each ../insulinPost as |dataPost|}}
+                        {{!-- {{ This post belongs to the patient }} --}}
+                        {{#if (equalString patient._id dataPost.patientId)}}
+                            {{!-- {{ See if the data has been aded and if it breaches any of the thresholds }} --}}
+                            {{#if dataPost.glucoseLevel}}
+                                {{!-- {{ Upper threshold is breached}} --}}
+                                {{#if (isGreater dataPost.glucoseLevel patient.insulinUpper)}} <p style="color:red">Insulin taken: {{dataPost.glucoseLevel}} doses</p> 
+                                {{!-- {{ Lower threshold is breached}} --}}
+                                {{else if (isLess dataPost.glucoseLevel patient.insulinLower)}} <p style="color:red">Insulin taken: {{dataPost.glucoseLevel}} doses</p>   
+                                {{else}}
+                                <p>Insulin taken: {{dataPost.glucoseLevel}} doses</p>
+                                {{/if}}
+                            {{else}}
+                                <p style="color:red">No insulin data has been added</p>
+                            {{/if}}
+                        <p>Insulin Comment: {{dataPost.glucoseComment}}</p>
+                        <p>Insulin Added on: {{dataPost.dateTime}}</p>    
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+
+                {{!-- {{ See if weight is required }} --}}
+                {{#if patient.weightRequired}}
+                    {{!-- {{ Go through every weight post and see if it belongs to the patient }} --}}
+                    {{#each ../weightPost as |dataPost|}}
+                        {{!-- {{ This post belongs to the patient }} --}}
+                        {{#if (equalString patient._id dataPost.patientId)}}
+                            {{!-- {{ See if the data has been aded and if it breaches any of the thresholds }} --}}
+                            {{#if dataPost.glucoseLevel}}
+                                {{!-- {{ Upper threshold is breached}} --}}
+                                {{#if (isGreater dataPost.glucoseLevel patient.weightUpper)}} <p style="color:red">Weight recorded: {{dataPost.glucoseLevel}} kg</p> 
+                                {{!-- {{ Lower threshold is breached}} --}}
+                                {{else if (isLess dataPost.glucoseLevel patient.weightLower)}} <p style="color:red">Weight recorded: {{dataPost.glucoseLevel}} kg</p>   
+                                {{else}}
+                                <p>Weight recorded: {{dataPost.glucoseLevel}} kg</p>
+                                {{/if}}
+                            {{else}}
+                                <p style="color:red">No weight data has been added</p>
+                            {{/if}}
+                        <p>Weight Comment: {{dataPost.glucoseComment}}</p>
+                        <p>Weight Added on: {{dataPost.dateTime}}</p>    
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+                <div class="container">
+                    <div class = "box">
+                        <a>Write a note about {{patient.firstName}} {{patient.lastName}}</a>
+                        <form action="/allNotes/writeNote" method="post">
+                            <input type="text" placeholder="note" name="content" />
+                            <input type="hidden" name="username" value = {{patient.username}}/>
+                            <input type = "hidden" name = "clinicianId" value = {{../user._id}} />
+                            <input type = "hidden" name = "dataType" value = "note" />
+                            <input type="Submit" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+

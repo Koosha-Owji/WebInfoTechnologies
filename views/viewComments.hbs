@@ -1,0 +1,32 @@
+
+
+<div class="row_containers">
+<h1> <font size="+2"> <b>Currently viewing all comments of Dr {{user.firstName}} {{user.lastName}} patient's</b></font></h1> <br>
+<p><a href="/allComments">View recent comments</a> <a href="/allNotes">View all notes</a></p>
+</div>
+
+
+
+{{!-- {{ Iterate through notes first so most recent is shown and then find the relevant patient}} --}}
+<div class="row_containers">
+    <div class="patient_rows">
+        {{#each commentPost as |note|}}
+            {{#if note.glucoseComment}}
+                
+                {{#each ../patients as |patient|}}
+                    
+                    {{#if (equalString patient._id note.patientId)}}
+                        <div class="patient_info">
+                            
+                            <p>This comment was written by: <a href="/hardData/{{patient.username}}">{{patient.firstName}} {{patient.lastName}}</a></p>
+                            <p>The content of the comment: <a href="/hardData/{{patient.username}}">{{note.glucoseComment}}</a></p>
+                            <p>Comment was written on: {{note.dateTime}}</p>
+                        </div>
+                            
+                    {{/if}}
+                {{/each}}
+            {{/if}}
+        {{/each}}
+        
+    </div>
+</div>

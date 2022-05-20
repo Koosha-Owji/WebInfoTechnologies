@@ -15,9 +15,9 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Mega&family=Rammetto+One&display=swap" rel="stylesheet"> 
 </head>
-<body>
 
-<div class="app">
+    <body>
+        <div class="app">
 
             <div class="menu-toggle">
                 <div class="hamburger">
@@ -29,24 +29,25 @@
 
                 <nav class="menu">
                     <a href="/patient-home" class="menu-item is-active"><i class="fas fa-home"></i>Home</a>
-                    <a href="#" class="menu-item"><i class ="fas fa-user-circle"></i>Profile</a>
+                    <a href="/Profile" class="menu-item"><i class ="fas fa-user-circle"></i>Profile</a>
                     <a href="/patientHistory" class="menu-item"><i class ="fas fa-poll-h"></i>History</a>
                     <a href="/leaderboard" class="menu-item"><i class ="fas fa-award"></i>Leaderboards</a>
                     <a href="/aboutDiabetes" class="menu-item"><i class ="fas fa-question-circle"></i>About Diabetes</a>
                     <a href="/aboutUs" class="menu-item"><i class ="fas fa-info-circle"></i>About this website</a>
                 </nav>
             </aside>
-</div>
 
-    <header>
-        <h1>This is the patient home</h1>
-    </header>
-    <main>
-        {{{body}}}
-    </main>
-    <footer>
-        
-    </footer>
-    
-</body>
-</html>
+            <main class ="content">
+                <h1>Sugar Doctor</h1>
+                {{#with user as |u| }}
+                   <h2>Welcome {{u.firstName}} !</h2>
+
+                                        <form action="/updatePass" method="post">
+                                            <input type="Password" placeholder="Password" name="current_password"/>
+                                            <input type="Password" placeholder="Password" name="new_password"/>
+                                            <input type="Submit" />
+                                            <input type="hidden" value={{u.username}} name="username" />
+                           
+                                        </form>
+                   {{/with}}  
+            </main>

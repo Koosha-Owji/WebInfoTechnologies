@@ -3,12 +3,13 @@ import glucoseModel from "../Models/Glucose.js";
 export const create_glucose = async (req, res) => {
     try {
         if (req.body){
-            const newGlucose = glucoseModel.create({ ...req.body});
+          const date = new Date().toISOString().slice(0, 10);
+          const newGlucose = glucoseModel.create({ ...req.body, dateTime:date});
           (await newGlucose)
             .save()
             //.then((newGlucose) => res.json(newGlucose))
             .catch((err) => res.status(400).json(err));
-            return res.redirect('/getOne');
+            return res.redirect('/');
           } else {
             return res.status(200).json({ message: "Wrong content sent!" });
           }
